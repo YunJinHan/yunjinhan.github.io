@@ -1,0 +1,239 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>JinHan's Blog | Intersecting two postings lists / Boolean queries </title>
+  <meta name="theme-color" content="#222222" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+  <script src="/js/header.js"></script>
+  <script src="/js/toc.js"></script>
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/css/theme.css" rel="stylesheet">
+  <link href="/css/syntax.css" rel="stylesheet">
+  <link href="/css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+  
+
+  
+
+
+ <script type="text/javascript">
+  WebFontConfig = {
+    google: {
+      families: ['Ubuntu::latin']
+    }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">JinHan's Blog</a>
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li><a href="/">/home</a></li>
+          <li><a href="/archive.html">/archive</a></li>
+          <li><a href="/tags.html">/categories</a></li>
+          <li><a href="/about.html">/about</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+    <div class="wrapper">
+      <div class="content">
+        <div class="container container-center">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="article">
+                <div class="well">
+                  <h1><a href="/2017/03/intersecting-posting-boolean-queries">Intersecting two postings lists / Boolean queries</a></h1>
+                  <div class="post-meta">
+                    <div class="post-time">
+                      <i class="fa fa-calendar"></i>
+                      <time>20 Mar 2017</time>
+                    </div>
+                    <ul>
+                      
+                        <li><a href="/tag/Information_Retrieval">Information_Retrieval</a></li>
+                      
+                    </ul>
+                  </div>
+                  <div class="post-content">
+                    <div id="toc" class="toc"></div>
+                    <h1 id="intersecting-two-postings-lists--continue-">Intersecting two postings lists ( Continue )</h1>
+
+<p>AND NOT (p1, p2) -&gt; p1 에는 있고 p2 에는 없는것</p>
+<pre>
+Intersect AND NOT (p1,p2)
+	answer = {}
+	while p1 is not null and p2 is not null:
+		if docId(p1) &lt; docId(p2):
+			add(answer,docId(p1))
+			p1 &lt;- next(p1)
+		else if docId(p2) &lt; docId(p1):
+			p2 &lt;- next(p2)
+		else :
+			p1 &lt;- next(p1)
+			p2 &lt;- next(p2)
+	while p1 is not NULL:
+		add(answer,docId(p1))
+		p1 &lt;- next(p1)
+	return answer
+</pre>
+
+<p>OR (p1,p2) -&gt; p1 이나 p2 둘중 아무 곳에다 있는것</p>
+<pre>
+Intersect OR (p1,p2)
+	answer = {}
+	if p1 is not NULL:
+	    while p2 is not NULL:
+	    	add(answer, p2)
+	    	p2 &lt;- next(p2)
+	if p2 is not NULL:
+	    while p1 not NULL:      
+	        add(answer, p1)
+	        p1 &lt;- next(p1)
+</pre>
+<p>Boolean queries<br />
+============<br />
+Boolean Queries are queries using AND, OR and NOT to join query terms <br />Perhaps the simplest model to build an IR system on<br /></p>
+<ul>
+  <li>Views each document as a <strong>set</strong> of words<br /></li>
+  <li>Is precise: document matches condition or not<br /><br />
+==&gt; set : word 의 order / frequency 는 고려하지 않는다.</li>
+</ul>
+
+<h2 id="example---westlaw">Example - WestLaw</h2>
+<pre>
+LIMIT! /3 STATUTE ACTION /S FEDERAL /2 TORT /3 CLAIM
+blank : or operation
+~! : start with prefix ( ex LIMIT 로 시작하는 단어 )
+</pre>
+<p>Phrase queries<br />
+============<br />
+Biword indexes<br />
+————</p>
+<ul>
+  <li>Index every consecutive pair of terms in the text as a phrase</li>
+  <li>Each of these biwords is now a dictionary term</li>
+</ul>
+
+<p>#Problem<br />
+Longer phrase queries -&gt; n words ==&gt; (n+1)Combination(2) ==&gt; O(n^2)<br /><br />
+Index blowup due to bigger dictionary<br /><br />
+Infeasible for more than biwords, big even for them<br /><br />
+ex)<br />
+A B C D E -&gt; there is 6 position to stand words<br /><br />
+So (6)Combination(2) biwords exists<br /></p>
+
+<h2 id="positional-indexes">Positional indexes</h2>
+<ol>
+  <li>Extract inverted index entries for each distinct term</li>
+  <li>Merge their doc: position lists to enumerate all positions with terms</li>
+  <li>Same general method for proximity searches</li>
+</ol>
+
+<p>“to be or not to be” -&gt; “to” “be” “to” “be”<br /><br />
+Index -&gt; “to” 0 / “be” 1 / “to” 4 / “be” 5<br /><br /><br />
+1 / 2 과정<br /><br />
+<img src="http://localhost:4000/assets/positionalIndexes.png" alt="screenshot" /><br />
+<br />3 과정<br /><br />
+<img src="http://localhost:4000/assets/positionalIndexes2.png" alt="screenshot" /><br />
+<br />DocId 가 다르면 포인터를 다음 DocId 로 옮긴다.<br />
+<br /><br />
+Result ==&gt; 429/430 (first to be) , 433/434 (second to be)</p>
+
+
+                    
+
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 hidden-xs">
+              <div class="sidebar ">
+  <h2>Recent Posts</h2>
+  <ul>
+    
+    <li><a href="/2017/04/blocked-sort-based-indexing">Index Construction</a></li>
+    
+    <li><a href="/2017/04/n-gram-overlap">N - Gram Overlap</a></li>
+    
+    <li><a href="/2017/04/spelling-correction">Spelling Correction</a></li>
+    
+    <li><a href="/2017/04/wild-card">Wild - Card Queries</a></li>
+    
+    <li><a href="/2017/03/b+-tree-(cont'd)">B+ Tree (cont'd)</a></li>
+    
+  </ul>
+</div>
+
+<div class="sidebar">
+  <h2>Categories</h2>
+  <ul class="sideBarTags">
+    
+    
+    <li>
+      <a href="/tag/Information_Retrieval" data-toggle="tooltip" data-placement="right" title="11">
+        <span>Information_Retrieval</span></a></li>
+    
+  </ul>
+</div>
+
+            </div>
+          </div>
+        </div>
+        
+
+      </div>
+          <footer class="footer-distributed">
+      <div class="container">
+        <div class="footer">
+          <p>JinHan Yun &copy; 2017</p>
+          <h6>Contact Me</h6>
+
+<ul class="social-media">
+
+  
+    <li>
+      <a title="YunJinHan on Github" href="https://github.com/YunJinHan" target="_blank"><i class="fa fa-github fa-2x"></i></a>
+    </li>
+  
+
+  
+    <li>
+      <a title="yjh9234@gmail.com on Email" href="mailto:yjh9234@gmail.com" target=""><i class="fa fa-envelope fa-2x"></i></a>
+    </li>
+  
+
+</ul>
+
+        </div>
+      </div>
+    </footer>
+
+    </div>
+  </body>
+</html>

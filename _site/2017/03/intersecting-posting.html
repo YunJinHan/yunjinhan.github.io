@@ -1,0 +1,215 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>JinHan's Blog | Intersecting two postings lists </title>
+  <meta name="theme-color" content="#222222" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+  <script src="/js/header.js"></script>
+  <script src="/js/toc.js"></script>
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/css/theme.css" rel="stylesheet">
+  <link href="/css/syntax.css" rel="stylesheet">
+  <link href="/css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+  
+
+  
+
+
+ <script type="text/javascript">
+  WebFontConfig = {
+    google: {
+      families: ['Ubuntu::latin']
+    }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">JinHan's Blog</a>
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li><a href="/">/home</a></li>
+          <li><a href="/archive.html">/archive</a></li>
+          <li><a href="/tags.html">/categories</a></li>
+          <li><a href="/about.html">/about</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+    <div class="wrapper">
+      <div class="content">
+        <div class="container container-center">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="article">
+                <div class="well">
+                  <h1><a href="/2017/03/intersecting-posting">Intersecting two postings lists</a></h1>
+                  <div class="post-meta">
+                    <div class="post-time">
+                      <i class="fa fa-calendar"></i>
+                      <time>19 Mar 2017</time>
+                    </div>
+                    <ul>
+                      
+                        <li><a href="/tag/Information_Retrieval">Information_Retrieval</a></li>
+                      
+                    </ul>
+                  </div>
+                  <div class="post-content">
+                    <div id="toc" class="toc"></div>
+                    <h1 id="intersecting-two-postings-lists--continue-">Intersecting two postings lists ( Continue )</h1>
+<p><br /><br />
+For the intersection of two posting lists of lengths x and y, its time complexity is O(x + y)<br />
+<br /></p>
+<pre>
+Intersect(p1,p2)
+	answer = {}
+	while p1 is not null and p2 is not null:
+		if docId(p1) == docId(p2):
+			add(answer,docId(p1))
+			p1 &lt;- next(p1)
+			p2 &lt;- next(p2)
+		else if docId(p1) &lt; docId(p2):
+			p1 &lt;- next(p1)
+		else :
+			p2 &lt;- next(p2)
+	return answer
+</pre>
+
+<h2 id="completeness">Completeness</h2>
+<p><br /><br />
+Prove that the algorithm INTERSECTION finds the complete list of common docIDs<br />
+<br /><br />
+Proof by mathematical induction</p>
+
+<ol>
+  <li>
+    <p>Premise<br /><br />
+Lists L1 and L2 share a set of common docIDs &lt;d1, d2, .., dn&gt; which are in the increasing order</p>
+  </li>
+  <li>
+    <p>Prove<br /><br />
+  - we change the presudo code slightly that initial answer is { d0 }<br />
+  - At the beginning of each Iteration where d(i-1) &lt; docId(p1) &lt; d(i) and d(i-1) &lt; docId(p2) &lt; d(i)<br /><br />
+-&gt; answer is {d0, d1, d2, … d(i-1)}<br /><br />
+(Loop Invariant)</p>
+  </li>
+  <li>
+    <p>Maintenance</p>
+  </li>
+</ol>
+<pre>
+	if docId(p1) == docId(p2) == d(i):
+		answer = {d0, ... , d(i)}
+		d(i) &lt; docId(p1) &lt;= d(i+1)
+		d(i) &lt; docId(p2) &lt;= d(i+1)
+	else :
+		d(i-1) &lt; docId(p1) &lt;= d(i)
+		d(i-1) &lt; docId(p2) &lt;= d(i)
+</pre>
+<p>  =&gt; p1 이나 p2 가 shift 되면 d(i)보다 커질수 있다?<br /><br />
+  ===&gt;  아니다. Loop Invariant 에서 어긋남<br /><br />
+  ===&gt; Thus, At the beginning of next Iteration, the loop invariant is still true<br />
+<br /><br />
+<br /><br />
+  4. Temination<br /><br />
+  For simple proof, assume docId(NULL) = d(Last number) &gt; d(n)<br /><br />
+  W.L.O.G , Let’s say p1 = NULL . That is d(n) &lt; docId(p1) &lt;= d(L) and d(n) &lt; docId(p2) &lt;= d(L) <br /><br />
+  By the Loop invariant, answer is {d0, …, d(n)}</p>
+
+                    
+
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 hidden-xs">
+              <div class="sidebar ">
+  <h2>Recent Posts</h2>
+  <ul>
+    
+    <li><a href="/2017/04/blocked-sort-based-indexing">Index Construction</a></li>
+    
+    <li><a href="/2017/04/n-gram-overlap">N - Gram Overlap</a></li>
+    
+    <li><a href="/2017/04/spelling-correction">Spelling Correction</a></li>
+    
+    <li><a href="/2017/04/wild-card">Wild - Card Queries</a></li>
+    
+    <li><a href="/2017/03/b+-tree-(cont'd)">B+ Tree (cont'd)</a></li>
+    
+  </ul>
+</div>
+
+<div class="sidebar">
+  <h2>Categories</h2>
+  <ul class="sideBarTags">
+    
+    
+    <li>
+      <a href="/tag/Information_Retrieval" data-toggle="tooltip" data-placement="right" title="11">
+        <span>Information_Retrieval</span></a></li>
+    
+  </ul>
+</div>
+
+            </div>
+          </div>
+        </div>
+        
+
+      </div>
+          <footer class="footer-distributed">
+      <div class="container">
+        <div class="footer">
+          <p>JinHan Yun &copy; 2017</p>
+          <h6>Contact Me</h6>
+
+<ul class="social-media">
+
+  
+    <li>
+      <a title="YunJinHan on Github" href="https://github.com/YunJinHan" target="_blank"><i class="fa fa-github fa-2x"></i></a>
+    </li>
+  
+
+  
+    <li>
+      <a title="yjh9234@gmail.com on Email" href="mailto:yjh9234@gmail.com" target=""><i class="fa fa-envelope fa-2x"></i></a>
+    </li>
+  
+
+</ul>
+
+        </div>
+      </div>
+    </footer>
+
+    </div>
+  </body>
+</html>

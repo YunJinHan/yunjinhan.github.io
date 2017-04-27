@@ -1,0 +1,17 @@
+<h6>Contact Me</h6>
+
+<ul class="social-media">
+
+  {% if site.social.github %}
+    <li>
+      <a title="{{ site.social.github }} on Github" href="https://github.com/{{ site.social.github }}" target="_blank"><i class="fa fa-github fa-2x"></i></a>
+    </li>
+  {% endif %}
+
+  {% if site.social.email %}
+    <li>
+      <a title="{{ site.social.email }} on Email" href="mailto:{{ site.social.email }}" target=""><i class="fa fa-envelope fa-2x"></i></a>
+    </li>
+  {% endif %}
+
+</ul>
