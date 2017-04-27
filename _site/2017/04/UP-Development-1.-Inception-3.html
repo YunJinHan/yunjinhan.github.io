@@ -1,0 +1,437 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>JinHan's Blog | UP Development - 1.Inception (Cont'd) 2 </title>
+  <meta name="theme-color" content="#222222" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+  <script src="/js/header.js"></script>
+  <script src="/js/toc.js"></script>
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/css/theme.css" rel="stylesheet">
+  <link href="/css/syntax.css" rel="stylesheet">
+  <link href="/css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+  
+
+  
+
+
+ <script type="text/javascript">
+  WebFontConfig = {
+    google: {
+      families: ['Ubuntu::latin']
+    }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">JinHan's Blog</a>
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li><a href="/">/home</a></li>
+          <li><a href="/archive.html">/archive</a></li>
+          <li><a href="/tags.html">/categories</a></li>
+          <li><a href="/about.html">/about</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+    <div class="wrapper">
+      <div class="content">
+        <div class="container container-center">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="article">
+                <div class="well">
+                  <h1><a href="/2017/04/UP-Development-1.-Inception-3">UP Development - 1.Inception (Cont'd) 2</a></h1>
+                  <div class="post-meta">
+                    <div class="post-time">
+                      <i class="fa fa-calendar"></i>
+                      <time>18 Apr 2017</time>
+                    </div>
+                    <ul>
+                      
+                        <li><a href="/tag/Object-Oriented-Programming">Object-Oriented-Programming</a></li>
+                      
+                    </ul>
+                  </div>
+                  <div class="post-content">
+                    <div id="toc" class="toc"></div>
+                    <h1 id="up-development---1inception-contd">UP Development - 1.Inception (Cont’d)</h1>
+<h3 id="--main-success-scenario">- Main Success Scenario</h3>
+<ul>
+  <li>It describes typical success path that satisfies the interests of the stakeholders</li>
+  <li>It records three kinds of actions
+    <ul>
+      <li>interaction between actors</li>
+      <li>validation</li>
+      <li>state change by the system</li>
+    </ul>
+  </li>
+  <li>Step one of UseCase normally indicates the trigger event that strats the UseCase</li>
+  <li><strong>Defer all conditional and branching to the Extensions section</strong> ( 모든 확장부분의 분기와 조건은 미룬다 )</li>
+</ul>
+
+<h3 id="--extensions--or-alternative-flows-">- Extensions ( or Alternative Flows )</h3>
+<ul>
+  <li>Extensions indicate all the other scenarios or branches, both success and failure</li>
+  <li>Extension has two parts <strong>Condition</strong> and <strong>The Handing</strong></li>
+  <li><strong>Write the condition as something that can be detected by the system or an actor</strong></li>
+</ul>
+<pre>
+Example )
+Extensions:
+3a. Invalid identifier:
+&nbsp;&nbsp;1.System signals error and rejects entry.
+3b. There are multiple of same item category and tracking unique item identity not important (e.g., 5 packages of veggie-burgers):
+&nbsp;&nbsp;1.Cashier can enter item category identifier and the quantity. 
+3-6a. Customer asks Cahier to remove an item from the purchase:
+&nbsp;&nbsp;1.Cashier enters the item identifier for removal from the sale.
+&nbsp;&nbsp;2.System displays updated running total.
+</pre>
+
+<ul>
+  <li>At the end of extension handing, by default the scenario merges back with the main success scenario, unless the extension indicates otherwise ( such as by halting the system )</li>
+  <li>If a particular extension is quite complex, a separate use case may be written</li>
+</ul>
+<pre>
+Example )
+7b. Paying by credit:
+&nbsp;&nbsp;1.Customer enters their credit card information.
+&nbsp;&nbsp;2.System requests payment validation from external Payment Authorization Serive system.
+&nbsp;&nbsp;2a. System detects failure to collaborate with external system.
+&nbsp;&nbsp;&nbsp;&nbsp;1.System signals error to Cashier.
+&nbsp;&nbsp;&nbsp;&nbsp;2.Cashier asks Customer for alternate payment. 3. ...
+*a. At any time, System crashes:
+In order to support recovery and correct accounting, ensure all transaction sensative state and events can be recovered at any step in the scenario.
+&nbsp;&nbsp;1.Cahier restarts the System, log in, and requests recovery of prior state.
+&nbsp;&nbsp;2.System reconstructs prior state.
+</pre>
+
+<p><img src="http://localhost:4000/assets/scenarioLevel.png" alt="screenshot" /></p>
+
+<p>–&gt; <strong>논리적으로 계속해서 자기 자신을 하나의 Action Step 으로 가진 Use Case 를 만들수 있다.</strong></p>
+
+<h3 id="--special-requirement">- Special Requirement</h3>
+<ul>
+  <li>Non-functional requirements, quality attributes, and constraints which relates specifically to a use case are recorded with the use case</li>
+</ul>
+<pre>
+Example )
+Special Requirements:
+-Touch screen UI on a large flat panel monitor. Text must be visible from 1 meter. 
+-Credit authorization response within 30 seconds within 90% of time.
+-Language internationalization on the text displayed.
+-Pluggable business rules to be insertable at steps 2 and 6.
+</pre>
+
+<h3 id="--technology-and-data-variations-list">- Technology and Data Variations List</h3>
+<ul>
+  <li>This section records technical variations in how something must be done, but not what</li>
+  <li>This section also records variations in data scheme</li>
+  <li>This section should not contain multiple steps to express varying behavior for different cases. If that is necessary, say it in the Extensions section</li>
+</ul>
+<pre>
+Example )
+Technology and Data Variations List:
+3a. Item identifier entered by laser scanner or keyboard.
+3b. Item identifier may be any UPC, EAN, JAN, or SKU coding scheme.
+7a. Credit account information entered by card reader or keyboard.
+7b. Credit payment signature captured on paper receipt. But within two years, we pre-dict many customers will want digital signature capture.
+</pre>
+
+<h3 id="--key-four-concepts-that-apply-to-every-sentence-in-usecaese-and-to-the-usecase-as-a-whole">- Key Four Concepts that apply to every sentence in UseCaese and to the UseCase as a whole</h3>
+<ul>
+  <li><strong>Level : Why do we want this goal? ( 어느 정도의 Goal Level 이냐 )</strong></li>
+  <li><strong>Scope : Which system boundary do we mean? ( System 의 Boundary 가 어디까지냐 )</strong></li>
+  <li><strong>Detail : Do we describe intent, or action detail?</strong></li>
+  <li><strong>Primary Actor : Who has the goal?</strong></li>
+</ul>
+
+<h3 id="--what-is-a-useful-level-to-express-use-cases-for-application-requirements-analysis--어플리케이션-요구사항-분석을-usecase로-표현하기-위해-어떤-레벨이-효과적인가-">- What is a useful level to express use cases for application requirements analysis? ( 어플리케이션 요구사항 분석을 UseCase로 표현하기 위해 어떤 레벨이 효과적인가? )</h3>
+<ul>
+  <li>Guideline : The <strong>EBP(OR User Goals ) Use Case</strong></li>
+  <li><strong>EBP : Elementary Business Processes</strong></li>
+</ul>
+
+<h3 id="--common-mistake-with-use-cases">- Common Mistake with Use Cases</h3>
+<ul>
+  <li>Use Case is a relatively large end to end Description that typically indcludes many steps or transactions</li>
+  <li>It is normally an individual step or activity in a process</li>
+</ul>
+
+<h3 id="--every-sentence-at-every-level-is-a-goal-use-cases-are-one-sentence-style-repeated">- Every Sentence at every level is a Goal. Use Cases are one sentence style repeated</h3>
+<p><img src="http://localhost:4000/assets/goal.png" alt="screenshot" /></p>
+
+<p><strong>HOW : Goal Level 낮아짐</strong><br /><strong>Why : Goal Level 높아짐</strong></p>
+
+<h3 id="--primary-actors-and-goals-at-different-boundaries">- Primary Actors and Goals at different Boundaries</h3>
+<p><img src="http://localhost:4000/assets/primaryActors.png" alt="screenshot" /></p>
+
+<p><br /><br /></p>
+
+<h2 id="basic-procedure">Basic Procedure</h2>
+<ol>
+  <li><strong>Choose the system boundary</strong></li>
+  <li><strong>Identify the primary actors</strong></li>
+  <li><strong>For each primary actor, identify their user goals</strong></li>
+  <li><strong>Define use cases that satisfy user goal; name them according to their goal</strong></li>
+</ol>
+
+<h4 id="step-1--choosing-the-system-boundary">Step 1 : Choosing the System Boundary</h4>
+<ul>
+  <li>Choosing the right system boundary helps to find what is outside, i.e., primary actors and supporting actors.</li>
+</ul>
+
+<h4 id="step-23--finding-primary-actors-and-goals">Step 2/3 : Finding Primary Actors and Goals</h4>
+<ul>
+  <li>What computers, subsystems and people will drive our system?
+    <ul>
+      <li>An actor is anything with behavior.</li>
+    </ul>
+  </li>
+  <li>What does each actor need our system to do?
+    <ul>
+      <li>Each need shows up as a trigger to our system.</li>
+    </ul>
+  </li>
+  <li>A List of use cases, a sketch of the system
+    <ul>
+      <li>Short, fairly complete list of usable system function</li>
+    </ul>
+  </li>
+</ul>
+
+<h5 id="reminder-questions-to-find-actors">Reminder Questions to Find Actors</h5>
+<p>Primary actors and supporting actors are always external to SuD. To find actors, look for things in the categories of people, other software, hardware devices, data stores, or networks</p>
+
+<h5 id="reminder-questions-to-find-goals">Reminder Questions to Find Goals</h5>
+<ul>
+  <li>In the UP, a use case is always started by a primary actor. But, it is sometimes useful to initiate use cases from inside the system</li>
+  <li>Actor-based
+    <ul>
+      <li>Identify the actors related to a system or organization</li>
+      <li>For each actor, identify the process they initiate or participate in.</li>
+    </ul>
+  </li>
+  <li>Event-based
+    <ul>
+      <li>Identify the external events that a system must respond to.</li>
+      <li>Relate the events to actors and use cases.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="http://localhost:4000/assets/actorGoalList.png" alt="screenshot" /></p>
+
+<h5 id="ranking-use-cases">Ranking Use Cases</h5>
+<ul>
+  <li>Use cases need to be ranked, and high ranking use cases need to be tackled early</li>
+  <li>Ranking criteria
+    <ul>
+      <li><strong>Significant impact on the core architectural design</strong></li>
+      <li>Risky, time-critical, or complex functions</li>
+      <li>Risky technology</li>
+      <li>Primary line of business process</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="step-4--define-use-cases">Step 4 : Define Use Cases</h4>
+<ul>
+  <li>In general, define one EBP-level (or user goals) use case for each user goal</li>
+</ul>
+
+<h5 id="how-to-do-it">How to do it</h5>
+<ol>
+  <li>For each Use Case : Write the simple case - <strong>Goal Delivers</strong>
+    <ul>
+      <li>The main success scenario, the happy day case. ( 각각의 UC 에 대해 정해야 함 )
+        <ul>
+          <li>Easiest to read and understand, Everything else is a complication on this.</li>
+        </ul>
+      </li>
+      <li>Capture each actor’s intent and responsibility, from trigger to goal delivery
+        <ul>
+          <li>Say what information passes between them, Number each line<br /><br />RESULT : <strong>Readable description of system’s function</strong></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Write failure conditions as extensions
+    <ul>
+      <li>Usually, each step can fail.</li>
+      <li>Note the failure condition separately, after the main<br />
+success scenario</li>
+      <li>RESULT : <strong>list of alternate scenarios</strong></li>
+    </ul>
+  </li>
+  <li>Follow the failure till it ends or rejoins
+    <ul>
+      <li>Recoverable extensions rejoin main course.</li>
+      <li>Non-recoverable extensions fail directly.</li>
+      <li>Each scenario goes from trigger to completion</li>
+      <li>RESULT : <strong>Complete use case</strong></li>
+    </ul>
+  </li>
+</ol>
+
+<h3 id="essential-vs-concrete-use-cases">Essential VS Concrete Use Cases</h3>
+<ul>
+  <li><strong>Essential use cases are expanded use cases that are expressed in an ideal</strong> ( 무엇을 할 것인가 )</li>
+  <li><strong>Concrete use cases concretely describes the process in terms of its real current design</strong> ( 무엇을 어떻게 할 것인가 )</li>
+  <li><strong>처음 Request 분석 : Essential ( Reusable )</strong><br /><strong>나중 점점 진행 : Concrete 으로 진행 ( non Reusable )</strong></li>
+</ul>
+
+<p><br /><br /></p>
+
+<h2 id="use-case-diagram">Use Case Diagram</h2>
+<ul>
+  <li>A use case diagram is a diagram that shows a set of <strong>use cases</strong> and <strong>actors</strong> and their <strong>relationships</strong></li>
+  <li>UML modeling elements
+    <ul>
+      <li><strong>Use Cases</strong></li>
+      <li><strong>Actors</strong></li>
+      <li><strong>Dependency, generalization, and association relationships</strong></li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="http://localhost:4000/assets/UseCaseDiagram.png" alt="screenshot" /></p>
+
+<h3 id="use-cases-within-a-development-process">Use Cases Within a Development Process</h3>
+<ul>
+  <li><strong>Analysis phase</strong>
+    <ul>
+      <li>Write expanded essential use cases for those currently being tackled, if not already done</li>
+    </ul>
+  </li>
+  <li><strong>Design phase</strong>
+    <ul>
+      <li>Write real use cases for those currently being tackled, if not already done</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="use-cases---why">Use Cases - Why?</h2>
+<p><strong>User Actor 의 Goal 과 System Actor 의 Functional Requirement 를 파악하기 위해 Use Case 사용</strong></p>
+
+<ul>
+  <li>To give concrete examples of what we are supposed to be implementing</li>
+  <li>A basis for an agreement between the clients and the developers</li>
+  <li>A tool to make vague requirements more concrete</li>
+  <li><strong>A source for object analysis</strong> ( Domain Analysis 의 Basic Step - Source 역할 )</li>
+  <li><strong>A source for the functionality of the system</strong></li>
+  <li><strong>A unit for iterative &amp; incremental software development</strong></li>
+  <li><strong>The first version of the user’s guide</strong> ( Use Case == User’s Guide )</li>
+  <li>The basis of system testing</li>
+</ul>
+
+                    
+
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 hidden-xs">
+              <div class="sidebar ">
+  <h2>Recent Posts</h2>
+  <ul>
+    
+    <li><a href="/2017/04/UP-Development-2.-Elaboration">UP Development - 2.Elaboration</a></li>
+    
+    <li><a href="/2017/04/UP-Development-1.-Inception-3">UP Development - 1.Inception (Cont'd) 2</a></li>
+    
+    <li><a href="/2017/04/blocked-sort-based-indexing">Index Construction</a></li>
+    
+    <li><a href="/2017/04/n-gram-overlap">N - Gram Overlap</a></li>
+    
+    <li><a href="/2017/04/Angular2-Component">Angular2 Component</a></li>
+    
+  </ul>
+</div>
+
+<div class="sidebar">
+  <h2>Categories</h2>
+  <ul class="sideBarTags">
+    
+    
+    <li>
+      <a href="/tag/Angular2" data-toggle="tooltip" data-placement="right" title="2">
+        <span>Angular2</span></a></li>
+    
+    <li>
+      <a href="/tag/Information_Retrieval" data-toggle="tooltip" data-placement="right" title="11">
+        <span>Information_Retrieval</span></a></li>
+    
+    <li>
+      <a href="/tag/Object-Oriented-Programming" data-toggle="tooltip" data-placement="right" title="11">
+        <span>Object-Oriented-Programming</span></a></li>
+    
+    <li>
+      <a href="/tag/Problems" data-toggle="tooltip" data-placement="right" title="3">
+        <span>Problems</span></a></li>
+    
+  </ul>
+</div>
+
+            </div>
+          </div>
+        </div>
+        
+
+      </div>
+          <footer class="footer-distributed">
+      <div class="container">
+        <div class="footer">
+          <p>JinHan Yun &copy; 2017</p>
+          <h6>Contact Me</h6>
+
+<ul class="social-media">
+
+  
+    <li>
+      <a title="YunJinHan on Github" href="https://github.com/YunJinHan" target="_blank"><i class="fa fa-github fa-2x"></i></a>
+    </li>
+  
+
+  
+    <li>
+      <a title="yjh9234@gmail.com on Email" href="mailto:yjh9234@gmail.com" target=""><i class="fa fa-envelope fa-2x"></i></a>
+    </li>
+  
+
+</ul>
+
+        </div>
+      </div>
+    </footer>
+
+    </div>
+  </body>
+</html>

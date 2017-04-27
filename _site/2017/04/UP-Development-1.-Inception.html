@@ -1,0 +1,236 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>JinHan's Blog | UP Development - 1.Inception </title>
+  <meta name="theme-color" content="#222222" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+  <script src="/js/header.js"></script>
+  <script src="/js/toc.js"></script>
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/css/theme.css" rel="stylesheet">
+  <link href="/css/syntax.css" rel="stylesheet">
+  <link href="/css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+  
+
+  
+
+
+ <script type="text/javascript">
+  WebFontConfig = {
+    google: {
+      families: ['Ubuntu::latin']
+    }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">JinHan's Blog</a>
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li><a href="/">/home</a></li>
+          <li><a href="/archive.html">/archive</a></li>
+          <li><a href="/tags.html">/categories</a></li>
+          <li><a href="/about.html">/about</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+    <div class="wrapper">
+      <div class="content">
+        <div class="container container-center">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="article">
+                <div class="well">
+                  <h1><a href="/2017/04/UP-Development-1.-Inception">UP Development - 1.Inception</a></h1>
+                  <div class="post-meta">
+                    <div class="post-time">
+                      <i class="fa fa-calendar"></i>
+                      <time>08 Apr 2017</time>
+                    </div>
+                    <ul>
+                      
+                        <li><a href="/tag/Object-Oriented-Programming">Object-Oriented-Programming</a></li>
+                      
+                    </ul>
+                  </div>
+                  <div class="post-content">
+                    <div id="toc" class="toc"></div>
+                    <h1 id="up-development---1inception">UP Development - 1.Inception</h1>
+<p>Most Project require a short initial step in which the following kinds of questions are explored</p>
+
+<ol>
+  <li>What is the vision and business case for this project?</li>
+  <li>Feasible?</li>
+  <li>Buy and/or Build?</li>
+  <li>Rough estimate of cost</li>
+  <li>Should we proceed or stop?</li>
+</ol>
+
+<h3 id="--artifacts-in-inception-phase">- Artifacts in Inception Phase</h3>
+<p><strong>Use-Case Model</strong> : Describe functional requirements, and related non-functional requirements</p>
+
+<h3 id="--useful-classification">- Useful Classification</h3>
+<ul>
+  <li>Functional requirements vs Non-functional requirements</li>
+  <li>Most of the non-functional requirements are collectively called as <strong>Quality Attributes</strong> or <strong>Quality Requirements</strong></li>
+  <li>Functional requirements are explored and recorded in the <strong>Use-Case Model</strong>.</li>
+  <li>Other requirements can be recorded in the use cases they relate to, or in the <strong>Supplementary Specifications</strong> artifacts.</li>
+  <li>The <strong>Vision</strong> artifact summarizes high-level requirements.</li>
+  <li>The <strong>Glossary</strong> encompasses the concept of <strong>Data dictionary</strong> which records requirements related to data, such as validation rules, acceptable values, and so forth.</li>
+</ul>
+
+<h3 id="--motivation-for-use-cases">- Motivation for Use Cases</h3>
+<ul>
+  <li>We need a tool to analyze, record, and improve functional requirements</li>
+  <li>Developers must know exactly what they are going to implement</li>
+  <li>A Client must understand what will be implemented</li>
+</ul>
+
+<p>==&gt; Solution : <strong>Use Case</strong></p>
+
+<h3 id="--goals-and-stories">- Goals and Stories</h3>
+<ul>
+  <li>Clients and End users have <strong>Goals (Needs)</strong> and want the system to help meet them.</li>
+  <li>Informally, Use Cases are <strong>Stories of using a system to meet goals</strong></li>
+  <li>The most effective way to capture the <strong>Goals</strong> and system’s <strong>Functional requirements</strong> is writing <strong>Use Cases</strong></li>
+</ul>
+
+<h3 id="--actors">- Actors</h3>
+<ul>
+  <li>Basic Definition<br />An Actor is anything outside SuD that interacts with SuD.</li>
+  <li>Extended Definition<br />An Actor is anything with behavior, including the SuD itself when it calls on the services of other actors</li>
+  <li>In case of a person acotr, it represents a <strong>role</strong> that the person plays when interaction with these use cases.</li>
+</ul>
+
+<h3 id="--types-of-actors">- Types of Actors</h3>
+<ul>
+  <li><strong>Primary Actors</strong><br />Goals 을 달성 하기 위해 System 을 이용함.</li>
+  <li><strong>Supporting Acotrs</strong><br />Primary Actor 를 도와주기 위해 System 을 이용함.</li>
+  <li><strong>Offstage Actors</strong><br />It has an interest in the behavior of the use case, but is not primary or supporting actors</li>
+</ul>
+
+<h3 id="--scenarios--하나의-특정-사례-">- Scenarios ( 하나의 특정 사례 )</h3>
+<ul>
+  <li>A <strong>Scenario ( use case instance )</strong> is a specific sequence of actions and interactions between actors and the SuD to meet a common goal</li>
+  <li>It is one particular story of using a system, or one path through the use case.</li>
+</ul>
+
+<h3 id="--use-cases">- Use Cases</h3>
+<ul>
+  <li>Informally, Use Case is a collection of related success and failure scenarios that describes actors using a system to support a goal</li>
+  <li><strong>UP Definition</strong> : Use Case is a set of use-case instances, where each instance is a sequence of actions that yields an <strong>Observable Result of Value (Benefits)</strong> to a particular actor</li>
+  <li>Use Cases document the behavior ( Functional Requirements ) of the system <strong>From the User’s Point of View</strong></li>
+  <li>A software product implements a set of use cases</li>
+</ul>
+
+
+                    
+
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 hidden-xs">
+              <div class="sidebar ">
+  <h2>Recent Posts</h2>
+  <ul>
+    
+    <li><a href="/2017/04/UP-Development-2.-Elaboration">UP Development - 2.Elaboration</a></li>
+    
+    <li><a href="/2017/04/UP-Development-1.-Inception-3">UP Development - 1.Inception (Cont'd) 2</a></li>
+    
+    <li><a href="/2017/04/blocked-sort-based-indexing">Index Construction</a></li>
+    
+    <li><a href="/2017/04/n-gram-overlap">N - Gram Overlap</a></li>
+    
+    <li><a href="/2017/04/Angular2-Component">Angular2 Component</a></li>
+    
+  </ul>
+</div>
+
+<div class="sidebar">
+  <h2>Categories</h2>
+  <ul class="sideBarTags">
+    
+    
+    <li>
+      <a href="/tag/Angular2" data-toggle="tooltip" data-placement="right" title="2">
+        <span>Angular2</span></a></li>
+    
+    <li>
+      <a href="/tag/Information_Retrieval" data-toggle="tooltip" data-placement="right" title="11">
+        <span>Information_Retrieval</span></a></li>
+    
+    <li>
+      <a href="/tag/Object-Oriented-Programming" data-toggle="tooltip" data-placement="right" title="11">
+        <span>Object-Oriented-Programming</span></a></li>
+    
+    <li>
+      <a href="/tag/Problems" data-toggle="tooltip" data-placement="right" title="3">
+        <span>Problems</span></a></li>
+    
+  </ul>
+</div>
+
+            </div>
+          </div>
+        </div>
+        
+
+      </div>
+          <footer class="footer-distributed">
+      <div class="container">
+        <div class="footer">
+          <p>JinHan Yun &copy; 2017</p>
+          <h6>Contact Me</h6>
+
+<ul class="social-media">
+
+  
+    <li>
+      <a title="YunJinHan on Github" href="https://github.com/YunJinHan" target="_blank"><i class="fa fa-github fa-2x"></i></a>
+    </li>
+  
+
+  
+    <li>
+      <a title="yjh9234@gmail.com on Email" href="mailto:yjh9234@gmail.com" target=""><i class="fa fa-envelope fa-2x"></i></a>
+    </li>
+  
+
+</ul>
+
+        </div>
+      </div>
+    </footer>
+
+    </div>
+  </body>
+</html>

@@ -1,0 +1,217 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>JinHan's Blog | Object-Oriented Paradigm </title>
+  <meta name="theme-color" content="#222222" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+  <script src="/js/header.js"></script>
+  <script src="/js/toc.js"></script>
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/css/theme.css" rel="stylesheet">
+  <link href="/css/syntax.css" rel="stylesheet">
+  <link href="/css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+  
+
+  
+
+
+ <script type="text/javascript">
+  WebFontConfig = {
+    google: {
+      families: ['Ubuntu::latin']
+    }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">JinHan's Blog</a>
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li><a href="/">/home</a></li>
+          <li><a href="/archive.html">/archive</a></li>
+          <li><a href="/tags.html">/categories</a></li>
+          <li><a href="/about.html">/about</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+    <div class="wrapper">
+      <div class="content">
+        <div class="container container-center">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="article">
+                <div class="well">
+                  <h1><a href="/2017/03/oOP-concepts">Object-Oriented Paradigm</a></h1>
+                  <div class="post-meta">
+                    <div class="post-time">
+                      <i class="fa fa-calendar"></i>
+                      <time>09 Mar 2017</time>
+                    </div>
+                    <ul>
+                      
+                        <li><a href="/tag/Object-Oriented-Programming">Object-Oriented-Programming</a></li>
+                      
+                    </ul>
+                  </div>
+                  <div class="post-content">
+                    <div id="toc" class="toc"></div>
+                    <h2 id="object-oriented-paradigm-builds-on-three-import-concepts">Object-Oriented Paradigm builds on three import concepts</h2>
+<ol>
+  <li><strong>Objcets</strong></li>
+  <li><strong>Classes</strong></li>
+  <li><strong>Inheritance</strong></li>
+  <li>(Additional) <strong>Polymorphism</strong></li>
+</ol>
+
+<h2 id="objects-have-attributes-that-help-describe-them">Objects have <strong>attributes</strong> that help describe them</h2>
+
+<h2 id="objects-have-externally-observable-behaviors">Objects have externally observable behaviors</h2>
+<p>aka <strong>Services - 사용자관점</strong> or <strong>Responsibilites - 객체관점(Interface, Type)</strong></p>
+
+<h2 id="encapsulating-state-of-object-rather-than-expose-it-is-good-engineering">Encapsulating state of object rather than expose it is good engineering</h2>
+<p>Encapsulation : separatino of inerface from implementation<br />
+<br /><br />
+<img src="http://localhost:4000/assets/encapsulation.jpg" alt="screenshot" /><br />
+<br /><br />
+-&gt; don’t need to know how object will perform actions,<br /><br />
+   But need to know what messages it will understand</p>
+
+<h2 id="objects-have-unique-identities">Objects have <strong>Unique Identities</strong></h2>
+<p>Identity is property of object distinguishes itself from all other objects<br /><br />
+-&gt; Don’t confuse between the name (or handle) of object and object itself</p>
+
+<h2 id="objects-communicate-by-sending-messages-request-for-action">Objects communicate by sending <strong>Messages (Request for action)</strong></h2>
+<p>Objects perform actions by making requests of each other through <strong>messages</strong><br /><br />
+there is a designated <strong>Receiver (or target)</strong> that accepts the messages<br /><br />
+the actual behavior performed by the receiver may be different,<br /><br />
+depending upon the <strong>Type</strong> of the <strong>Receiver</strong> =&gt; <strong>Polymorphrism</strong><br /><br />
+<em>(상속관계에 있는 polymorphrism 은 pure polymorphrism -&gt; 대부분의 polymorphrism)</em><br /><br />
+<em>(Method overloading -&gt; Ad hoc polymorphrism)</em></p>
+
+<h2 id="ask-not-what-you-can-do-to-objects-but-ask-what-objects-can-do-for-you">Ask not what you can do to objects, but Ask what objects can do for you</h2>
+
+<h2 id="class-is-a-group-of-ojbects-with-similar-attributes-and-behavior">Class is a group of ojbects with similar <strong>attributes</strong> and <strong>behavior</strong></h2>
+
+<p>Class is a <strong>Repository</strong> for behavior and<br /><br />
+the internal representation of the associated objects<br />
+————</p>
+
+<h2 id="objects-are-created-from-classes-through-the-process-of-instantiation실체화">Objects are created from classes through the process of <strong>Instantiation(실체화)</strong></h2>
+
+<h2 id="objects-are-actual-instances-of-a-class">Objects are actual <strong>Instances</strong> of a class</h2>
+<p>Classes are factories and objects are products from the factory<br /><br />
+-&gt; the terms <strong>instance</strong> and <strong>object</strong> are <strong>interchangeable</strong></p>
+
+<h2 id="object-can-have-many-types--ojects-of-different-classes-can-have-same-type">Object can have many types / Ojects of different classes can have same type</h2>
+
+
+                    
+
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 hidden-xs">
+              <div class="sidebar ">
+  <h2>Recent Posts</h2>
+  <ul>
+    
+    <li><a href="/2017/04/UP-Development-2.-Elaboration">UP Development - 2.Elaboration</a></li>
+    
+    <li><a href="/2017/04/UP-Development-1.-Inception-3">UP Development - 1.Inception (Cont'd) 2</a></li>
+    
+    <li><a href="/2017/04/blocked-sort-based-indexing">Index Construction</a></li>
+    
+    <li><a href="/2017/04/n-gram-overlap">N - Gram Overlap</a></li>
+    
+    <li><a href="/2017/04/Angular2-Component">Angular2 Component</a></li>
+    
+  </ul>
+</div>
+
+<div class="sidebar">
+  <h2>Categories</h2>
+  <ul class="sideBarTags">
+    
+    
+    <li>
+      <a href="/tag/Angular2" data-toggle="tooltip" data-placement="right" title="2">
+        <span>Angular2</span></a></li>
+    
+    <li>
+      <a href="/tag/Information_Retrieval" data-toggle="tooltip" data-placement="right" title="11">
+        <span>Information_Retrieval</span></a></li>
+    
+    <li>
+      <a href="/tag/Object-Oriented-Programming" data-toggle="tooltip" data-placement="right" title="11">
+        <span>Object-Oriented-Programming</span></a></li>
+    
+    <li>
+      <a href="/tag/Problems" data-toggle="tooltip" data-placement="right" title="3">
+        <span>Problems</span></a></li>
+    
+  </ul>
+</div>
+
+            </div>
+          </div>
+        </div>
+        
+
+      </div>
+          <footer class="footer-distributed">
+      <div class="container">
+        <div class="footer">
+          <p>JinHan Yun &copy; 2017</p>
+          <h6>Contact Me</h6>
+
+<ul class="social-media">
+
+  
+    <li>
+      <a title="YunJinHan on Github" href="https://github.com/YunJinHan" target="_blank"><i class="fa fa-github fa-2x"></i></a>
+    </li>
+  
+
+  
+    <li>
+      <a title="yjh9234@gmail.com on Email" href="mailto:yjh9234@gmail.com" target=""><i class="fa fa-envelope fa-2x"></i></a>
+    </li>
+  
+
+</ul>
+
+        </div>
+      </div>
+    </footer>
+
+    </div>
+  </body>
+</html>

@@ -1,0 +1,300 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>JinHan's Blog | UP Development - 2.Elaboration </title>
+  <meta name="theme-color" content="#222222" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+  <script src="/js/header.js"></script>
+  <script src="/js/toc.js"></script>
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/css/theme.css" rel="stylesheet">
+  <link href="/css/syntax.css" rel="stylesheet">
+  <link href="/css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+  
+
+  
+
+
+ <script type="text/javascript">
+  WebFontConfig = {
+    google: {
+      families: ['Ubuntu::latin']
+    }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">JinHan's Blog</a>
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li><a href="/">/home</a></li>
+          <li><a href="/archive.html">/archive</a></li>
+          <li><a href="/tags.html">/categories</a></li>
+          <li><a href="/about.html">/about</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+    <div class="wrapper">
+      <div class="content">
+        <div class="container container-center">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="article">
+                <div class="well">
+                  <h1><a href="/2017/04/UP-Development-2.-Elaboration">UP Development - 2.Elaboration</a></h1>
+                  <div class="post-meta">
+                    <div class="post-time">
+                      <i class="fa fa-calendar"></i>
+                      <time>20 Apr 2017</time>
+                    </div>
+                    <ul>
+                      
+                        <li><a href="/tag/Object-Oriented-Programming">Object-Oriented-Programming</a></li>
+                      
+                    </ul>
+                  </div>
+                  <div class="post-content">
+                    <div id="toc" class="toc"></div>
+                    <h1 id="up-development---2elaboration">UP Development - 2.Elaboration</h1>
+<p>Build the core architecture, resolve the high-risk elements, define most requirements, and estimate overall schedule and resources<br />
+—–</p>
+
+<h3 id="--elaboration-is-the-initial-series-of-iterations-during-which--the-follwing-content">- Elaboration is the initial series of iterations during which : the follwing content</h3>
+<ul>
+  <li>The majority of requirements are discovered and stabilized
+    <ul>
+      <li>70 ~ 80 % 의 requirements 는 수용되어야 한다.</li>
+      <li>wirte most of the Use Cases and other requirements in detail</li>
+    </ul>
+  </li>
+  <li>The marjor <strong>Risk</strong> are mitigated or retired. ( <strong>기술 / 비지니스 관점에서 대다수의 위험성은 해결되어야 함</strong> )</li>
+  <li>The core <strong>Architectural</strong> elements are implemented and proven. ( <strong>System 의 중요한 architectural 는 어느 정도 구현되고 안정되어 있어야 한다</strong> )</li>
+</ul>
+
+<h3 id="--elaboration-phase">- Elaboration Phase</h3>
+<ul>
+  <li>Elaboration consists of between two and four iterations
+    <ul>
+      <li>each iteration is recommended to between two and six weeks, unless the term size is massive</li>
+    </ul>
+  </li>
+  <li>Each iteration is timeboxed, meaning its end date is fixed</li>
+  <li>At the end of each iteration, stable and tested <strong>Production-Quality</strong> portions of the final system must be released<br />( 각각 iteration 마지막 부분에서, Final system 의  안정적이고 검증된 Production-Quality 부분은 반드시 해결되야 한다. )</li>
+</ul>
+
+<h3 id="--what-is-architecturally-singificant-in-elaboratoin">- What is Architecturally Singificant in Elaboratoin?</h3>
+<ul>
+  <li>Employing <strong>Wide and Shallow</strong> design and implementation.
+    <ul>
+      <li>Implementing simplified and End to End scenarios that force design, implementation, and test across major components.</li>
+    </ul>
+  </li>
+  <li>Integrating existing componets</li>
+</ul>
+
+<h3 id="--planning-the-next-iteration">- Planning the Next Iteration</h3>
+<ul>
+  <li>Organize requirements and iterations by <strong>Risk, Coverage, and Criticality</strong></li>
+  <li><strong>Risk</strong>
+    <ul>
+      <li>Includes Both technical complexity and other factors, such as uncertainty of effort or usablity</li>
+    </ul>
+  </li>
+  <li><strong>Coverage</strong>
+    <ul>
+      <li>Implies that all major parts of the system are at least touched on in early iterations</li>
+    </ul>
+  </li>
+  <li><strong>Criticality</strong>
+    <ul>
+      <li>Refers to functions of high business value</li>
+    </ul>
+  </li>
+</ul>
+
+<p>==&gt;  <strong>3가지에 Weight 를 부여하여 높은 순서대로 먼저 수행한다.</strong></p>
+
+<h3 id="--artifacts-that-may-start-in-elaboration">- Artifacts that May Start in Elaboration</h3>
+<ul>
+  <li><strong>Domain Model</strong> : This is a visualization of the domain concepts; it is similar to a static information model of the domain entities ( static / dynamic model )</li>
+  <li><strong>Design Model</strong> : This is the set of diagrams that describe the logical design, This includes software class diagram, object interaction diagram, packgae diagrams, and so forth</li>
+</ul>
+
+<p><img src="http://localhost:4000/assets/ArtifactsInElaboration.png" alt="screenshot" /></p>
+
+<h2 id="drawing-system-sequence-diagrams">Drawing System Sequence Diagrams</h2>
+<h4 id="--objectives">- Objectives</h4>
+<ul>
+  <li>Identify system events and system operations.</li>
+  <li>Create system sequence diagram for Use Cases.</li>
+</ul>
+
+<h3 id="--ssd--system-sequence-diagrams-">- SSD ( System Sequence Diagrams )</h3>
+<ul>
+  <li><strong>System behavior</strong> is a description of <strong>What</strong> a system does, without explaning <strong>How</strong> it does it</li>
+  <li><strong>System Sequence Diagram</strong> captures the system behavior, for a particular scenario of a Use Case, by illustrating the events that external actors generate to SuD, their order, and inter-system events
+    <ul>
+      <li>It allows us to treat the system as a <strong>BLack Box</strong></li>
+    </ul>
+  </li>
+  <li>System Sequence Diagram emphasizes those events that <strong>Cross</strong> the system boundary from actors to systems</li>
+  <li><strong>System Sequence Diagram should be done for the main success scenario of the Use Case, and frequent or complex alternative scenarios</strong></li>
+</ul>
+
+<h3 id="--system-events--system-operations">- System Events &amp; System Operations</h3>
+<ul>
+  <li><strong>System event</strong> is an external event generated by an external actor to a system —&gt; <strong>Stimulus</strong></li>
+  <li><strong>System operation</strong> is an operation of the system that executes in response to a system event —&gt; <strong>Response</strong>
+    <ul>
+      <li>The set of all required system operations is determined by identifying the system evnets. The system events are derived from Use Case<br />( <strong>System 외부에서  Event 가 주어졌을때 해당 Event 에 대한 System 이 취한 동작</strong> )</li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="http://localhost:4000/assets/SysESysO.png" alt="screenshot" /></p>
+
+<ul>
+  <li>System Sequence Diagram shows system events for a scenario of a Use Case, therefore it is generated from inspection of a Use Case</li>
+</ul>
+
+<h3 id="--naming-system-events--operations">- Naming System Events / Operations</h3>
+<ul>
+  <li>System events and theri associated events should be <strong>Expressed at the (highest) level of Intent</strong> rather than in terms of physical input medium or interface widget</li>
+  <li>Usually start with a “Verb” like add, enter, make …</li>
+</ul>
+
+<p><img src="http://localhost:4000/assets/NamingSystem.png" alt="screenshot" /></p>
+
+<h4 id="--showing-use-case-text">- Showing Use Case Text</h4>
+<ul>
+  <li>The text provides the details and context<br />the diagram visually summarizes the interaction</li>
+</ul>
+
+<h4 id="--recording-system-operations--class-icon">- Recording System Operations &amp; Class Icon</h4>
+<ul>
+  <li>UML class icon provides a compartment to record operations for a type</li>
+</ul>
+
+<p><img src="http://localhost:4000/assets/RecordingSystemOperation.png" alt="screenshot" /></p>
+
+<p><img src="http://localhost:4000/assets/ClassIcon.png" alt="screenshot" /></p>
+
+<h3 id="--how-to-make-system-sequence-diagram">- How To Make System Sequence Diagram</h3>
+<ol>
+  <li><strong>Draw a line representing the system as a black box</strong></li>
+  <li><strong>Identify each actor that directly operates on the system<br />Draw a line for each such actor</strong></li>
+  <li>From the Use Case main success scenario text,<br /><strong>Identify the system ( External ) events that each actor generates. illustrate them on the diagram</strong></li>
+  <li><strong>Optionally, include the Use Case text to the left of the diagram</strong></li>
+</ol>
+
+
+                    
+
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 hidden-xs">
+              <div class="sidebar ">
+  <h2>Recent Posts</h2>
+  <ul>
+    
+    <li><a href="/2017/04/UP-Development-2.-Elaboration">UP Development - 2.Elaboration</a></li>
+    
+    <li><a href="/2017/04/UP-Development-1.-Inception-3">UP Development - 1.Inception (Cont'd) 2</a></li>
+    
+    <li><a href="/2017/04/blocked-sort-based-indexing">Index Construction</a></li>
+    
+    <li><a href="/2017/04/n-gram-overlap">N - Gram Overlap</a></li>
+    
+    <li><a href="/2017/04/Angular2-Component">Angular2 Component</a></li>
+    
+  </ul>
+</div>
+
+<div class="sidebar">
+  <h2>Categories</h2>
+  <ul class="sideBarTags">
+    
+    
+    <li>
+      <a href="/tag/Angular2" data-toggle="tooltip" data-placement="right" title="2">
+        <span>Angular2</span></a></li>
+    
+    <li>
+      <a href="/tag/Information_Retrieval" data-toggle="tooltip" data-placement="right" title="11">
+        <span>Information_Retrieval</span></a></li>
+    
+    <li>
+      <a href="/tag/Object-Oriented-Programming" data-toggle="tooltip" data-placement="right" title="11">
+        <span>Object-Oriented-Programming</span></a></li>
+    
+    <li>
+      <a href="/tag/Problems" data-toggle="tooltip" data-placement="right" title="3">
+        <span>Problems</span></a></li>
+    
+  </ul>
+</div>
+
+            </div>
+          </div>
+        </div>
+        
+
+      </div>
+          <footer class="footer-distributed">
+      <div class="container">
+        <div class="footer">
+          <p>JinHan Yun &copy; 2017</p>
+          <h6>Contact Me</h6>
+
+<ul class="social-media">
+
+  
+    <li>
+      <a title="YunJinHan on Github" href="https://github.com/YunJinHan" target="_blank"><i class="fa fa-github fa-2x"></i></a>
+    </li>
+  
+
+  
+    <li>
+      <a title="yjh9234@gmail.com on Email" href="mailto:yjh9234@gmail.com" target=""><i class="fa fa-envelope fa-2x"></i></a>
+    </li>
+  
+
+</ul>
+
+        </div>
+      </div>
+    </footer>
+
+    </div>
+  </body>
+</html>
