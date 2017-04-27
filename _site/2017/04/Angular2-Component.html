@@ -1,0 +1,269 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>JinHan's Blog | Angular2 Component </title>
+  <meta name="theme-color" content="#222222" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="/YunJinHan.github.io/js/jquery.min.js"></script>
+  <script src="/YunJinHan.github.io/js/bootstrap.min.js"></script>
+  <script src="/YunJinHan.github.io/js/header.js"></script>
+  <script src="/YunJinHan.github.io/js/toc.js"></script>
+  <link rel="icon" href="/YunJinHan.github.io/favicon.png" type="image/x-icon">
+  <link href="/YunJinHan.github.io/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/YunJinHan.github.io/css/theme.css" rel="stylesheet">
+  <link href="/YunJinHan.github.io/css/syntax.css" rel="stylesheet">
+  <link href="/YunJinHan.github.io/css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+  
+
+  
+
+
+ <script type="text/javascript">
+  WebFontConfig = {
+    google: {
+      families: ['Ubuntu::latin']
+    }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/YunJinHan.github.io/">JinHan's Blog</a>
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li><a href="/YunJinHan.github.io/">/home</a></li>
+          <li><a href="/YunJinHan.github.io/archive.html">/archive</a></li>
+          <li><a href="/YunJinHan.github.io/tags.html">/categories</a></li>
+          <li><a href="/YunJinHan.github.io/about.html">/about</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+    <div class="wrapper">
+      <div class="content">
+        <div class="container container-center">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="article">
+                <div class="well">
+                  <h1><a href="/YunJinHan.github.io/2017/04/Angular2-Component">Angular2 Component</a></h1>
+                  <div class="post-meta">
+                    <div class="post-time">
+                      <i class="fa fa-calendar"></i>
+                      <time>13 Apr 2017</time>
+                    </div>
+                    <ul>
+                      
+                        <li><a href="/YunJinHan.github.io/tag/Angular2">Angular2</a></li>
+                      
+                    </ul>
+                  </div>
+                  <div class="post-content">
+                    <div id="toc" class="toc"></div>
+                    <h1 id="angular-component">Angular Component</h1>
+<p>Angular Component 는 <strong>Web Component 기술</strong>을 기반으로 구성되며 <br />기존 블록 엘리먼트 구조를 <strong>Component 구조</strong>로 전환시켜 개발한다.</p>
+
+<h4 id="--중첩-component">- 중첩 Component</h4>
+<p>자식 Component 와 부모 Component 를 사용<br />부모 Component 가 여러 자식 Component 를 포함할 때 부모 Component = 중첩 Component</p>
+<h4 id="--component-tree">- Component Tree</h4>
+<p>Component 끼리의 관계를 나타내는 것으로 Component 사이의 의존성이 존재할 수 있다.</p>
+<h4 id="--component-기반-개발">- Component 기반 개발</h4>
+<pre>
+@Component({
+	// 컴포넌트 메타 데이터 설정
+})
+export class HelloComponent {
+	// 컴포넌트 로직 작성
+}
+</pre>
+<p>&lt; Web Component 기술 요소 &gt;<br />
+—–</p>
+<h4 id="--html-템플릿">- HTML 템플릿</h4>
+<p><strong>Angular 의 템플릿은 Web Component 기술의 템플릿 기술을 이용한다.</strong></p>
+<pre>
+&lt; template id="nav-item-template"&gt;
+	&lt; div class="nav"&gt;
+		&lt; div class="item"&gt;메인&lt;/div&gt;
+		&lt; div class="item"&gt;서비스 소개&lt;/div&gt;
+		&lt; div class="item"&gt;서비스 특징&lt;/div&gt;
+	&lt; /div&gt;
+&lt; /template&gt;
+</pre>
+<h4 id="--템플릿-호출">- 템플릿 호출</h4>
+<p><strong>Angular 에서 템플릿 호출 기능은 Web Component 호출 기술을 이용한다.</strong></p>
+<pre>
+&lt; head&gt;
+&lt; link rel="import" href="template.html"&gt;
+&lt; /head&gt;
+...
+&lt; script&gt;
+	var link = document.quertSelector('link[re]="import"]');
+	var content = link.import;
+	var el = content.querySelector('#template');
+	document.body.appendChild(el.cloneNode(true));
+&lt; /script&gt;
+</pre>
+<h4 id="--쉐도우-dom">- 쉐도우 DOM</h4>
+<p><strong>Angular Component 는 쉐도우 DOM 을 사용하여 문서 트리에 영향을 받지 않는 쉐도우 DOM 을 이용한다.</strong><br /><br /><br />
+DOM 은 크게 문서 DOM 과 쉐도우 DOM 으로 나누어진다.<br /><br />
+문서 DOM 은 현재 페이지에 대한 DOM 이며, 쉐도우 DOM 은 웹 페이지가 실행되는 중 생성되는 가상 DOM 이다.</p>
+<h4 id="--커스텀-엘리먼트">- 커스텀 엘리먼트</h4>
+<p><strong>Angular Component 의 엘리먼트 이름은 Web Component 의 커스텀 엘리먼트 기술을  이용한다.</strong></p>
+<pre>
+&lt; hello-button&gt;&lt; /hello-button&gt;
+</pre>
+<p><br /><br />
+ </p>
+
+<h1 id="angular-component-구조">Angular Component 구조</h1>
+<h3 id="--import-영역">- Import 영역</h3>
+<pre>
+import { Component } from '@angular/core'; 
+</pre>
+<p>Angular 라이브러리 모듈을 호출하거나 사용자 모듈을 호출할때 Import 키워드를 사용한다.<br /><br />
+Angular 라이브러리 모듈은 <strong>@</strong> 를 붙이며 사용자 모듈은 <strong>./</strong> 을 통해 외부 모듈을 호출한다.</p>
+
+<h3 id="--component-장식자-영역">- Component 장식자 영역</h3>
+<pre>
+@Component({
+	selector : 'intro -component',
+	template : '&lt; div&gt;App Hello&lt; /div&gt;',
+	styles : ['div{ background: blue; }']
+})
+export class AppHello { }
+</pre>
+<p>@Component 는 Component 장식자라고 불리며 위와 같은 형식을 가진다.</p>
+
+<ul>
+  <li>selector 속성<br />Component 의 이름을 정의. &lt; intro -component&gt;&lt; /intro -component&gt; 같은 형식으로 정의<br /></li>
+  <li>template 속성<br />Component 에서 가장 중요한 속성이며 UI 코드를 정의한다.<br /><strong>template</strong> : 내부 파일에 HTML 과 템플릿 문법을 이용해 템플릿을 정의한다.<br /><strong>templateUrl</strong> : 외부 파일에 HTML 과 템플릿 문법을 이용해 템플릿을 정의한다.</li>
+  <li>style 속성<br />템플릿에 스타일을 추가하기위해 CSS 스타일을 설정한다.<br /><strong>styles</strong> : 템플릿에 대한 스타일을 현재 파일 내부에 정의한다.<br /><strong>styleUrl</strong> : 템플릿에 대한 스타일을 외부 CSS 파일에 정의한다.</li>
+</ul>
+
+<h3 id="--component-class-영역">- Component Class 영역</h3>
+<p>Component Class 에서는 템플릿 데이터 출력과 관련된 로직을 처리한다.</p>
+
+<ul>
+  <li>외부에 정의된 HTTP 서비스를 이용해 HTTP 요청 결과를 받아 템플릿에 데이터를 반영하는 로직</li>
+  <li>템플릿으로부터 클릭 이벤트를 받아 클릭 이벤트에 대한 처리를 수행하는 로직</li>
+  <li>템플릿에 사용할 데이터를 다른 Component 로 부터 전달 받아 이를 처리하는 로직</li>
+  <li>바인딩 변수를 이용해 권한에 따라 템플릿에서 화면 제어를 담당하는 로직</li>
+</ul>
+
+
+                    
+
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 hidden-xs">
+              <div class="sidebar ">
+  <h2>Recent Posts</h2>
+  <ul>
+    
+    <li><a href="/YunJinHan.github.io/2017/04/UP-Development-2.-Elaboration">UP Development - 2.Elaboration</a></li>
+    
+    <li><a href="/YunJinHan.github.io/2017/04/UP-Development-1.-Inception-3">UP Development - 1.Inception (Cont'd) 2</a></li>
+    
+    <li><a href="/YunJinHan.github.io/2017/04/blocked-sort-based-indexing">Index Construction</a></li>
+    
+    <li><a href="/YunJinHan.github.io/2017/04/n-gram-overlap">N - Gram Overlap</a></li>
+    
+    <li><a href="/YunJinHan.github.io/2017/04/Angular2-Component">Angular2 Component</a></li>
+    
+    <li><a href="/YunJinHan.github.io/2017/04/UP-Development-1.-Inception-2">UP Development - 1.Inception (Cont'd)</a></li>
+    
+    <li><a href="/YunJinHan.github.io/2017/04/spelling-correction">Spelling Correction</a></li>
+    
+    <li><a href="/YunJinHan.github.io/2017/04/UP-Development-1.-Inception">UP Development - 1.Inception</a></li>
+    
+    <li><a href="/YunJinHan.github.io/2017/04/wild-card">Wild - Card Queries</a></li>
+    
+    <li><a href="/YunJinHan.github.io/2017/04/Angular2-Outline">Angular2 Outline</a></li>
+    
+  </ul>
+</div>
+
+<div class="sidebar">
+  <h2>Categories</h2>
+  <ul class="sideBarTags">
+    
+    
+    <li>
+      <a href="/YunJinHan.github.io/tag/Angular2" data-toggle="tooltip" data-placement="right" title="2">
+        <span>Angular2</span></a></li>
+    
+    <li>
+      <a href="/YunJinHan.github.io/tag/Information_Retrieval" data-toggle="tooltip" data-placement="right" title="11">
+        <span>Information_Retrieval</span></a></li>
+    
+    <li>
+      <a href="/YunJinHan.github.io/tag/Object-Oriented-Programming" data-toggle="tooltip" data-placement="right" title="11">
+        <span>Object-Oriented-Programming</span></a></li>
+    
+    <li>
+      <a href="/YunJinHan.github.io/tag/Problems" data-toggle="tooltip" data-placement="right" title="3">
+        <span>Problems</span></a></li>
+    
+  </ul>
+</div>
+
+            </div>
+          </div>
+        </div>
+        
+
+      </div>
+          <footer class="footer-distributed">
+      <div class="container">
+        <div class="footer">
+          <p>JinHan Yun &copy; 2017</p>
+          <h6>Contact Me</h6>
+
+<ul class="social-media">
+
+  
+    <li>
+      <a title="YunJinHan on Github" href="https://github.com/YunJinHan" target="_blank"><i class="fa fa-github fa-2x"></i></a>
+    </li>
+  
+
+  
+    <li>
+      <a title="yjh9234@gmail.com on Email" href="mailto:yjh9234@gmail.com" target=""><i class="fa fa-envelope fa-2x"></i></a>
+    </li>
+  
+
+</ul>
+
+        </div>
+      </div>
+    </footer>
+
+    </div>
+  </body>
+</html>

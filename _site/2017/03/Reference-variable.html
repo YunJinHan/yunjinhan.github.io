@@ -1,0 +1,261 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>JinHan's Blog | Reference Variable </title>
+  <meta name="theme-color" content="#222222" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="/YunJinHan.github.io/js/jquery.min.js"></script>
+  <script src="/YunJinHan.github.io/js/bootstrap.min.js"></script>
+  <script src="/YunJinHan.github.io/js/header.js"></script>
+  <script src="/YunJinHan.github.io/js/toc.js"></script>
+  <link rel="icon" href="/YunJinHan.github.io/favicon.png" type="image/x-icon">
+  <link href="/YunJinHan.github.io/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/YunJinHan.github.io/css/theme.css" rel="stylesheet">
+  <link href="/YunJinHan.github.io/css/syntax.css" rel="stylesheet">
+  <link href="/YunJinHan.github.io/css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+  
+
+  
+
+
+ <script type="text/javascript">
+  WebFontConfig = {
+    google: {
+      families: ['Ubuntu::latin']
+    }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/YunJinHan.github.io/">JinHan's Blog</a>
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li><a href="/YunJinHan.github.io/">/home</a></li>
+          <li><a href="/YunJinHan.github.io/archive.html">/archive</a></li>
+          <li><a href="/YunJinHan.github.io/tags.html">/categories</a></li>
+          <li><a href="/YunJinHan.github.io/about.html">/about</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+    <div class="wrapper">
+      <div class="content">
+        <div class="container container-center">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="article">
+                <div class="well">
+                  <h1><a href="/YunJinHan.github.io/2017/03/Reference-variable">Reference Variable</a></h1>
+                  <div class="post-meta">
+                    <div class="post-time">
+                      <i class="fa fa-calendar"></i>
+                      <time>28 Mar 2017</time>
+                    </div>
+                    <ul>
+                      
+                        <li><a href="/YunJinHan.github.io/tag/Object-Oriented-Programming">Object-Oriented-Programming</a></li>
+                      
+                    </ul>
+                  </div>
+                  <div class="post-content">
+                    <div id="toc" class="toc"></div>
+                    <h2 id="a-reference--or-pointer--variable-has-two-types-associated-with-it">A reference ( or pointer ) variable has two types associated with it</h2>
+<h3 id="--static-type">- static type</h3>
+<ul>
+  <li>the type declared at program<br /></li>
+  <li>fixed and never changed<br /></li>
+</ul>
+
+<h3 id="--dynamic-type">- dynamic type</h3>
+<ul>
+  <li>the type of object it actually refers to<br /></li>
+  <li>can be changed during lifetime<br /></li>
+</ul>
+
+<p>Example)</p>
+<pre>
+Movie m = new Movie();
+m = new JamesBondMovie();<br />
+JamesBondMovie jm;
+jm = new JamesBondMovie();
+m = jm; ---&gt; NO ERROR!!
+jm = m; ---&gt; ERROR!!
+( static type 을 가지고서 판단한다.<br /> jm 의 static type 은 jm 이기 떄문에 자식은 부모의 특성 + @ 를 가지고 있기 때문에 부모는 자식을 포한하는 관계는 아니다.<br /> 따라서 jm != m 이다 )
+</pre>
+<p> <br />
+<br /><br />
+A subclasses can be assigned to its superclass, but not vice versa<br />
+—————–</p>
+<ul>
+  <li>assign direction
+    <ul>
+      <li>super class &lt;—- sub class    O<br /></li>
+      <li>sub class &lt;—- super class    X<br /></li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="--check-static-type">- CHECK STATIC TYPE</h3>
+
+<p><img src="http://localhost:4000/assets/check_static_type.png" alt="screenshot" /></p>
+
+<p><strong>obj.h(), obj.f() –&gt; O<br /><br />
+obj.g() –&gt; X<br /></strong></p>
+
+<p><strong>When message is sent to a receiver object, the complier checks its legality by performing an operation lookup using static type</strong></p>
+
+<ol>
+  <li>static type 의 root 로 올라가 check<br /></li>
+  <li>static type direction 으로 내려오면서 check<br /></li>
+</ol>
+
+<p><strong>The compiler searches up starting from the STATIC type util it finds the invoked operation</strong></p>
+
+<p><br /></p>
+
+<h3 id="--check-dynamic-type">- CHECK DYNAMIC TYPE</h3>
+
+<p><img src="http://localhost:4000/assets/check_dynamic_type.png" alt="screenshot" /></p>
+
+<p><strong>obj.h() —&gt; O ( E’s h() )<br /><br />
+obj.f() —&gt; O ( A’s f() )<br /><br />
+obj.g() —&gt; X<br /><br />
+obj.h() —&gt; C’s h()<br /></strong></p>
+
+<p><strong>When message is sent to a receiver, the runtime selects an operation using dynamic type</strong></p>
+
+<p><strong>The runtime searches up starting from the DYNAMIC type until it finds the first invoked operation</strong></p>
+
+<h2 id="actually-the-determination-of-what-behavior-to-perform-may-be-made-at-compile-time-or-at-run-time">Actually, the determination of what behavior to perform may be made at compile-time or at run-time</h2>
+<h3 id="--at-compile-time">- At compile-time</h3>
+<ul>
+  <li>Static binding or Early binding<br /></li>
+  <li>Static functions in JAVA / C++<br /></li>
+  <li>Nonvirtual functions in C++<br /></li>
+</ul>
+
+<h3 id="--at-run-time">- At run time</h3>
+<ul>
+  <li>Dynamic binding or Late binding<br /></li>
+  <li>Virtual function in JAVA / C++<br /></li>
+</ul>
+
+                    
+
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 hidden-xs">
+              <div class="sidebar ">
+  <h2>Recent Posts</h2>
+  <ul>
+    
+    <li><a href="/YunJinHan.github.io/2017/04/UP-Development-2.-Elaboration">UP Development - 2.Elaboration</a></li>
+    
+    <li><a href="/YunJinHan.github.io/2017/04/UP-Development-1.-Inception-3">UP Development - 1.Inception (Cont'd) 2</a></li>
+    
+    <li><a href="/YunJinHan.github.io/2017/04/blocked-sort-based-indexing">Index Construction</a></li>
+    
+    <li><a href="/YunJinHan.github.io/2017/04/n-gram-overlap">N - Gram Overlap</a></li>
+    
+    <li><a href="/YunJinHan.github.io/2017/04/Angular2-Component">Angular2 Component</a></li>
+    
+    <li><a href="/YunJinHan.github.io/2017/04/UP-Development-1.-Inception-2">UP Development - 1.Inception (Cont'd)</a></li>
+    
+    <li><a href="/YunJinHan.github.io/2017/04/spelling-correction">Spelling Correction</a></li>
+    
+    <li><a href="/YunJinHan.github.io/2017/04/UP-Development-1.-Inception">UP Development - 1.Inception</a></li>
+    
+    <li><a href="/YunJinHan.github.io/2017/04/wild-card">Wild - Card Queries</a></li>
+    
+    <li><a href="/YunJinHan.github.io/2017/04/Angular2-Outline">Angular2 Outline</a></li>
+    
+  </ul>
+</div>
+
+<div class="sidebar">
+  <h2>Categories</h2>
+  <ul class="sideBarTags">
+    
+    
+    <li>
+      <a href="/YunJinHan.github.io/tag/Angular2" data-toggle="tooltip" data-placement="right" title="2">
+        <span>Angular2</span></a></li>
+    
+    <li>
+      <a href="/YunJinHan.github.io/tag/Information_Retrieval" data-toggle="tooltip" data-placement="right" title="11">
+        <span>Information_Retrieval</span></a></li>
+    
+    <li>
+      <a href="/YunJinHan.github.io/tag/Object-Oriented-Programming" data-toggle="tooltip" data-placement="right" title="11">
+        <span>Object-Oriented-Programming</span></a></li>
+    
+    <li>
+      <a href="/YunJinHan.github.io/tag/Problems" data-toggle="tooltip" data-placement="right" title="3">
+        <span>Problems</span></a></li>
+    
+  </ul>
+</div>
+
+            </div>
+          </div>
+        </div>
+        
+
+      </div>
+          <footer class="footer-distributed">
+      <div class="container">
+        <div class="footer">
+          <p>JinHan Yun &copy; 2017</p>
+          <h6>Contact Me</h6>
+
+<ul class="social-media">
+
+  
+    <li>
+      <a title="YunJinHan on Github" href="https://github.com/YunJinHan" target="_blank"><i class="fa fa-github fa-2x"></i></a>
+    </li>
+  
+
+  
+    <li>
+      <a title="yjh9234@gmail.com on Email" href="mailto:yjh9234@gmail.com" target=""><i class="fa fa-envelope fa-2x"></i></a>
+    </li>
+  
+
+</ul>
+
+        </div>
+      </div>
+    </footer>
+
+    </div>
+  </body>
+</html>

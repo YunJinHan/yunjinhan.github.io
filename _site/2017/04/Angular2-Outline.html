@@ -1,0 +1,301 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>JinHan's Blog | Angular2 Outline </title>
+  <meta name="theme-color" content="#222222" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="/YunJinHan.github.io/js/jquery.min.js"></script>
+  <script src="/YunJinHan.github.io/js/bootstrap.min.js"></script>
+  <script src="/YunJinHan.github.io/js/header.js"></script>
+  <script src="/YunJinHan.github.io/js/toc.js"></script>
+  <link rel="icon" href="/YunJinHan.github.io/favicon.png" type="image/x-icon">
+  <link href="/YunJinHan.github.io/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/YunJinHan.github.io/css/theme.css" rel="stylesheet">
+  <link href="/YunJinHan.github.io/css/syntax.css" rel="stylesheet">
+  <link href="/YunJinHan.github.io/css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+  
+
+  
+
+
+ <script type="text/javascript">
+  WebFontConfig = {
+    google: {
+      families: ['Ubuntu::latin']
+    }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/YunJinHan.github.io/">JinHan's Blog</a>
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li><a href="/YunJinHan.github.io/">/home</a></li>
+          <li><a href="/YunJinHan.github.io/archive.html">/archive</a></li>
+          <li><a href="/YunJinHan.github.io/tags.html">/categories</a></li>
+          <li><a href="/YunJinHan.github.io/about.html">/about</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+    <div class="wrapper">
+      <div class="content">
+        <div class="container container-center">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="article">
+                <div class="well">
+                  <h1><a href="/YunJinHan.github.io/2017/04/Angular2-Outline">Angular2 Outline</a></h1>
+                  <div class="post-meta">
+                    <div class="post-time">
+                      <i class="fa fa-calendar"></i>
+                      <time>06 Apr 2017</time>
+                    </div>
+                    <ul>
+                      
+                        <li><a href="/YunJinHan.github.io/tag/Angular2">Angular2</a></li>
+                      
+                    </ul>
+                  </div>
+                  <div class="post-content">
+                    <div id="toc" class="toc"></div>
+                    <h1 id="angular2">Angular2</h1>
+<ul>
+  <li>Component 기반 개발<br /><br />
+Component 기반의 개발로 생산성을 높이며, 대규모 애플리케이션에 걸맞는 구조를 만든다.<br /><br />
+Angular1 의 Controller 기능을 완전히 대체하며 구조적으로 Controller 보다 견고하다.<br /></li>
+  <li>TypeScript 주력 언어<br /></li>
+  <li>고성능 프레임워크<br /><br />
+Lazy Loading 사용 <br />==&gt; 애플리케이션을 실행하는 시점에 모든 Module 을 로딩하지 않고 현재 페이지에 필요한 Module 만 로딩하는 방식<br /><br />
+AoT 컴파일 사용 <br /> ==&gt; HTML Template 과  CSS 파일을 컴파일해 코드로 삽입하는 방식</li>
+</ul>
+
+<h2 id="angular2-architecture">Angular2 Architecture</h2>
+
+<p><img src="http://localhost:4000/assets/angular_architecture.png" alt="srceenshot" /></p>
+
+<p>Angular2 는 <strong>Component (컴포넌트)</strong> 중심으로 개발된다.</p>
+
+<ul>
+  <li><strong>Component (컴포넌트)</strong>
+    <ul>
+      <li><strong>Template (템플릿)</strong> : Component 의 UI 를 나타내며 지시자와 템플릿 문법을 활용하여 개발한다.<br />해당 UI 는 Virtual DOM 에 저장되며 각각의 컴포넌트 마다 개별적인 Virtual DOM 을 이용하므로 서로간의 스타일에 영향을 받지 않는다.</li>
+      <li><strong>Class (클래스)</strong> : Component 의 Logic 을 관리하며 Template 과 Class 는 <strong>Binding (바인딩)</strong> 을 통해 연결된다.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>( ⚒ <strong>Binding (바인딩)</strong> 이란? : Template 에서 Class 로 이벤트를 전달하거나 서로 간의 데이터를 교환할 수 있게 하는것. 서로의 구성요소가 동일한 변수로 바인딩하고 있다면 엘리먼트의 상태를 변경하기 위해 구성요소마다 값을 변경할 필요가 없다. –&gt; 상태변화가 일어난다면 감지후 자신의 상태를 변경함 )</p>
+
+<ul>
+  <li>Component 마다 라우팅 URL 주소를 할당 할수 있다. ( 라우팅 : URL 의 변경 )</li>
+  <li>Component 는 자식 Component 를 포함하거나 다른 Component 로 URL 을 라우팅할 수 있습니다.<br />자식 Component 를 포함할 떄는 자식 Component 의 지시자를 현재 Component 의 Template 에 입력함으로써 포함시킨다.</li>
+  <li>Component 와 Component 는 라우팅을 통해 전환될 수 있다.</li>
+  <li>Component 는 외부의 도움을 받아 기능을 더하거나 ( <strong>Module (모듈)</strong> 을 사용) 중복을 최소화 시킬 수 있다.</li>
+  <li>Component 내부의 중복 Logic 코드를 최소화하는 방법으로 <strong>Services (서비스)</strong> 를 사용한다.<br /> Services 를 Component 에서 제공할 때는 <strong>Dependency Injection (의존성 주입)</strong> 을 이용한다.<br />( Dependency Injection : Service 를 객체로 만들어 Class 에 제공하는 역할 )</li>
+</ul>
+
+<h2 id="angular2-구성요소">Angular2 구성요소</h2>
+<h3 id="--component--컴포넌트-">- Component ( 컴포넌트 )</h3>
+<pre>
+import { Component } from '@angular/core';
+
+@Component({
+	selector : 'my-component',
+	template: ''
+})
+
+export class MyComponent {
+	msg : string = "hello";
+}
+</pre>
+<p>Component 를 정의할 때는  @Component 를 이용하여 정의한다.<br />Selector 속성은 Component 의 지시자가 위치하며 Template 속성에는 해당 Template UI 가 위치한다.<br /><br />
+Class 에는  Component 에서 사용할 Logic 이 위치한다.<br /> <br />
+===&gt; Component 는  독립적으로 동작하지 않고  Module 이나 Service, Directive 와 함께 동작합니다.<br />
+<br /></p>
+<h3 id="--module--모듈-">- Module ( 모듈 )</h3>
+<p><br /></p>
+<pre>
+export class Hello{}
+import { Hello } from './hello';
+</pre>
+<p>Module 에는 Angular 라이브러리 Module 과 사용자가 정의하는 Module 이 있다.<br /><br />
+Module 을 정의하려면 export 키워드를 사용하여 Module 을 정의한다.</p>
+
+<p>Angular 에서는 Module 을 체계적으로 구성하기 위해서 Class 선언 위에 장식자를 추가한다.<br /><br />
+장식자가 추가된 Angular 의 Module 로  Component, Directive, Pipe 가 있다.<br /></p>
+
+<p>허나, Component 를 기반으로  Module 을 구성하는 과정은 체계적이지 않고 복잡하기 때문에<br /> <strong>@NgModule</strong> 장식자를 이용하여 일반적인 Module 을 구성한다.</p>
+
+<pre>
+@NgModule({
+	import: [
+		Angular 모듈 , Routing 모듈, ...
+	],
+	declarations: [
+		Componennt, Directive, Pipe, ...
+	],
+	providers : [
+		Service Module, ...
+	]
+})
+export class MyModule {}
+</pre>
+<p> <br /></p>
+<h3 id="--service--서비스-">- Service ( 서비스 )</h3>
+<p><br /></p>
+<pre>
+import { Injectable } from '@angular/core';
+export class HelloService {}
+</pre>
+<p>Service 는  Component 에 제공할 목적으로 외부에 정의한 Class 이며 재사용 가능한 Logic 을 정의하기 위한 용도로 Component 외부에 정의하며 직접적으로 Component 와 관련이 없는 Logic 은  Service 를 통하여 정의한다.<br /></p>
+
+<p><strong>@Injectable</strong> 장식자를 이용하여 Service 를 선언하고 위와 같이 정의한다.</p>
+
+<p>Service 를 이용하면 중복 Logic 을 제거할 수 있고, Component 내부의 관심사를 외부로 분리하는 효과를 줄수 있다.<br />
+<br /></p>
+<h3 id="--directive--지시자-">- Directive ( 지시자 )</h3>
+<p><br /></p>
+<pre>
+@Component({
+	selector : 'my-component',
+	template : '&lt;   div helloStyle&gt;&lt;   /div&gt;'
+})
+</pre>
+<p>==&gt; helloStyle 이란 Directive 가 Template 에 표현되는 방법<br /><br />
+Angular 는 선언형 프로그래밍을 권장하며 선언형 프로그래밍은 Directive 를 이용해 개발하는 것을 의미한다.<br />
+Directive 는 Component 의 Template 에서 Element 의 속성과 같이 구성요소의 속상이나 이름으로 표현한다.</p>
+
+<p>Directive 를 이용하면 UI logic 코드를 반복적으로 입력할 필요가 없다. 그 이유는 Template 출력과 관련된 기능을 Directive 를 통해 logic 을 분리할 수 있기 떄문이다.</p>
+
+<p>Directive 는 화면 출력시 필요한 기능을 외부 Module 로 분리해 정의하고  <strong>@Directive</strong> 장식자를 이용해 정의한다.</p>
+
+<pre>
+import { Directive, ElementRef, Renderer } from '@angular/core';
+@Directive({
+	selector : '[helloStyle]'
+})
+export class HelloStyleDirective {
+	constructor(private el : ElementRef, privatae renderer : Renderer) {}
+	...
+}
+</pre>
+<p>Angular 에서는 Template 에서 사용할 수 있는 활용성 높은 여러 내장 Directive 를 제공한다.</p>
+
+                    
+
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 hidden-xs">
+              <div class="sidebar ">
+  <h2>Recent Posts</h2>
+  <ul>
+    
+    <li><a href="/YunJinHan.github.io/2017/04/UP-Development-2.-Elaboration">UP Development - 2.Elaboration</a></li>
+    
+    <li><a href="/YunJinHan.github.io/2017/04/UP-Development-1.-Inception-3">UP Development - 1.Inception (Cont'd) 2</a></li>
+    
+    <li><a href="/YunJinHan.github.io/2017/04/blocked-sort-based-indexing">Index Construction</a></li>
+    
+    <li><a href="/YunJinHan.github.io/2017/04/n-gram-overlap">N - Gram Overlap</a></li>
+    
+    <li><a href="/YunJinHan.github.io/2017/04/Angular2-Component">Angular2 Component</a></li>
+    
+    <li><a href="/YunJinHan.github.io/2017/04/UP-Development-1.-Inception-2">UP Development - 1.Inception (Cont'd)</a></li>
+    
+    <li><a href="/YunJinHan.github.io/2017/04/spelling-correction">Spelling Correction</a></li>
+    
+    <li><a href="/YunJinHan.github.io/2017/04/UP-Development-1.-Inception">UP Development - 1.Inception</a></li>
+    
+    <li><a href="/YunJinHan.github.io/2017/04/wild-card">Wild - Card Queries</a></li>
+    
+    <li><a href="/YunJinHan.github.io/2017/04/Angular2-Outline">Angular2 Outline</a></li>
+    
+  </ul>
+</div>
+
+<div class="sidebar">
+  <h2>Categories</h2>
+  <ul class="sideBarTags">
+    
+    
+    <li>
+      <a href="/YunJinHan.github.io/tag/Angular2" data-toggle="tooltip" data-placement="right" title="2">
+        <span>Angular2</span></a></li>
+    
+    <li>
+      <a href="/YunJinHan.github.io/tag/Information_Retrieval" data-toggle="tooltip" data-placement="right" title="11">
+        <span>Information_Retrieval</span></a></li>
+    
+    <li>
+      <a href="/YunJinHan.github.io/tag/Object-Oriented-Programming" data-toggle="tooltip" data-placement="right" title="11">
+        <span>Object-Oriented-Programming</span></a></li>
+    
+    <li>
+      <a href="/YunJinHan.github.io/tag/Problems" data-toggle="tooltip" data-placement="right" title="3">
+        <span>Problems</span></a></li>
+    
+  </ul>
+</div>
+
+            </div>
+          </div>
+        </div>
+        
+
+      </div>
+          <footer class="footer-distributed">
+      <div class="container">
+        <div class="footer">
+          <p>JinHan Yun &copy; 2017</p>
+          <h6>Contact Me</h6>
+
+<ul class="social-media">
+
+  
+    <li>
+      <a title="YunJinHan on Github" href="https://github.com/YunJinHan" target="_blank"><i class="fa fa-github fa-2x"></i></a>
+    </li>
+  
+
+  
+    <li>
+      <a title="yjh9234@gmail.com on Email" href="mailto:yjh9234@gmail.com" target=""><i class="fa fa-envelope fa-2x"></i></a>
+    </li>
+  
+
+</ul>
+
+        </div>
+      </div>
+    </footer>
+
+    </div>
+  </body>
+</html>

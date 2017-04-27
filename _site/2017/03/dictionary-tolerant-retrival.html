@@ -1,0 +1,295 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>JinHan's Blog | Dictionaries and tolerant retrival </title>
+  <meta name="theme-color" content="#222222" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="/YunJinHan.github.io/js/jquery.min.js"></script>
+  <script src="/YunJinHan.github.io/js/bootstrap.min.js"></script>
+  <script src="/YunJinHan.github.io/js/header.js"></script>
+  <script src="/YunJinHan.github.io/js/toc.js"></script>
+  <link rel="icon" href="/YunJinHan.github.io/favicon.png" type="image/x-icon">
+  <link href="/YunJinHan.github.io/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/YunJinHan.github.io/css/theme.css" rel="stylesheet">
+  <link href="/YunJinHan.github.io/css/syntax.css" rel="stylesheet">
+  <link href="/YunJinHan.github.io/css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+  
+
+  
+
+
+ <script type="text/javascript">
+  WebFontConfig = {
+    google: {
+      families: ['Ubuntu::latin']
+    }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/YunJinHan.github.io/">JinHan's Blog</a>
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li><a href="/YunJinHan.github.io/">/home</a></li>
+          <li><a href="/YunJinHan.github.io/archive.html">/archive</a></li>
+          <li><a href="/YunJinHan.github.io/tags.html">/categories</a></li>
+          <li><a href="/YunJinHan.github.io/about.html">/about</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+    <div class="wrapper">
+      <div class="content">
+        <div class="container container-center">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="article">
+                <div class="well">
+                  <h1><a href="/YunJinHan.github.io/2017/03/dictionary-tolerant-retrival">Dictionaries and tolerant retrival</a></h1>
+                  <div class="post-meta">
+                    <div class="post-time">
+                      <i class="fa fa-calendar"></i>
+                      <time>24 Mar 2017</time>
+                    </div>
+                    <ul>
+                      
+                        <li><a href="/YunJinHan.github.io/tag/Information_Retrieval">Information_Retrieval</a></li>
+                      
+                    </ul>
+                  </div>
+                  <div class="post-content">
+                    <div id="toc" class="toc"></div>
+                    <h1 id="dictionaries-and-tolerant-retrival">Dictionaries and tolerant retrival</h1>
+
+<h2 id="hashtables">Hashtables</h2>
+<ul>
+  <li>Each vocalulary term is hashed to an integer.</li>
+  <li>Procs : Lookup is faster than a tree =&gt; O(1)</li>
+  <li>Cons : No easy way to find minor variants<br /><br />
+       No prefix search<br /><br />
+       if vocalbulary keeps growing, need to occasionally do the expensive operaiton of rehashing everything.<br /><br />
+       <strong>Waste memory space</strong><br /><br />
+       <strong>In the worst case, it performs terribly</strong><br /><br />
+       <strong>Irregular search time</strong></li>
+</ul>
+
+<h2 id="trees">Trees</h2>
+<ul>
+  <li>Simplest Binary tree</li>
+  <li>More usual : B+ tree</li>
+  <li>Trees require a standard ordering of characters and hence strings … but, we typically have one</li>
+  <li>Pros : Solves the prefix problem (ex. terms starting with hany)<br />
+Optimized for disk-based retrieval</li>
+  <li>Cons : Slower =&gt; O(logM) ( this requires balanced tree ) / Rebalancing binary trees is expensive</li>
+</ul>
+
+<h1 id="b-tree">B+ tree</h1>
+<ul>
+  <li>Indexing mechanisms used to speed up access to desired data.</li>
+  <li><strong>Search Key</strong> : attribute to set of attributes used to look up records in a file</li>
+  <li><strong>Index file</strong> : consists of records ( called index entries ) of them</li>
+  <li>TWO basic kind of indices :
+    <ol>
+      <li><strong>Ordered Indices</strong> : search keys are stored in sorted order</li>
+      <li><strong>Hash indices</strong> : search keys are distributed uniformly across “bucket” using a “hash function”</li>
+    </ol>
+  </li>
+</ul>
+
+<h2 id="index-evaluataion-metrics">Index Evaluataion Metrics</h2>
+<ul>
+  <li>Access types supported efficiently</li>
+  <li>Access time</li>
+  <li>Insertion time</li>
+  <li>Deletion time</li>
+  <li>Space overhead</li>
+</ul>
+
+<h2 id="ordered-indics">Ordered Indics</h2>
+<ul>
+  <li>In an <strong>Ordered Index</strong>, Index entries are stored sorted on the search key value</li>
+  <li><strong>Primary Index</strong> (<strong>Clustering index</strong>): in sequentially ordered fiel, this index whose search key specifies the sequential order of the file.</li>
+  <li><strong>Secondary Index</strong> (“non-clustering index”): ans index whose search by key specfiies an order diffent from the sequential of the file.</li>
+</ul>
+
+<h2 id="dense_index_files">Dense_Index_Files</h2>
+<p>Dens-Index - Index record appears for every search-key value in the file.<br />
+<br /><br />
+<img src="http://localhost:4000/assets/dense1.jpg" alt="screenshot" /></p>
+
+<ul>
+  <li>Dense index on dept_name, with instructor file sorted on dept_name</li>
+</ul>
+
+<p><img src="http://localhost:4000/assets/dense2.jpg" alt="screenshot" /></p>
+
+<h2 id="sparse_index_files">Sparse_Index_Files</h2>
+<ul>
+  <li>contatins index records for only some search-key values</li>
+  <li>To locate a record with search key value k we<br /><br />
+Find index record with search-key value K we<br /><br />
+Search file sequentially starting at the reocord to which the index record points</li>
+</ul>
+
+<h2 id="secondary-indics">Secondary Indics</h2>
+<ul>
+  <li>Indexed record points to a buket that contains pointer<br /><br />
+to all the actual records with that particular search-key value</li>
+  <li>Secondary indics hav to be dense</li>
+</ul>
+
+<p><img src="http://localhost:4000/assets/SecondaryIndics.jpg" alt="screenshot" /></p>
+
+<h2 id="primary-and-secondary-indics">Primary and Secondary Indics</h2>
+<ul>
+  <li>Indices offer substantial benefits when searching for records</li>
+  <li>BUT: Updating indices imposes <strong>overhead</strong> on database modification when a file is modifided, every index on the file must be updated.</li>
+  <li>Sequential scan using primary index is efficient, but <strong>a sequential scan using a secondary index is expensive</strong></li>
+</ul>
+
+<h2 id="multilevel-index">Multilevel Index</h2>
+<ul>
+  <li>If primary index does not fit in memory, access becomes expensive</li>
+  <li>Solution: treat primary index kept on disk as a sequential file and construct a sparse index on it.</li>
+  <li>outer index – a sparse index of primary index</li>
+  <li>inner index – the primary index file</li>
+  <li>If even outer index is too large to fit in main memory, yet another level of index can be created, and so on</li>
+  <li>Indices at all levels must be updated on insertion or deletion from the file.</li>
+</ul>
+
+<p><img src="http://localhost:4000/assets/MultilevelIndex.jpg" alt="screenshot" /></p>
+
+<h1 id="b-tree-index-files">B+-Tree Index Files</h1>
+
+<h2 id="b-tree-is-a-rooted-tree-satisfying-the-following-properties">B+-tree is a rooted tree satisfying the following properties:</h2>
+<ul>
+  <li>All paths from root to leaf are of the same length (balanced)<br /><br />
+==&gt; Complete Binary Rebalanceing Tree</li>
+  <li><strong>Each node that is not a root or a leaf has between [n/2] and n children</strong></li>
+  <li><strong>A leaf node has between [(n−1)/2] and n–1 values</strong></li>
+  <li>Special cases: <br /><br />
+  1.If the root is not a leaf, it has at least 2 children.<br /><br />
+  2.If the root is a leaf (that is, there are no other nodes in the tree), it can have between 0 and (n–1) values.<br /><br />
+  Disk-base data structure (not main memory)<br /><br />
+      - Page<br /><br />
+  Fanout n of a node: the number of pointers out of the node<br /></li>
+</ul>
+
+
+                    
+
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 hidden-xs">
+              <div class="sidebar ">
+  <h2>Recent Posts</h2>
+  <ul>
+    
+    <li><a href="/YunJinHan.github.io/2017/04/UP-Development-2.-Elaboration">UP Development - 2.Elaboration</a></li>
+    
+    <li><a href="/YunJinHan.github.io/2017/04/UP-Development-1.-Inception-3">UP Development - 1.Inception (Cont'd) 2</a></li>
+    
+    <li><a href="/YunJinHan.github.io/2017/04/blocked-sort-based-indexing">Index Construction</a></li>
+    
+    <li><a href="/YunJinHan.github.io/2017/04/n-gram-overlap">N - Gram Overlap</a></li>
+    
+    <li><a href="/YunJinHan.github.io/2017/04/Angular2-Component">Angular2 Component</a></li>
+    
+    <li><a href="/YunJinHan.github.io/2017/04/UP-Development-1.-Inception-2">UP Development - 1.Inception (Cont'd)</a></li>
+    
+    <li><a href="/YunJinHan.github.io/2017/04/spelling-correction">Spelling Correction</a></li>
+    
+    <li><a href="/YunJinHan.github.io/2017/04/UP-Development-1.-Inception">UP Development - 1.Inception</a></li>
+    
+    <li><a href="/YunJinHan.github.io/2017/04/wild-card">Wild - Card Queries</a></li>
+    
+    <li><a href="/YunJinHan.github.io/2017/04/Angular2-Outline">Angular2 Outline</a></li>
+    
+  </ul>
+</div>
+
+<div class="sidebar">
+  <h2>Categories</h2>
+  <ul class="sideBarTags">
+    
+    
+    <li>
+      <a href="/YunJinHan.github.io/tag/Angular2" data-toggle="tooltip" data-placement="right" title="2">
+        <span>Angular2</span></a></li>
+    
+    <li>
+      <a href="/YunJinHan.github.io/tag/Information_Retrieval" data-toggle="tooltip" data-placement="right" title="11">
+        <span>Information_Retrieval</span></a></li>
+    
+    <li>
+      <a href="/YunJinHan.github.io/tag/Object-Oriented-Programming" data-toggle="tooltip" data-placement="right" title="11">
+        <span>Object-Oriented-Programming</span></a></li>
+    
+    <li>
+      <a href="/YunJinHan.github.io/tag/Problems" data-toggle="tooltip" data-placement="right" title="3">
+        <span>Problems</span></a></li>
+    
+  </ul>
+</div>
+
+            </div>
+          </div>
+        </div>
+        
+
+      </div>
+          <footer class="footer-distributed">
+      <div class="container">
+        <div class="footer">
+          <p>JinHan Yun &copy; 2017</p>
+          <h6>Contact Me</h6>
+
+<ul class="social-media">
+
+  
+    <li>
+      <a title="YunJinHan on Github" href="https://github.com/YunJinHan" target="_blank"><i class="fa fa-github fa-2x"></i></a>
+    </li>
+  
+
+  
+    <li>
+      <a title="yjh9234@gmail.com on Email" href="mailto:yjh9234@gmail.com" target=""><i class="fa fa-envelope fa-2x"></i></a>
+    </li>
+  
+
+</ul>
+
+        </div>
+      </div>
+    </footer>
+
+    </div>
+  </body>
+</html>

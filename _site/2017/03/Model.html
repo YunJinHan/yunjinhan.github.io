@@ -1,0 +1,352 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>JinHan's Blog | Model </title>
+  <meta name="theme-color" content="#222222" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="/YunJinHan.github.io/js/jquery.min.js"></script>
+  <script src="/YunJinHan.github.io/js/bootstrap.min.js"></script>
+  <script src="/YunJinHan.github.io/js/header.js"></script>
+  <script src="/YunJinHan.github.io/js/toc.js"></script>
+  <link rel="icon" href="/YunJinHan.github.io/favicon.png" type="image/x-icon">
+  <link href="/YunJinHan.github.io/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/YunJinHan.github.io/css/theme.css" rel="stylesheet">
+  <link href="/YunJinHan.github.io/css/syntax.css" rel="stylesheet">
+  <link href="/YunJinHan.github.io/css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+  
+
+  
+
+
+ <script type="text/javascript">
+  WebFontConfig = {
+    google: {
+      families: ['Ubuntu::latin']
+    }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/YunJinHan.github.io/">JinHan's Blog</a>
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li><a href="/YunJinHan.github.io/">/home</a></li>
+          <li><a href="/YunJinHan.github.io/archive.html">/archive</a></li>
+          <li><a href="/YunJinHan.github.io/tags.html">/categories</a></li>
+          <li><a href="/YunJinHan.github.io/about.html">/about</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+    <div class="wrapper">
+      <div class="content">
+        <div class="container container-center">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="article">
+                <div class="well">
+                  <h1><a href="/YunJinHan.github.io/2017/03/Model">Model</a></h1>
+                  <div class="post-meta">
+                    <div class="post-time">
+                      <i class="fa fa-calendar"></i>
+                      <time>28 Mar 2017</time>
+                    </div>
+                    <ul>
+                      
+                        <li><a href="/YunJinHan.github.io/tag/Object-Oriented-Programming">Object-Oriented-Programming</a></li>
+                      
+                    </ul>
+                  </div>
+                  <div class="post-content">
+                    <div id="toc" class="toc"></div>
+                    <h1 id="model">Model</h1>
+<h3 id="--a-model-is-a-simplification-of-reality">- A Model is a simplification of Reality</h3>
+
+<h3 id="--models-capture-the-essential-aspects-of-a-system-which-are-relevant-to-a-given-level-of-abstraction--모델--필수적-요소만-나타낸것-">- Models capture the Essential aspects of a system which are relevant to a given level of Abstraction ( 모델 : 필수적 요소만 나타낸것 )</h3>
+
+<h2 id="reasons-of-using-model">Reasons of using Model</h2>
+<ol>
+  <li>To <strong>Visualize</strong> a system as it’s or as we want it to be</li>
+  <li>To <strong>Specify</strong> the structure or behavior of a system</li>
+  <li>To give a blueprint to <strong>Construct</strong> a system</li>
+  <li>To <strong>Document</strong> the decisions we have made</li>
+</ol>
+
+<h2 id="a-model-may-be-structural-or-behavioral">A Model may be structural or behavioral</h2>
+<h3 id="--static-models--structure-models-describe-a-structural-prperties-of-a-system">- Static Models ( Structure Models )<br />Describe a structural prperties of a system</h3>
+<h3 id="--dynamic-models--behavior-models-describe-a-behavioral-properties-of-a-system">- Dynamic Models ( Behavior Models )<br />Describe a behavioral properties of a system</h3>
+<p><br /><br /></p>
+
+<h1 id="unified-modeling-language-uml-20">Unified Modeling Language (UML 2.0)</h1>
+<ul>
+  <li>Visual <strong>Notation</strong> ans semantics</li>
+  <li><strong>Process Independent</strong></li>
+  <li>Not Process, Just Notation</li>
+</ul>
+
+<h3 id="--static-models--structure-models-">- Static Models ( Structure Models )</h3>
+<ol>
+  <li>Class Diagrams</li>
+  <li>Object Diagrams</li>
+  <li>Component Diagrams</li>
+  <li>Deployment Diagrams</li>
+  <li>Package Diagrams</li>
+  <li>Composite Structure Diagrams</li>
+</ol>
+
+<h3 id="--dynamic-models--behavior-models-">- Dynamic Models ( Behavior Models )</h3>
+<ol>
+  <li>Activity Diagrams</li>
+  <li>Use Case Diagrams</li>
+  <li>State Machine Diagrams</li>
+  <li>Interaction Diagrams<br />1. Sequence Diagram<br />2. Communication Diagram<br />3. Interaction Overview Diagrams<br />4. Timing Diagrams</li>
+</ol>
+
+<h2 id="ways-of-using-uml">Ways of Using UML</h2>
+<ul>
+  <li><strong>Different ways in which people want to use UML</strong>
+    <ul>
+      <li>UML as sketch</li>
+      <li>UML as blueprint</li>
+      <li>UML as programming language</li>
+    </ul>
+  </li>
+</ul>
+
+<p>실질 적으로 대부분 sketch 까지만 진행</p>
+
+<ul>
+  <li><strong>Forward Engineering</strong>
+    <ul>
+      <li>draws a UML diagram before you write code</li>
+    </ul>
+  </li>
+  <li><strong>Reverse Engineering</strong>
+    <ul>
+      <li>builds a UML diagram from existing code in order to help understand it</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /><br /></p>
+
+<h1 id="unified-process">Unified Process</h1>
+
+<p><img src="http://localhost:4000/assets/unified_process.png" alt="screenshot" /></p>
+
+<p><strong>Inception -&gt; Elaboration -&gt; construction -&gt; Transition</strong><br /><br />
+각각의 단계에서 달성해야 할 Goal 이 무엇인지 파악하는것이 매우 중요하다.</p>
+
+<h2 id="object-oriented-analysis">Object-Oriented Analysis</h2>
+<p>Analysis emphasizes an <strong>Investigation, Understanding, and Discovery</strong> of the problem domain and requirements what the problem is about and what a system must do<br /></p>
+
+<p>Analysis dosen’t concern how a logical solution is defined<br /></p>
+
+<p>All the vocalbularies used in the analysis must from the <strong>Problem Domain</strong></p>
+
+<h3 id="--requirement-analysis">- Requirement Analysis</h3>
+<p><img src="http://localhost:4000/assets/UseCase.png" alt="screenshot" /><br />
+<br /><br />
+Investigation of functional &amp; non - functional requirements Functional requirement are captured by <strong>Use-Case Model</strong></p>
+
+<h3 id="--object-analysis">- Object Analysis</h3>
+<p><img src="http://localhost:4000/assets/Domain.png" alt="screenshot" /><br />
+<br /><br />
+Investigation of domain objects, i.e., emphasizing on finding and describing objects (or concepts) in the problem domain Captured by <strong>Domain Model</strong></p>
+
+<h2 id="object-oriented-design">Object-Oriented Design</h2>
+<ul>
+  <li>OOD is primarily a process of <strong>Invention</strong> and <strong>Adaption</strong> of conceptual solution</li>
+  <li>OOD tends to be relatively independent of the language used</li>
+</ul>
+
+<h2 id="object-oriented-programming">Object-Oriented Programming</h2>
+<p><img src="http://localhost:4000/assets/oop.png" alt="screenshot" /></p>
+
+<ul>
+  <li>This corresponds to the implementation discipline</li>
+  <li>The classes and class operations are coded, tested, and intergrated</li>
+</ul>
+
+<p>—&gt; There is no one correct representation</p>
+
+<h2 id="core-of-the-unified-process-up">Core of the Unified Process (UP)</h2>
+<p><strong>Iterative and Incremental</strong> development process using a set of principles and methods based on <strong>Objects</strong> in the <strong>Problem Domain</strong> rather than actions performed by the system</p>
+
+<ul>
+  <li>
+    <p>Iterative<br />Instead of building the entire system as one go, the project has a few or many builds. A build includes only a subset of the entire functionality</p>
+  </li>
+  <li>
+    <p>Incremental<br />Software is developed on top of previous build. Make small but noticeable improvements in each iteration</p>
+  </li>
+</ul>
+
+<h2 id="additional-up-best-practices">Additional UP Best Practices</h2>
+<ul>
+  <li><strong>Tackle high-risk and high-value issues in early iterations ( 어려운 것을 먼저 한다 )</strong></li>
+  <li>Continuously engage users for evaluation, feedback and requirements ( 고객의 요구사항을 지속적으로 수용한다 )</li>
+  <li><strong>Build a cohesive, core Architiecture in early iterations ( 초반에는 응집적이며 중심구조적인 아키텍쳐로 설계한다 )</strong></li>
+  <li>Continuously verify quality; test early, often, and realistically ( 지속적인 테스트를 한다 )</li>
+  <li><strong>Apply Use Cases ( UP 중심에는 Use-Case 가 있다 )</strong></li>
+  <li>Model software visually ( with UML )</li>
+  <li>Carefully manage requirements</li>
+  <li>Practice change request and configuration management</li>
+</ul>
+
+<h2 id="up-development-cycle">UP Development Cycle</h2>
+<p><img src="http://localhost:4000/assetsimg/upcycle.png" alt="screenshot" /></p>
+
+<h3 id="1-inception">1. Inception</h3>
+<ul>
+  <li><strong>Feasibility Phase ( 실현 가능한가? )</strong></li>
+  <li>Establish approximate vision and business case</li>
+</ul>
+
+<h3 id="2-elaboration---시스템의-성패를-가르는-가장-중요한-단계">2. Elaboration -&gt; 시스템의 성패를 가르는 가장 중요한 단계</h3>
+<ul>
+  <li><strong>Implement core architecture</strong> (시스템의 전체적인 모습이 완성되는 단계이다. )</li>
+  <li>수행 전 고객의 Requirement 의 80 ~ 90% 이상을 알고 있어야한다.</li>
+  <li><strong>Resovle High Risks</strong> ( 리스크 요소가 큰 것부터 해결한다 -&gt; Elaboration 이 끝날때는 High Risk 가 없는게 지향적이다 )</li>
+</ul>
+
+<h3 id="3-construction">3. Construction</h3>
+<ul>
+  <li>Iterative implementation of the remaining lower risk and easier elements</li>
+  <li>Preparation for deployment</li>
+</ul>
+
+<h3 id="4-transition">4. Transition</h3>
+<ul>
+  <li>Get User Feedback</li>
+</ul>
+
+<h2 id="up-disciplines-and-artifacts">UP Disciplines and Artifacts</h2>
+<ul>
+  <li>A <strong>discipline (관련분야)</strong> is a set of activities (and related artifacts) in one subject area, such as activities in requirements analysis</li>
+  <li>An <strong>artifact (discipline 으로 만들어진 결과 산출물)</strong> is the general term used for any work product</li>
+</ul>
+
+<h2 id="two-desert-island-skills-in-ooa--ood">Two Desert Island SKills in OOA &amp; OOD</h2>
+<ul>
+  <li><strong>Assigning responsibilities to software components</strong></li>
+  <li><strong>Finding suitable objects or abstraction</strong></li>
+</ul>
+
+                    
+
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 hidden-xs">
+              <div class="sidebar ">
+  <h2>Recent Posts</h2>
+  <ul>
+    
+    <li><a href="/YunJinHan.github.io/2017/04/UP-Development-2.-Elaboration">UP Development - 2.Elaboration</a></li>
+    
+    <li><a href="/YunJinHan.github.io/2017/04/UP-Development-1.-Inception-3">UP Development - 1.Inception (Cont'd) 2</a></li>
+    
+    <li><a href="/YunJinHan.github.io/2017/04/blocked-sort-based-indexing">Index Construction</a></li>
+    
+    <li><a href="/YunJinHan.github.io/2017/04/n-gram-overlap">N - Gram Overlap</a></li>
+    
+    <li><a href="/YunJinHan.github.io/2017/04/Angular2-Component">Angular2 Component</a></li>
+    
+    <li><a href="/YunJinHan.github.io/2017/04/UP-Development-1.-Inception-2">UP Development - 1.Inception (Cont'd)</a></li>
+    
+    <li><a href="/YunJinHan.github.io/2017/04/spelling-correction">Spelling Correction</a></li>
+    
+    <li><a href="/YunJinHan.github.io/2017/04/UP-Development-1.-Inception">UP Development - 1.Inception</a></li>
+    
+    <li><a href="/YunJinHan.github.io/2017/04/wild-card">Wild - Card Queries</a></li>
+    
+    <li><a href="/YunJinHan.github.io/2017/04/Angular2-Outline">Angular2 Outline</a></li>
+    
+  </ul>
+</div>
+
+<div class="sidebar">
+  <h2>Categories</h2>
+  <ul class="sideBarTags">
+    
+    
+    <li>
+      <a href="/YunJinHan.github.io/tag/Angular2" data-toggle="tooltip" data-placement="right" title="2">
+        <span>Angular2</span></a></li>
+    
+    <li>
+      <a href="/YunJinHan.github.io/tag/Information_Retrieval" data-toggle="tooltip" data-placement="right" title="11">
+        <span>Information_Retrieval</span></a></li>
+    
+    <li>
+      <a href="/YunJinHan.github.io/tag/Object-Oriented-Programming" data-toggle="tooltip" data-placement="right" title="11">
+        <span>Object-Oriented-Programming</span></a></li>
+    
+    <li>
+      <a href="/YunJinHan.github.io/tag/Problems" data-toggle="tooltip" data-placement="right" title="3">
+        <span>Problems</span></a></li>
+    
+  </ul>
+</div>
+
+            </div>
+          </div>
+        </div>
+        
+
+      </div>
+          <footer class="footer-distributed">
+      <div class="container">
+        <div class="footer">
+          <p>JinHan Yun &copy; 2017</p>
+          <h6>Contact Me</h6>
+
+<ul class="social-media">
+
+  
+    <li>
+      <a title="YunJinHan on Github" href="https://github.com/YunJinHan" target="_blank"><i class="fa fa-github fa-2x"></i></a>
+    </li>
+  
+
+  
+    <li>
+      <a title="yjh9234@gmail.com on Email" href="mailto:yjh9234@gmail.com" target=""><i class="fa fa-envelope fa-2x"></i></a>
+    </li>
+  
+
+</ul>
+
+        </div>
+      </div>
+    </footer>
+
+    </div>
+  </body>
+</html>
