@@ -1,0 +1,358 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>JinHan's Blog | B+ Tree (cont'd) </title>
+  <meta name="theme-color" content="#222222" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+  <script src="/js/header.js"></script>
+  <script src="/js/toc.js"></script>
+  <link rel="icon" href="/favicon.png" type="image/x-icon">
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/css/theme.css" rel="stylesheet">
+  <link href="/css/syntax.css" rel="stylesheet">
+  <link href="/css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+  
+
+  
+
+
+ <script type="text/javascript">
+  WebFontConfig = {
+    google: {
+      families: ['Ubuntu::latin']
+    }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">JinHan's Blog</a>
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li><a href="/">/home</a></li>
+          <li><a href="/archive.html">/archive</a></li>
+          <li><a href="/tags.html">/categories</a></li>
+          <li><a href="/about.html">/about</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+    <div class="wrapper">
+      <div class="content">
+        <div class="container container-center">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="article">
+                <div class="well">
+                  <h1><a href="/2017/03/b+-tree-(cont'd)">B+ Tree (cont'd)</a></h1>
+                  <div class="post-meta">
+                    <div class="post-time">
+                      <i class="fa fa-calendar"></i>
+                      <time>27 Mar 2017</time>
+                    </div>
+                    <ul>
+                      
+                        <li><a href="/tag/Information_Retrieval">Information_Retrieval</a></li>
+                      
+                    </ul>
+                  </div>
+                  <div class="post-content">
+                    <div id="toc" class="toc"></div>
+                    <h2 id="insertion-in-b-trees">Insertion in B+ Trees</h2>
+<h3 id="--leaf-node-에-new-key-값이-insert-될-자리가-있을때">- Leaf Node 에 New Key 값이 Insert 될 자리가 있을때</h3>
+<p>해당 New Key 값을 Order 에 맞게 자리를 찾아 Insert 한다.</p>
+
+<h3 id="--leaf-node-에-new-key-값이-insert-될-자리가-없을때">- Leaf Node 에 New Key 값이 Insert 될 자리가 없을때</h3>
+<p><strong>해당 Node 의 values 가 꽉차서 Overflow 가 발생하게 된다</strong> ==&gt; <strong>Split 해준다.</strong><br /></p>
+
+<p>Example - Insert 8<br /></p>
+
+<p><img src="http://localhost:4000/assets/b+_tree_insertion.png" alt="screenshot" /></p>
+
+<ul>
+  <li>Splitting a Leaf Node
+    <ol>
+      <li>8 value 를 Insert 시 해당 Leaf Node 의 values 들이 2 3 5 7 8 이 되는데<br />4 개를 초과하여 <strong>Overflow</strong> 가 발생하게 된다.</li>
+      <li>
+        <table>
+          <tbody>
+            <tr>
+              <td>기존의 Node A 에 P(1),K(1) ~ P(</td>
+              <td>n/2</td>
+              <td>),K(</td>
+              <td>n/2</td>
+              <td>) , P(</td>
+              <td>n/2</td>
+              <td>+ 1 ) 까지 Copy 한다.<br />(</td>
+              <td>A</td>
+              <td>= A 보다 큰 정수들 중 가장 작은 정수 )<br />( n = 5,</td>
+              <td>n/2</td>
+              <td>= 3 , 결과 : [ 2, 3, 5 ])</td>
+            </tr>
+          </tbody>
+        </table>
+      </li>
+      <li>
+        <table>
+          <tbody>
+            <tr>
+              <td>새로운 Node B 를 만들어 P(</td>
+              <td>n/2</td>
+              <td>),K (</td>
+              <td>n/2</td>
+              <td>) ~ P( n ), K( n ) , P( n + 1 ) 까지 Copy 한다.<br />( 결과 : [ 7, 8 ] )</td>
+            </tr>
+          </tbody>
+        </table>
+      </li>
+      <li>
+        <table>
+          <tbody>
+            <tr>
+              <td>부모 노드에 K(</td>
+              <td>n/2</td>
+              <td>+ 1 ) 값을 올린다. 왼쪽 자식 포인터는 A Node, 오른쪽 자식 포인터는 B Node 를 가르킨다.</td>
+            </tr>
+          </tbody>
+        </table>
+      </li>
+    </ol>
+  </li>
+  <li>
+    <p>Splitting a Non Leaf Node ( Internal Node )</p>
+
+    <ol>
+      <li>7 value 가 올라와서 해당 Internal Node ( 여기선 Root ) 의 values 들이 7 13 17 24 30 이 되는데 <br />4 개를 초과하여 <strong>Overflow</strong> 가 발생하게 된다.</li>
+      <li>올라온 값을 Insert 한다.</li>
+      <li>
+        <table>
+          <tbody>
+            <tr>
+              <td>기존의 Node A 에 P(1),K(1) ~ P(</td>
+              <td>n/2</td>
+              <td>- 1 ),K(</td>
+              <td>n/2</td>
+              <td>- 1 ) , P(</td>
+              <td>n/2</td>
+              <td>) 까지 Copy 한다.<br />(</td>
+              <td>A</td>
+              <td>= A 보다 큰 정수들 중 가장 작은 정수 )<br />( n = 5 ( 7, 13, 17, 24, 30 ),</td>
+              <td>n/2</td>
+              <td>= 3 ===&gt; 결과 : [ 7, 13 ] )</td>
+            </tr>
+          </tbody>
+        </table>
+      </li>
+      <li>
+        <table>
+          <tbody>
+            <tr>
+              <td>새로운 Node B 를 만들어 P(</td>
+              <td>n/2</td>
+              <td>+ 1 ),K(</td>
+              <td>n/2</td>
+              <td>+ 1 ) ~ P(n),K(n) , P( n + 1 ) 를 Copy 한다.<br />( 결과 : [ 24, 30 ] )</td>
+            </tr>
+          </tbody>
+        </table>
+      </li>
+      <li>
+        <table>
+          <tbody>
+            <tr>
+              <td>K(</td>
+              <td>n/2</td>
+              <td>) 값을 새로운 부모노드에 Insert 한 후 왼쪽 자식 포인터는 A Node, 오른쪽 자식 포인터는 B Node 를 가르킨다.</td>
+            </tr>
+          </tbody>
+        </table>
+      </li>
+    </ol>
+
+    <p>==&gt; 가운데 값을 부모 노드로 올리고 양쪽의 값을 나누어 2개의 노드로 만든다.</p>
+  </li>
+</ul>
+
+<h2 id="deletion-in-b-trees">Deletion in B+ Trees</h2>
+<h3 id="--삭제-후-leaf-node-의-condition-이-유지되는-경우">- 삭제 후 Leaf Node 의 Condition 이 유지되는 경우</h3>
+<p>해당 Key 값을 제거 한 후 해당 삭제가 발생된 Node 안에서 한칸씩 당겨 정렬한다.</p>
+<h3 id="--삭제-후-leaf-node-의-condition-이-유지되지-않는-경우">- 삭제 후 Leaf Node 의 Condition 이 유지되지 않는 경우</h3>
+
+<p><img src="http://localhost:4000/assets/b+_tree_deletion1.png" alt="screenshot" /></p>
+
+<ul>
+  <li>
+    <p>Re-distribution in Leaf Nodes</p>
+
+    <ol>
+      <li>삭제 시 <strong>Underflow</strong> 가 발생하게 된다.</li>
+      <li>형제 Node 에서 Key 값을 빌려온다. ( 왼쪽 형제이면 가장 큰 Key 를 , 오른쪽 형제이면 가장 작은 Key 를 빌려온다. )</li>
+      <li>해당 삭제가 발생한 Node 에 빌려온 Key 값을 넣고 <strong>빌려준 Node 에서는 가장 작거나 큰 값을 부모 노드로 밀어 올린다. ( Copy Up )</strong><br />( ex. 18 을 빌려와 부모에서 18이 내려오고 19가 부모로 올라간다 –&gt; 3단 밀어내기 )</li>
+    </ol>
+
+    <p><br /></p>
+  </li>
+</ul>
+
+<p><img src="http://localhost:4000/assets/b+_tree_deletion2.png" alt="screenshot" /></p>
+
+<ul>
+  <li>
+    <p>Merge in Leaf Nodes and Re-distribution in Non-leaf Nodes</p>
+
+    <ol>
+      <li>삭제를 하였는데 형제 Node 에서 빌려올 Key 값이 없다.</li>
+      <li>해당 형제 노드들을 <strong>Merge</strong> 한다.</li>
+      <li>부모에 Key 값이 한 개 있는 경우 ( Leaf Node 의 Key 값을 제외한 Key 값의 수 )
+        <ul>
+          <li>부모 또한 <strong>Merge</strong> 를 시도한다. 실패 한다면 형제 부모 Node 에서 Key 값을 빌려온다.</li>
+        </ul>
+      </li>
+      <li>부모에 Key 값이 아무것도 없는 경우 ( Leaf Node 의 Key 값을 제외한 Key 값의 수 )
+        <ul>
+          <li>부모가 형제 부모 Node 에서 Key 값을 빌려온다. 실패 한다면 부모 또한 <strong>Merge</strong> 를 시도한다.</li>
+        </ul>
+      </li>
+    </ol>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="example">Example</h2>
+<h3 id="--delete-24">- Delete 24</h3>
+<p>1.<br />
+<img src="http://localhost:4000/assets/b+_tree_deletion3.png" alt="screenshot" /></p>
+
+<p>2.<br />
+<img src="http://localhost:4000/assets/b+_tree_deletion3_1.png" alt="screenshot" /></p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>try that N = 3 &amp;&amp; insert 6, 8, 5, 7, 4 &amp;&amp; delete 8</td>
+      <td> </td>
+      <td>delete 6 !!</td>
+    </tr>
+  </tbody>
+</table>
+
+
+                    
+
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 hidden-xs">
+              <div class="sidebar ">
+  <h2>Recent Posts</h2>
+  <ul>
+    
+    <li><a href="/2017/04/UP-Development-2.-Elaboration">UP Development - 2.Elaboration</a></li>
+    
+    <li><a href="/2017/04/UP-Development-1.-Inception-3">UP Development - 1.Inception (Cont'd) 2</a></li>
+    
+    <li><a href="/2017/04/blocked-sort-based-indexing">Index Construction</a></li>
+    
+    <li><a href="/2017/04/n-gram-overlap">N - Gram Overlap</a></li>
+    
+    <li><a href="/2017/04/Angular2-Component">Angular2 Component</a></li>
+    
+    <li><a href="/2017/04/UP-Development-1.-Inception-2">UP Development - 1.Inception (Cont'd)</a></li>
+    
+    <li><a href="/2017/04/spelling-correction">Spelling Correction</a></li>
+    
+    <li><a href="/2017/04/UP-Development-1.-Inception">UP Development - 1.Inception</a></li>
+    
+    <li><a href="/2017/04/wild-card">Wild - Card Queries</a></li>
+    
+    <li><a href="/2017/04/Angular2-Outline">Angular2 Outline</a></li>
+    
+  </ul>
+</div>
+
+<div class="sidebar">
+  <h2>Categories</h2>
+  <ul class="sideBarTags">
+    
+    
+    <li>
+      <a href="/tag/Angular2" data-toggle="tooltip" data-placement="right" title="2">
+        <span>Angular2</span></a></li>
+    
+    <li>
+      <a href="/tag/Information_Retrieval" data-toggle="tooltip" data-placement="right" title="11">
+        <span>Information_Retrieval</span></a></li>
+    
+    <li>
+      <a href="/tag/Object-Oriented-Programming" data-toggle="tooltip" data-placement="right" title="11">
+        <span>Object-Oriented-Programming</span></a></li>
+    
+    <li>
+      <a href="/tag/Problems" data-toggle="tooltip" data-placement="right" title="3">
+        <span>Problems</span></a></li>
+    
+  </ul>
+</div>
+
+            </div>
+          </div>
+        </div>
+        
+
+      </div>
+          <footer class="footer-distributed">
+      <div class="container">
+        <div class="footer">
+          <p>JinHan Yun &copy; 2017</p>
+          <h6>Contact Me</h6>
+
+<ul class="social-media">
+
+  
+    <li>
+      <a title="YunJinHan on Github" href="https://github.com/YunJinHan" target="_blank"><i class="fa fa-github fa-2x"></i></a>
+    </li>
+  
+
+  
+    <li>
+      <a title="yjh9234@gmail.com on Email" href="mailto:yjh9234@gmail.com" target=""><i class="fa fa-envelope fa-2x"></i></a>
+    </li>
+  
+
+</ul>
+
+        </div>
+      </div>
+    </footer>
+
+    </div>
+  </body>
+</html>

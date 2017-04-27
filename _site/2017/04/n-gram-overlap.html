@@ -1,0 +1,256 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>JinHan's Blog | N - Gram Overlap </title>
+  <meta name="theme-color" content="#222222" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+  <script src="/js/header.js"></script>
+  <script src="/js/toc.js"></script>
+  <link rel="icon" href="/favicon.png" type="image/x-icon">
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/css/theme.css" rel="stylesheet">
+  <link href="/css/syntax.css" rel="stylesheet">
+  <link href="/css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+  
+
+  
+
+
+ <script type="text/javascript">
+  WebFontConfig = {
+    google: {
+      families: ['Ubuntu::latin']
+    }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">JinHan's Blog</a>
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li><a href="/">/home</a></li>
+          <li><a href="/archive.html">/archive</a></li>
+          <li><a href="/tags.html">/categories</a></li>
+          <li><a href="/about.html">/about</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+    <div class="wrapper">
+      <div class="content">
+        <div class="container container-center">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="article">
+                <div class="well">
+                  <h1><a href="/2017/04/n-gram-overlap">N - Gram Overlap</a></h1>
+                  <div class="post-meta">
+                    <div class="post-time">
+                      <i class="fa fa-calendar"></i>
+                      <time>16 Apr 2017</time>
+                    </div>
+                    <ul>
+                      
+                        <li><a href="/tag/Information_Retrieval">Information_Retrieval</a></li>
+                      
+                    </ul>
+                  </div>
+                  <div class="post-content">
+                    <div id="toc" class="toc"></div>
+                    <h1 id="n---gram-overlap">N - Gram Overlap</h1>
+<p>Use the n-gram index (recall wild-card search) to <strong>retrieve all lexicon terms matching any of the query n-grams</strong></p>
+
+<p>Example )</p>
+<pre>
+Trigrams
+* november -&gt; nov, ove, vem, emb, mbe, ber
+* december -&gt; dec, ece, cem, emb, mbe, ber
+<br />--&gt; emb, mbe, ber 3 trigrams overlap ( of 6 in each term )
+</pre>
+
+<h3 id="--simple-lower-bound-of-substring-edit-distance">- Simple Lower Bound of Substring Edit Distance</h3>
+<p><strong>정확하진 않지만 Lower Bound ( 근사값 ) - The minimun number of edit operations</strong></p>
+
+<p><img src="http://localhost:4000/assets/SimpleLowerBound.png" alt="screenshot" /></p>
+
+<pre>
+Trigrams --&gt; n == 3
+
+∂ = Jackson Pollock ( len = 15 )
+s = JalksenPollock
+
+Jac, ack, cks, kso, son, on_, n_P, _Po
+Jal, alk, lks, kse, sen, enP, nPo, Pol&nbsp;&nbsp;===&gt;&nbsp;8 mismatching trigrams
+
+Pol, oll, llo, loc, ock ===&gt; 5 matching trigrams ( = c )
+
+max(|s|,|∂|) - n + 1 - c = max(14,15) - 3 + 1 - 5 = 8
+
+So, Simple Lower Bound of Substring Edit Distance is [8/3] = 3
+</pre>
+<p><br /></p>
+
+<h1 id="soundex">SOUNDEX</h1>
+<p><strong>Class of heuristics to expand a query into phonetic equivalents</strong><br /><br />
+발음이 동등한지 여부를 판단한다</p>
+
+<ol>
+  <li>
+    <p>Retain the first letter of the word ( <strong>첫 글자는 생략</strong> )</p>
+  </li>
+  <li>Change all occurrences of the following letters to ‘0’ (zero)
+    <ul>
+      <li>A, E, I, O, U, H, W, Y</li>
+    </ul>
+  </li>
+  <li>Change letters to digits as follows
+    <ul>
+      <li>B, F, P, V : 1</li>
+      <li>C,G,J,K,Q,S,X,Z : 2</li>
+      <li>D,T : 3</li>
+      <li>L : 4</li>
+      <li>M, N : 5</li>
+      <li>R : 6<br />
+–&gt; 외울 필요 없음</li>
+    </ul>
+  </li>
+  <li>Repeatedly remove one out of each pair of consecutive identical digits.( <strong>반복되는 Pair 제거</strong> )</li>
+  <li>Remove all zeros from the resulting string ( <strong>0 모두 지움</strong> )</li>
+  <li>Pad the resulting string with trailing zeros and return the first four positions ( <strong>길이 맞추기 위해 0 padding</strong> )</li>
+</ol>
+
+<p><br /><br />
+Example )</p>
+
+<p><img src="http://localhost:4000/assets/soundex.png" alt="screenshot" /></p>
+
+<h2 id="what-queries-can-we-process">What queries can we process?</h2>
+<ul>
+  <li>Positional inverted index with skip pointers</li>
+  <li>Wild-card index</li>
+  <li>Spell-correction</li>
+  <li>Soundex</li>
+</ul>
+
+<p>Query Search Engine Such as (SPELL(moriset) /3 toron*to) OR<br />
+SOUNDEX(chaikofski) …</p>
+
+                    
+
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 hidden-xs">
+              <div class="sidebar ">
+  <h2>Recent Posts</h2>
+  <ul>
+    
+    <li><a href="/2017/04/UP-Development-2.-Elaboration">UP Development - 2.Elaboration</a></li>
+    
+    <li><a href="/2017/04/UP-Development-1.-Inception-3">UP Development - 1.Inception (Cont'd) 2</a></li>
+    
+    <li><a href="/2017/04/blocked-sort-based-indexing">Index Construction</a></li>
+    
+    <li><a href="/2017/04/n-gram-overlap">N - Gram Overlap</a></li>
+    
+    <li><a href="/2017/04/Angular2-Component">Angular2 Component</a></li>
+    
+    <li><a href="/2017/04/UP-Development-1.-Inception-2">UP Development - 1.Inception (Cont'd)</a></li>
+    
+    <li><a href="/2017/04/spelling-correction">Spelling Correction</a></li>
+    
+    <li><a href="/2017/04/UP-Development-1.-Inception">UP Development - 1.Inception</a></li>
+    
+    <li><a href="/2017/04/wild-card">Wild - Card Queries</a></li>
+    
+    <li><a href="/2017/04/Angular2-Outline">Angular2 Outline</a></li>
+    
+  </ul>
+</div>
+
+<div class="sidebar">
+  <h2>Categories</h2>
+  <ul class="sideBarTags">
+    
+    
+    <li>
+      <a href="/tag/Angular2" data-toggle="tooltip" data-placement="right" title="2">
+        <span>Angular2</span></a></li>
+    
+    <li>
+      <a href="/tag/Information_Retrieval" data-toggle="tooltip" data-placement="right" title="11">
+        <span>Information_Retrieval</span></a></li>
+    
+    <li>
+      <a href="/tag/Object-Oriented-Programming" data-toggle="tooltip" data-placement="right" title="11">
+        <span>Object-Oriented-Programming</span></a></li>
+    
+    <li>
+      <a href="/tag/Problems" data-toggle="tooltip" data-placement="right" title="3">
+        <span>Problems</span></a></li>
+    
+  </ul>
+</div>
+
+            </div>
+          </div>
+        </div>
+        
+
+      </div>
+          <footer class="footer-distributed">
+      <div class="container">
+        <div class="footer">
+          <p>JinHan Yun &copy; 2017</p>
+          <h6>Contact Me</h6>
+
+<ul class="social-media">
+
+  
+    <li>
+      <a title="YunJinHan on Github" href="https://github.com/YunJinHan" target="_blank"><i class="fa fa-github fa-2x"></i></a>
+    </li>
+  
+
+  
+    <li>
+      <a title="yjh9234@gmail.com on Email" href="mailto:yjh9234@gmail.com" target=""><i class="fa fa-envelope fa-2x"></i></a>
+    </li>
+  
+
+</ul>
+
+        </div>
+      </div>
+    </footer>
+
+    </div>
+  </body>
+</html>

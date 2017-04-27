@@ -1,0 +1,237 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>JinHan's Blog | Cookie & Session </title>
+  <meta name="theme-color" content="#222222" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+  <script src="/js/header.js"></script>
+  <script src="/js/toc.js"></script>
+  <link rel="icon" href="/favicon.png" type="image/x-icon">
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/css/theme.css" rel="stylesheet">
+  <link href="/css/syntax.css" rel="stylesheet">
+  <link href="/css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+  
+
+  
+
+
+ <script type="text/javascript">
+  WebFontConfig = {
+    google: {
+      families: ['Ubuntu::latin']
+    }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">JinHan's Blog</a>
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li><a href="/">/home</a></li>
+          <li><a href="/archive.html">/archive</a></li>
+          <li><a href="/tags.html">/categories</a></li>
+          <li><a href="/about.html">/about</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+    <div class="wrapper">
+      <div class="content">
+        <div class="container container-center">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="article">
+                <div class="well">
+                  <h1><a href="/2017/04/Cookie-&-Session">Cookie & Session</a></h1>
+                  <div class="post-meta">
+                    <div class="post-time">
+                      <i class="fa fa-calendar"></i>
+                      <time>03 Apr 2017</time>
+                    </div>
+                    <ul>
+                      
+                        <li><a href="/tag/Problems">Problems</a></li>
+                      
+                    </ul>
+                  </div>
+                  <div class="post-content">
+                    <div id="toc" class="toc"></div>
+                    <h1 id="cookie">Cookie</h1>
+<p>데이터를 클라이언트상에 저장하는 방법</p>
+
+<p>웹 사이트와 사용자의 컴퓨터를 매개해주는 정보를 담고있는 소량(4KB 이하)의 파일 (php 4.1 이상 가능)<br /><br />
+-&gt; php 와 javascript 간에 정보 공유 가능.</p>
+
+<h2 id="cookie-create">Cookie Create</h2>
+<pre>setcookie(string $name, string $value, int $time, string $path, string $domain, bool $secure = false, bool $httponly = false)</pre>
+
+<ol>
+  <li>$name : 쿠키 이름 ( 공백이나 마침표 안됨 , 대소문자 구분 )</li>
+  <li>$value : 쿠키 값</li>
+  <li>$expire : 쿠키 만료시간 ex) time() + 3600 -&gt; 1시간</li>
+  <li>$path : 지정된 경로에서만 유효 쿠키로 사용 ex) ‘/’ -&gt; 사이트 전체 쿠키 노출</li>
+  <li>$domain : 지정된 도메인에 있을때만 유효 쿠키로 사용</li>
+  <li>$secure / $httponly : 값이 1 인 경우 https 를 통해서만 전송되야함</li>
+</ol>
+
+<p>ex) <br />
+PHP<br />
+쿠키 설정</p>
+<pre>setcookie('category', 'test1', time()+(60*60*24));</pre>
+
+<h2 id="cookie-load">Cookie Load</h2>
+<pre>$_COOKIE['category']</pre>
+
+<h2 id="cookie-modify">Cookie Modify</h2>
+<pre>setcookie('category', 'test2', time()+(60*60*24));</pre>
+
+<h2 id="cookie-delete">Cookie Delete</h2>
+<pre>setcookie('category')</pre>
+
+<h2 id="javascript---cookie-create">Javascript - Cookie Create</h2>
+<pre>document.cookie='category=' + cookie_value;</pre>
+
+<p><br /><br />
+<br /><br />
+<br /></p>
+
+<h1 id="session">Session</h1>
+<p>데이터를 서버상에 저장하는 방법 ( Cookie 보다 안전하며 , 더 많은 데이터를 저장 )</p>
+
+<h2 id="session-start">Session Start</h2>
+<pre>session start();</pre>
+<p>세션 이용하기 전에 반드시 호출해야하며 호출 전에 어떤 내용도 브라우저에 출력하면 안된다.</p>
+
+<h2 id="session-create">Session Create</h2>
+<pre>$_SESSION['category']</pre>
+
+<h2 id="session-delete">Session Delete</h2>
+<p>특정 세션변수만 삭제</p>
+<pre>unset($_SESSION['category'])</pre>
+
+<p>전체 세션변수 삭제</p>
+<pre>$_SESSINO = array();</pre>
+
+<p>서버에 저장된 모든 세션 데이터 삭제</p>
+<pre>session_destory();</pre>
+
+                    
+
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 hidden-xs">
+              <div class="sidebar ">
+  <h2>Recent Posts</h2>
+  <ul>
+    
+    <li><a href="/2017/04/UP-Development-2.-Elaboration">UP Development - 2.Elaboration</a></li>
+    
+    <li><a href="/2017/04/UP-Development-1.-Inception-3">UP Development - 1.Inception (Cont'd) 2</a></li>
+    
+    <li><a href="/2017/04/blocked-sort-based-indexing">Index Construction</a></li>
+    
+    <li><a href="/2017/04/n-gram-overlap">N - Gram Overlap</a></li>
+    
+    <li><a href="/2017/04/Angular2-Component">Angular2 Component</a></li>
+    
+    <li><a href="/2017/04/UP-Development-1.-Inception-2">UP Development - 1.Inception (Cont'd)</a></li>
+    
+    <li><a href="/2017/04/spelling-correction">Spelling Correction</a></li>
+    
+    <li><a href="/2017/04/UP-Development-1.-Inception">UP Development - 1.Inception</a></li>
+    
+    <li><a href="/2017/04/wild-card">Wild - Card Queries</a></li>
+    
+    <li><a href="/2017/04/Angular2-Outline">Angular2 Outline</a></li>
+    
+  </ul>
+</div>
+
+<div class="sidebar">
+  <h2>Categories</h2>
+  <ul class="sideBarTags">
+    
+    
+    <li>
+      <a href="/tag/Angular2" data-toggle="tooltip" data-placement="right" title="2">
+        <span>Angular2</span></a></li>
+    
+    <li>
+      <a href="/tag/Information_Retrieval" data-toggle="tooltip" data-placement="right" title="11">
+        <span>Information_Retrieval</span></a></li>
+    
+    <li>
+      <a href="/tag/Object-Oriented-Programming" data-toggle="tooltip" data-placement="right" title="11">
+        <span>Object-Oriented-Programming</span></a></li>
+    
+    <li>
+      <a href="/tag/Problems" data-toggle="tooltip" data-placement="right" title="3">
+        <span>Problems</span></a></li>
+    
+  </ul>
+</div>
+
+            </div>
+          </div>
+        </div>
+        
+
+      </div>
+          <footer class="footer-distributed">
+      <div class="container">
+        <div class="footer">
+          <p>JinHan Yun &copy; 2017</p>
+          <h6>Contact Me</h6>
+
+<ul class="social-media">
+
+  
+    <li>
+      <a title="YunJinHan on Github" href="https://github.com/YunJinHan" target="_blank"><i class="fa fa-github fa-2x"></i></a>
+    </li>
+  
+
+  
+    <li>
+      <a title="yjh9234@gmail.com on Email" href="mailto:yjh9234@gmail.com" target=""><i class="fa fa-envelope fa-2x"></i></a>
+    </li>
+  
+
+</ul>
+
+        </div>
+      </div>
+    </footer>
+
+    </div>
+  </body>
+</html>
