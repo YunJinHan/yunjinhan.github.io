@@ -1,32 +1,37 @@
 ---
 layout: page
-title: About the Jekyll Theme
-image:
-  feature: abstract-5.jpg
-  credit: dargadgetz
-  creditlink: http://www.dargadgetz.com/ios-7-abstract-wallpaper-pack-for-iphone-5-and-ipod-touch-retina/
+title: About the Theme
+tags: [about, Jekyll, theme, moon]
+date: 2016-03-21
 comments: false
-modified: 2016-02-01
 ---
+    
+<center><a href="http://taylantatli.github.io/Moon"><b>Moon</b></a> is a minimal, one column jekyll theme.</center>
 
-They say three times the charm, so here is another free responsive Jekyll blog theme for you. I've learned a ton since open sourcing my first two themes [on Github](http://github.com/mmistakes), and wanted to try a few new things this time around. 
+## Features
+* Minimal, you can focus on your content
+* Responsive
+* Disqus integration
+* Syntax highlighting
+* Optional post image
+* Social icons
+* Page for sharing projects
+* Optional background image
+* Simple navigation menu
+* MathJax support
 
-If you've used any of [my other themes](http://mademistakes.com/work/jekyll-themes/) most of this should be familiar territory...
+## Preview
 
-## HPSTR Features:
+{% capture images %}
+    https://cloud.githubusercontent.com/assets/754514/14509720/61c61058-01d6-11e6-93ab-0918515ecd56.png
+    https://cloud.githubusercontent.com/assets/754514/14509716/61ac6c8e-01d6-11e6-879f-8308883de790.png
+{% endcapture %}
+{% include gallery images=images caption="Screenshots of Moon Theme" cols=2 %}
 
-* Compatible with Jekyll 3 and GitHub Pages.
-* Responsive templates for post, page, and post index `_layouts`. Looks great on mobile, tablet, and desktop devices.
-* Gracefully degrades in older browsers. Compatible with Internet Explorer 8+ and all modern browsers.  
-* Sweet animated menu.
-* Background image support.
-* Support for large images to call out your favorite posts.
-* Optional [Disqus](http://disqus.com) comments.
-* Simple and clear permalink structure[^1].
-* [Open Graph](https://developers.facebook.com/docs/opengraph/) and [Twitter Cards](https://dev.twitter.com/docs/cards) support for a better social sharing experience.
-* [Custom 404 page]({{ site.url }}/404.html) to get you started.
-* [Syntax highlighting]({{ site.url }}/code-highlighting-post/) stylesheets to make your code examples look snazzy.
+See a [live version of Moon](http://taylantatli.github.io/Moon) hosted on GitHub.
 
-<div markdown="0"><a href="{{ site.url }}/theme-setup/" class="btn btn-info">Theme Setup</a> <a href="https://github.com/mmistakes/hpstr-jekyll-theme" class="btn btn-success">Download HPSTR</a></div>
+## Getting Started
 
-[^1]: Example: *domain.com/category-name/post-title*
+To learn how to install and use this theme check out the [Setup Guide](http://taylantatli.me/Moon/moon-theme/) for more information.
+      
+[Install Moon](https://github.com/TaylanTatli/Moon){: .btn}
