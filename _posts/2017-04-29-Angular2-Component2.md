@@ -147,6 +147,8 @@ export class ChildComponent {
 </pre>
 ===> 자식 컴포넌트<br>
 ***EventEmiiter 객체의 자료형은 boolean 으로 선언되어있으며 받는 측에서도 동일한 자료형으로 받아야 하며 이벤트가 발생하면 emit() 을 통해 전달된다.***
+<br>
+&nbsp;
 
 <pre>
 import { Component } from '@angular/core';
