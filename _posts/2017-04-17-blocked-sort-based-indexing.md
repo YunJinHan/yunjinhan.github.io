@@ -4,6 +4,8 @@ title: "Index Construction"
 date: 2017-04-17 +0900
 tags: Information_Retrieval
 description: Blocked Sort Based Indexing
+share: true
+comments: true
 ---
 
 Index Construction

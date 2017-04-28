@@ -4,6 +4,8 @@ title: "IS A relationship"
 date: 2017-03-23 +0900
 tags: Object-Oriented-Programming
 description: Inheritance models an IS A relationship
+share: true
+comments: true
 ---
 
 Inheritance models an IS A relationship (aka Generalization / Specialization realtionship) among the classes

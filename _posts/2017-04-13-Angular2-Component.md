@@ -4,6 +4,8 @@ title: "Angular2 Component"
 date: 2017-04-13 +0900
 tags: Angular2
 description: Angular2 Component
+share: true
+comments: true
 ---
 
 

@@ -4,6 +4,8 @@ title: "Inverted Index"
 date: 2017-03-13 +0900
 tags: Information_Retrieval
 description: Inverted index
+share: true
+comments: true
 ---
 
 Inverted Index

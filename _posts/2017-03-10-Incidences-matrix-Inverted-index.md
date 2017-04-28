@@ -4,6 +4,8 @@ title: "Term Document incidences matrix / Inverted index"
 date: 2017-03-10 +0900
 tags: Information_Retrieval
 description: Term Document incidences matrix / Inverted index
+share: true
+comments: true
 ---
 
 1.Term Document incidences matrix

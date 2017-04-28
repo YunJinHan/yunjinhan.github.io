@@ -4,6 +4,8 @@ title: "Object-Oriented Paradigm"
 date: 2017-03-09 +0900
 tags: Object-Oriented-Programming
 description: Object-Oriented Paradigm
+share: true
+comments: true
 ---
 
 Object-Oriented Paradigm builds on three import concepts

@@ -4,6 +4,8 @@ title: "N - Gram Overlap"
 date: 2017-04-16 +0900
 tags: Information_Retrieval
 description: N - Gram Overlap
+share: true
+comments: true
 ---
 
 N - Gram Overlap

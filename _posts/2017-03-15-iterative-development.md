@@ -4,6 +4,8 @@ title: "Iterative Development"
 date: 2017-03-09 +0900
 tags: Object-Oriented-Programming
 description: Iterative Development
+share: true
+comments: true
 ---
 
 

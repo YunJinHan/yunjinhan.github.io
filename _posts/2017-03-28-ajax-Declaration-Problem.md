@@ -4,6 +4,8 @@ title: "ajax - Declaration Problem"
 date: 2017-03-28 +0900
 tags: Problems
 description: ajax - Declaration Problem
+share: true
+comments: true
 ---
 
 Ajax

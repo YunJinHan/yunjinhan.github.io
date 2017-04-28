@@ -4,6 +4,8 @@ title: "Intersecting two postings lists / Boolean queries"
 date: 2017-03-20 +0900
 tags: Information_Retrieval
 description: Intersecting two postings lists / Boolean queries
+share: true
+comments: true
 ---
 
 Intersecting two postings lists ( Continue )

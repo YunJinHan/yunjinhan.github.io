@@ -4,6 +4,8 @@ title: "UP Development - 2.Elaboration"
 date: 2017-04-20 +0900
 tags: Object-Oriented-Programming
 description: UP Development - 2.Elaboration
+share: true
+comments: true
 ---
 
 UP Development - 2.Elaboration

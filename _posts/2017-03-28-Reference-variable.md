@@ -4,6 +4,8 @@ title: "Reference Variable"
 date: 2017-03-28 +0900
 tags: Object-Oriented-Programming
 description: Static / Dynamic Type
+share: true
+comments: true
 ---
 
 A reference ( or pointer ) variable has two types associated with it

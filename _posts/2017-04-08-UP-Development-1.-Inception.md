@@ -4,6 +4,8 @@ title: "UP Development - 1.Inception"
 date: 2017-04-08 +0900
 tags: Object-Oriented-Programming
 description: UP Development - 1.Inception
+share: true
+comments: true
 ---
 
 UP Development - 1.Inception

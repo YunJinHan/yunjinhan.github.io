@@ -4,6 +4,8 @@ title: "Angular2 Outline"
 date: 2017-04-06 +0900
 tags: Angular2
 description: Angular2 Outline
+share: true
+comments: true
 ---
 
 Angular2

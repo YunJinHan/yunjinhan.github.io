@@ -4,6 +4,8 @@ title: "Intersecting two postings lists"
 date: 2017-03-19 +0900
 tags: Information_Retrieval
 description: Intersecting two postings lists
+share: true
+comments: true
 ---
 
 Intersecting two postings lists ( Continue )

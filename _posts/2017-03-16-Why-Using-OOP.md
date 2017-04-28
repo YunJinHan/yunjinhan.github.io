@@ -4,6 +4,8 @@ title: "Reasons of Using Object-Oriented Programming"
 date: 2017-03-16 +0900
 tags: Object-Oriented-Programming
 description: Reasons of Using Object-Oriented Programming
+share: true
+comments: true
 ---
 
 Real World (problem domain) &nbsp;&nbsp;---(Programs)---> &nbsp;&nbsp;Computer (solution domain)

@@ -4,6 +4,8 @@ title: "B+ Tree (cont'd)"
 date: 2017-03-27 +0900
 tags: Information_Retrieval
 description: B+ Tree (cont'd)
+share: true
+comments: true
 ---
 
 Insertion in B+ Trees

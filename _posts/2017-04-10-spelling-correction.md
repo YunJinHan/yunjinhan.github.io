@@ -4,6 +4,8 @@ title: "Spelling Correction"
 date: 2017-04-10 +0900
 tags: Information_Retrieval
 description: Spelling Correction
+share: true
+comments: true
 ---
 
 Spelling Correction

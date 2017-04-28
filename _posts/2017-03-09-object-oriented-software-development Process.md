@@ -4,6 +4,8 @@ title: "Object-Oriented Software Development Process"
 date: 2017-03-09 +0900
 tags: Object-Oriented-Programming
 description: Object-Oriented Software Development Process
+share: true
+comments: true
 ---
 
 Object-Oriented Software Development Process

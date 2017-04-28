@@ -4,6 +4,8 @@ title: "Dictionaries and tolerant retrival"
 date: 2017-03-24 +0900
 tags: Information_Retrieval
 description: Dictionaries and tolerant retrival
+share: true
+comments: true
 ---
 
 Dictionaries and tolerant retrival
