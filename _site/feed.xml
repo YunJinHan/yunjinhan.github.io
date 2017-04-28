@@ -7,6 +7,174 @@
 		<atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
+				<title>Angular Component2</title>
+				<description>&lt;h1 id=&quot;angular-component2&quot;&gt;Angular Component2&lt;/h1&gt;
+&lt;p&gt;Input 을 이용한 값 전달&lt;br /&gt;
+—–&lt;/p&gt;
+&lt;h3 id=&quot;--input-장식자를-이용한-값-받기&quot;&gt;- input 장식자를 이용한 값 받기&lt;/h3&gt;
+&lt;p&gt;@input 장식자는 외부에서 전달된 값을 받기 위해 사용된다.&lt;br /&gt;( 부모에서 자식으로 값을 전달할 때 많이 사용됨 )&lt;/p&gt;
+
+&lt;pre&gt;
+import { Component } from '@angular/core';
+@Component({
+	selector: 'parent-to-child-input',
+	template: `&amp;lt; div&amp;gt;부모
+	&amp;lt; child-input [name1]=&quot;fruit1&quot; [name2]=&quot;fruit2()&quot; [name3]=&quot;fruit3&quot;
+	  [name4]=&quot;1+1&quot; [name5]=&quot;fruit5&quot; [name6]=&quot;fruit6&quot;&amp;gt;&amp;lt; /child-input&amp;gt;
+	&amp;lt; /div&amp;gt;`,
+	styles: [`div{border : 2px soild #666; width:90%; height:50%}`]
+})
+
+export class ParentToChildInputComponent {
+	fruit1 = &quot;사과&quot;;
+	fruit2() {
+		return &quot;배&quot;;
+	}
+	fruit3 = ['딸기','포도','참외'];
+	static fruit5 = &quot;수박&quot;;
+	get fruit6() {
+		return ParentToChildInputComponent.fruit5;
+	}
+}
+&lt;/pre&gt;
+&lt;p&gt;==&amp;gt; 부모 컴포넌트 ( 자식에게 값을 전달함 )&lt;br /&gt;&lt;br /&gt;
+&lt;strong&gt;&lt;em&gt;정적변수 static ( fruit5 ) 은 자식 컴포넌트로 곧바로 전달할 수 없다.&lt;br /&gt;&lt;br /&gt;
+곧바로 전달하려면 getter 메소드 ( fruit6 ) 를 사용해야 한다&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;
+import { Component, Input } from '@angular/core';
+@Component({
+	selector: 'child-input',
+	template: `&amp;lt; div&amp;gt;
+	자식&amp;lt; br&amp;gt;
+	name1 : &amp;lt; br&amp;gt;
+	name2 : &amp;lt; br&amp;gt;
+	name3 : &amp;lt; span *ngFor=&quot;let i of name3&quot;&amp;gt;&amp;lt; /span&amp;gt;&amp;lt; br&amp;gt;
+	name4 : &amp;lt; br&amp;gt;
+	name5 : &amp;lt; br&amp;gt;
+	name6 : &amp;lt; br&amp;gt;
+	&amp;lt; /div&amp;gt;`,
+	styles: [`div{border : 2px soild #666; width:90%; height:50%}`]
+})
+
+export class ChildInputComponent {
+	@Input() name1 : string;
+	@Input() name2 : string;
+	@Input() name3 : string[];
+	@Input() name4 : number;
+	@Input() name5 : string;
+	@Input() name6 : string;
+}
+&lt;/pre&gt;
+&lt;p&gt;===&amp;gt; 자식 컴포넌트 ( 부모로부터 값을 전달받음 )&lt;br /&gt;&lt;br /&gt;
+&amp;lt; 출력 결과 &amp;gt;&lt;/p&gt;
+&lt;pre&gt;
+부모
+자식
+name1 : 사과
+name2 : 배
+name3 : 딸기 포도 참외
+name4 : 2
+name5 :
+name6 : 수박
+&lt;/pre&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;--input-속성을-이용한-값-받기&quot;&gt;- input 속성을 이용한 값 받기&lt;/h3&gt;
+&lt;p&gt;Component 장식자 설정의 inputs 속성을 통하여 값을 주고 받는 것이 가능하다.&lt;/p&gt;
+
+&lt;pre&gt;
+import { Component } from '@angular/core';
+@Component({
+	selector: 'app-parent-to-child-inputs',
+	template: `&amp;lt; div&amp;gt;부모
+	&amp;lt; child-inputs [name1]=&quot;name1&quot; [name2]=&quot;name2&quot;&amp;gt;
+	&amp;lt; /child-input&amp;gt;&amp;lt; /div&amp;gt;`,
+	styles: [`div{border : 2px soild #666; width:90%; height:50%}`]
+})
+
+export class ParentToChildInputsComponent {
+	name1 = &quot;사과&quot;;
+	name2 = &quot;바나나&quot;;
+}
+&lt;/pre&gt;
+&lt;p&gt;===&amp;gt; 부모 컴포넌트&lt;/p&gt;
+
+&lt;pre&gt;
+import { Component, Input } from '@angular/core';
+@Component({
+	selector: 'child-inputs',
+	template: `&amp;lt; div&amp;gt;자식&amp;lt; br&amp;gt;
+	input 값 : ,  &amp;lt; /div&amp;gt;`,
+	styles: [`div{border : 2px soild #666; width:90%; height:50%}`],
+	inputs: ['name1','name2']
+})
+
+export class ChildInputsComponent {
+	name1 : string;
+	name2 : string;
+}
+&lt;/pre&gt;
+&lt;p&gt;===&amp;gt; 자식 컴포넌트&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;eventemitter-를-이용한-값-전달&quot;&gt;EventEmitter 를 이용한 값 전달&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;부모 컴포넌트로 값을 전달하려면 @Output 장식자로 선언한 변수를 EvenEmitter 로 초기화 한다.&lt;br /&gt;&lt;br /&gt;
+그리고 부모에게 보낼 시점이 되면 emit() 메서드를 통하여 부모로 이벤트를 전달한다.&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;
+import { Component, EventEmitter, Output } from '@angular/core';
+@Component({
+	selector: 'child',
+	template: `&amp;lt; div&amp;gt;자식
+	&amp;lt; button (click)=&quot;updateParent(active)&quot;&amp;gt;부모에게 이벤트보내기
+	&amp;lt; /button&amp;gt;&amp;lt; /div&amp;gt;`,
+	styles: [`div{border : 2px soild #666; width:90%; height:50%}`]
+})
+
+export class ChildComponent {
+	active = false;
+	@Output() outputProperty = new EventEmitter&amp;lt; boolean&amp;gt;();
+	
+	updateParent(active: boolean) {
+		this.active = !active;
+		this.outputProperty.emit(this.active);
+	}
+}
+&lt;/pre&gt;
+&lt;p&gt;===&amp;gt; 자식 컴포넌트&lt;br /&gt;&lt;br /&gt;
+&lt;strong&gt;&lt;em&gt;EventEmiiter 객체의 자료형은 boolean 으로 선언되어있으며 받는 측에서도 동일한 자료형으로 받아야 하며 이벤트가 발생하면 emit() 을 통해 전달된다.&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;
+import { Component } from '@angular/core';
+@Component({
+	selector: 'app-root',
+	template: `&amp;lt; div&amp;gt;부모
+				클릭수 : &amp;lt; br&amp;gt;
+				자식상태 : &amp;lt; br&amp;gt;
+				&amp;lt; child (outputProperty)=&quot;outputEvent($event)&quot;&amp;gt;
+				&amp;lt; /child&amp;gt;&amp;lt; /div&amp;gt;`,
+	styles: [`div{border : 2px soild #666; width:90%; height:50%}`]
+})
+
+export class ChildToParentComponent {
+	cntClick = 0;
+	active = false;
+	
+	outputProperty(active: boolean) {
+		this.cntClick ++;
+		this.active = active; ( 자식으로부터 받은 active 값 )
+	}
+}
+&lt;/pre&gt;
+&lt;p&gt;===&amp;gt; 부모 컴포넌트&lt;/p&gt;
+</description>
+				<pubDate>Sat, 29 Apr 2017 00:00:00 +0900</pubDate>
+				<link>http://localhost:4000/2017/04/Angular2-Component2</link>
+				<guid isPermaLink="true">http://localhost:4000/2017/04/Angular2-Component2</guid>
+			</item>
+		
+			<item>
 				<title>UP Development - 2.Elaboration</title>
 				<description>&lt;h1 id=&quot;up-development---2elaboration&quot;&gt;UP Development - 2.Elaboration&lt;/h1&gt;
 &lt;p&gt;Build the core architecture, resolve the high-risk elements, define most requirements, and estimate overall schedule and resources&lt;br /&gt;
@@ -1048,136 +1216,6 @@ Check match he * lo ---&amp;gt; hello, loche, ...
 				<pubDate>Fri, 07 Apr 2017 00:00:00 +0900</pubDate>
 				<link>http://localhost:4000/2017/04/wild-card</link>
 				<guid isPermaLink="true">http://localhost:4000/2017/04/wild-card</guid>
-			</item>
-		
-			<item>
-				<title>Angular2 Outline</title>
-				<description>&lt;h1 id=&quot;angular2&quot;&gt;Angular2&lt;/h1&gt;
-&lt;ul&gt;
-  &lt;li&gt;Component 기반 개발&lt;br /&gt;&lt;br /&gt;
-Component 기반의 개발로 생산성을 높이며, 대규모 애플리케이션에 걸맞는 구조를 만든다.&lt;br /&gt;&lt;br /&gt;
-Angular1 의 Controller 기능을 완전히 대체하며 구조적으로 Controller 보다 견고하다.&lt;br /&gt;&lt;/li&gt;
-  &lt;li&gt;TypeScript 주력 언어&lt;br /&gt;&lt;/li&gt;
-  &lt;li&gt;고성능 프레임워크&lt;br /&gt;&lt;br /&gt;
-Lazy Loading 사용 &lt;br /&gt;==&amp;gt; 애플리케이션을 실행하는 시점에 모든 Module 을 로딩하지 않고 현재 페이지에 필요한 Module 만 로딩하는 방식&lt;br /&gt;&lt;br /&gt;
-AoT 컴파일 사용 &lt;br /&gt; ==&amp;gt; HTML Template 과  CSS 파일을 컴파일해 코드로 삽입하는 방식&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;angular2-architecture&quot;&gt;Angular2 Architecture&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/angular_architecture.png&quot; alt=&quot;srceenshot&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Angular2 는 &lt;strong&gt;Component (컴포넌트)&lt;/strong&gt; 중심으로 개발된다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Component (컴포넌트)&lt;/strong&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;strong&gt;Template (템플릿)&lt;/strong&gt; : Component 의 UI 를 나타내며 지시자와 템플릿 문법을 활용하여 개발한다.&lt;br /&gt;해당 UI 는 Virtual DOM 에 저장되며 각각의 컴포넌트 마다 개별적인 Virtual DOM 을 이용하므로 서로간의 스타일에 영향을 받지 않는다.&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;Class (클래스)&lt;/strong&gt; : Component 의 Logic 을 관리하며 Template 과 Class 는 &lt;strong&gt;Binding (바인딩)&lt;/strong&gt; 을 통해 연결된다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;( ⚒ &lt;strong&gt;Binding (바인딩)&lt;/strong&gt; 이란? : Template 에서 Class 로 이벤트를 전달하거나 서로 간의 데이터를 교환할 수 있게 하는것. 서로의 구성요소가 동일한 변수로 바인딩하고 있다면 엘리먼트의 상태를 변경하기 위해 구성요소마다 값을 변경할 필요가 없다. –&amp;gt; 상태변화가 일어난다면 감지후 자신의 상태를 변경함 )&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Component 마다 라우팅 URL 주소를 할당 할수 있다. ( 라우팅 : URL 의 변경 )&lt;/li&gt;
-  &lt;li&gt;Component 는 자식 Component 를 포함하거나 다른 Component 로 URL 을 라우팅할 수 있습니다.&lt;br /&gt;자식 Component 를 포함할 떄는 자식 Component 의 지시자를 현재 Component 의 Template 에 입력함으로써 포함시킨다.&lt;/li&gt;
-  &lt;li&gt;Component 와 Component 는 라우팅을 통해 전환될 수 있다.&lt;/li&gt;
-  &lt;li&gt;Component 는 외부의 도움을 받아 기능을 더하거나 ( &lt;strong&gt;Module (모듈)&lt;/strong&gt; 을 사용) 중복을 최소화 시킬 수 있다.&lt;/li&gt;
-  &lt;li&gt;Component 내부의 중복 Logic 코드를 최소화하는 방법으로 &lt;strong&gt;Services (서비스)&lt;/strong&gt; 를 사용한다.&lt;br /&gt; Services 를 Component 에서 제공할 때는 &lt;strong&gt;Dependency Injection (의존성 주입)&lt;/strong&gt; 을 이용한다.&lt;br /&gt;( Dependency Injection : Service 를 객체로 만들어 Class 에 제공하는 역할 )&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;angular2-구성요소&quot;&gt;Angular2 구성요소&lt;/h2&gt;
-&lt;h3 id=&quot;--component--컴포넌트-&quot;&gt;- Component ( 컴포넌트 )&lt;/h3&gt;
-&lt;pre&gt;
-import { Component } from '@angular/core';
-
-@Component({
-	selector : 'my-component',
-	template: ''
-})
-
-export class MyComponent {
-	msg : string = &quot;hello&quot;;
-}
-&lt;/pre&gt;
-&lt;p&gt;Component 를 정의할 때는  @Component 를 이용하여 정의한다.&lt;br /&gt;Selector 속성은 Component 의 지시자가 위치하며 Template 속성에는 해당 Template UI 가 위치한다.&lt;br /&gt;&lt;br /&gt;
-Class 에는  Component 에서 사용할 Logic 이 위치한다.&lt;br /&gt; &lt;br /&gt;
-===&amp;gt; Component 는  독립적으로 동작하지 않고  Module 이나 Service, Directive 와 함께 동작합니다.&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;
-&lt;h3 id=&quot;--module--모듈-&quot;&gt;- Module ( 모듈 )&lt;/h3&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;pre&gt;
-export class Hello{}
-import { Hello } from './hello';
-&lt;/pre&gt;
-&lt;p&gt;Module 에는 Angular 라이브러리 Module 과 사용자가 정의하는 Module 이 있다.&lt;br /&gt;&lt;br /&gt;
-Module 을 정의하려면 export 키워드를 사용하여 Module 을 정의한다.&lt;/p&gt;
-
-&lt;p&gt;Angular 에서는 Module 을 체계적으로 구성하기 위해서 Class 선언 위에 장식자를 추가한다.&lt;br /&gt;&lt;br /&gt;
-장식자가 추가된 Angular 의 Module 로  Component, Directive, Pipe 가 있다.&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;허나, Component 를 기반으로  Module 을 구성하는 과정은 체계적이지 않고 복잡하기 때문에&lt;br /&gt; &lt;strong&gt;@NgModule&lt;/strong&gt; 장식자를 이용하여 일반적인 Module 을 구성한다.&lt;/p&gt;
-
-&lt;pre&gt;
-@NgModule({
-	import: [
-		Angular 모듈 , Routing 모듈, ...
-	],
-	declarations: [
-		Componennt, Directive, Pipe, ...
-	],
-	providers : [
-		Service Module, ...
-	]
-})
-export class MyModule {}
-&lt;/pre&gt;
-&lt;p&gt; &lt;br /&gt;&lt;/p&gt;
-&lt;h3 id=&quot;--service--서비스-&quot;&gt;- Service ( 서비스 )&lt;/h3&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;pre&gt;
-import { Injectable } from '@angular/core';
-export class HelloService {}
-&lt;/pre&gt;
-&lt;p&gt;Service 는  Component 에 제공할 목적으로 외부에 정의한 Class 이며 재사용 가능한 Logic 을 정의하기 위한 용도로 Component 외부에 정의하며 직접적으로 Component 와 관련이 없는 Logic 은  Service 를 통하여 정의한다.&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;@Injectable&lt;/strong&gt; 장식자를 이용하여 Service 를 선언하고 위와 같이 정의한다.&lt;/p&gt;
-
-&lt;p&gt;Service 를 이용하면 중복 Logic 을 제거할 수 있고, Component 내부의 관심사를 외부로 분리하는 효과를 줄수 있다.&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;
-&lt;h3 id=&quot;--directive--지시자-&quot;&gt;- Directive ( 지시자 )&lt;/h3&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;pre&gt;
-@Component({
-	selector : 'my-component',
-	template : '&amp;lt;   div helloStyle&amp;gt;&amp;lt;   /div&amp;gt;'
-})
-&lt;/pre&gt;
-&lt;p&gt;==&amp;gt; helloStyle 이란 Directive 가 Template 에 표현되는 방법&lt;br /&gt;&lt;br /&gt;
-Angular 는 선언형 프로그래밍을 권장하며 선언형 프로그래밍은 Directive 를 이용해 개발하는 것을 의미한다.&lt;br /&gt;
-Directive 는 Component 의 Template 에서 Element 의 속성과 같이 구성요소의 속상이나 이름으로 표현한다.&lt;/p&gt;
-
-&lt;p&gt;Directive 를 이용하면 UI logic 코드를 반복적으로 입력할 필요가 없다. 그 이유는 Template 출력과 관련된 기능을 Directive 를 통해 logic 을 분리할 수 있기 떄문이다.&lt;/p&gt;
-
-&lt;p&gt;Directive 는 화면 출력시 필요한 기능을 외부 Module 로 분리해 정의하고  &lt;strong&gt;@Directive&lt;/strong&gt; 장식자를 이용해 정의한다.&lt;/p&gt;
-
-&lt;pre&gt;
-import { Directive, ElementRef, Renderer } from '@angular/core';
-@Directive({
-	selector : '[helloStyle]'
-})
-export class HelloStyleDirective {
-	constructor(private el : ElementRef, privatae renderer : Renderer) {}
-	...
-}
-&lt;/pre&gt;
-&lt;p&gt;Angular 에서는 Template 에서 사용할 수 있는 활용성 높은 여러 내장 Directive 를 제공한다.&lt;/p&gt;
-</description>
-				<pubDate>Thu, 06 Apr 2017 00:00:00 +0900</pubDate>
-				<link>http://localhost:4000/2017/04/Angular2-Outline</link>
-				<guid isPermaLink="true">http://localhost:4000/2017/04/Angular2-Outline</guid>
 			</item>
 		
 	</channel>

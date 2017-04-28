@@ -2,7 +2,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>JinHan's Blog | Reference Variable </title>
+  <title>JinHan's Blog | Angular Component2 </title>
   <meta name="theme-color" content="#222222" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="/js/jquery.min.js"></script>
@@ -68,102 +68,180 @@
             <div class="col-md-8">
               <div class="article">
                 <div class="well">
-                  <h1><a href="/2017/03/Reference-variable">Reference Variable</a></h1>
+                  <h1><a href="/2017/04/Angular2-Component2">Angular Component2</a></h1>
                   <div class="post-meta">
                     <div class="post-time">
                       <i class="fa fa-calendar"></i>
-                      <time>28 Mar 2017</time>
+                      <time>29 Apr 2017</time>
                     </div>
                     <ul>
                       
-                        <li><a href="/tag/Object-Oriented-Programming">Object-Oriented-Programming</a></li>
+                        <li><a href="/tag/Angular2">Angular2</a></li>
                       
                     </ul>
                   </div>
                   <div class="post-content">
                     <div id="toc" class="toc"></div>
-                    <h2 id="a-reference--or-pointer--variable-has-two-types-associated-with-it">A reference ( or pointer ) variable has two types associated with it</h2>
-<h3 id="--static-type">- static type</h3>
-<ul>
-  <li>the type declared at program<br /></li>
-  <li>fixed and never changed<br /></li>
-</ul>
+                    <h1 id="angular-component2">Angular Component2</h1>
+<p>Input 을 이용한 값 전달<br />
+—–</p>
+<h3 id="--input-장식자를-이용한-값-받기">- input 장식자를 이용한 값 받기</h3>
+<p>@input 장식자는 외부에서 전달된 값을 받기 위해 사용된다.<br />( 부모에서 자식으로 값을 전달할 때 많이 사용됨 )</p>
 
-<h3 id="--dynamic-type">- dynamic type</h3>
-<ul>
-  <li>the type of object it actually refers to<br /></li>
-  <li>can be changed during lifetime<br /></li>
-</ul>
-
-<p>Example)</p>
 <pre>
-Movie m = new Movie();
-m = new JamesBondMovie();<br />
-JamesBondMovie jm;
-jm = new JamesBondMovie();
-m = jm; ---&gt; NO ERROR!!
-jm = m; ---&gt; ERROR!!
-( static type 을 가지고서 판단한다.<br /> jm 의 static type 은 jm 이기 떄문에 자식은 부모의 특성 + @ 를 가지고 있기 때문에 부모는 자식을 포한하는 관계는 아니다.<br /> 따라서 jm != m 이다 )
+import { Component } from '@angular/core';
+@Component({
+	selector: 'parent-to-child-input',
+	template: `&lt; div&gt;부모
+	&lt; child-input [name1]="fruit1" [name2]="fruit2()" [name3]="fruit3"
+	  [name4]="1+1" [name5]="fruit5" [name6]="fruit6"&gt;&lt; /child-input&gt;
+	&lt; /div&gt;`,
+	styles: [`div{border : 2px soild #666; width:90%; height:50%}`]
+})
+
+export class ParentToChildInputComponent {
+	fruit1 = "사과";
+	fruit2() {
+		return "배";
+	}
+	fruit3 = ['딸기','포도','참외'];
+	static fruit5 = "수박";
+	get fruit6() {
+		return ParentToChildInputComponent.fruit5;
+	}
+}
 </pre>
-<p> <br />
-<br /><br />
-A subclasses can be assigned to its superclass, but not vice versa<br />
-—————–</p>
-<ul>
-  <li>assign direction
-    <ul>
-      <li>super class &lt;—- sub class    O<br /></li>
-      <li>sub class &lt;—- super class    X<br /></li>
-    </ul>
-  </li>
-</ul>
+<p>==&gt; 부모 컴포넌트 ( 자식에게 값을 전달함 )<br /><br />
+<strong><em>정적변수 static ( fruit5 ) 은 자식 컴포넌트로 곧바로 전달할 수 없다.<br /><br />
+곧바로 전달하려면 getter 메소드 ( fruit6 ) 를 사용해야 한다</em></strong></p>
 
+<pre>
+import { Component, Input } from '@angular/core';
+@Component({
+	selector: 'child-input',
+	template: `&lt; div&gt;
+	자식&lt; br&gt;
+	name1 : &lt; br&gt;
+	name2 : &lt; br&gt;
+	name3 : &lt; span *ngFor="let i of name3"&gt;&lt; /span&gt;&lt; br&gt;
+	name4 : &lt; br&gt;
+	name5 : &lt; br&gt;
+	name6 : &lt; br&gt;
+	&lt; /div&gt;`,
+	styles: [`div{border : 2px soild #666; width:90%; height:50%}`]
+})
+
+export class ChildInputComponent {
+	@Input() name1 : string;
+	@Input() name2 : string;
+	@Input() name3 : string[];
+	@Input() name4 : number;
+	@Input() name5 : string;
+	@Input() name6 : string;
+}
+</pre>
+<p>===&gt; 자식 컴포넌트 ( 부모로부터 값을 전달받음 )<br /><br />
+&lt; 출력 결과 &gt;</p>
+<pre>
+부모
+자식
+name1 : 사과
+name2 : 배
+name3 : 딸기 포도 참외
+name4 : 2
+name5 :
+name6 : 수박
+</pre>
 <p><br /></p>
 
-<h3 id="--check-static-type">- CHECK STATIC TYPE</h3>
+<h3 id="--input-속성을-이용한-값-받기">- input 속성을 이용한 값 받기</h3>
+<p>Component 장식자 설정의 inputs 속성을 통하여 값을 주고 받는 것이 가능하다.</p>
 
-<p><img src="http://localhost:4000/assets/check_static_type.png" alt="screenshot" /></p>
+<pre>
+import { Component } from '@angular/core';
+@Component({
+	selector: 'app-parent-to-child-inputs',
+	template: `&lt; div&gt;부모
+	&lt; child-inputs [name1]="name1" [name2]="name2"&gt;
+	&lt; /child-input&gt;&lt; /div&gt;`,
+	styles: [`div{border : 2px soild #666; width:90%; height:50%}`]
+})
 
-<p><strong>obj.h(), obj.f() –&gt; O<br /><br />
-obj.g() –&gt; X<br /></strong></p>
+export class ParentToChildInputsComponent {
+	name1 = "사과";
+	name2 = "바나나";
+}
+</pre>
+<p>===&gt; 부모 컴포넌트</p>
 
-<p><strong>When message is sent to a receiver object, the complier checks its legality by performing an operation lookup using static type</strong></p>
+<pre>
+import { Component, Input } from '@angular/core';
+@Component({
+	selector: 'child-inputs',
+	template: `&lt; div&gt;자식&lt; br&gt;
+	input 값 : ,  &lt; /div&gt;`,
+	styles: [`div{border : 2px soild #666; width:90%; height:50%}`],
+	inputs: ['name1','name2']
+})
 
-<ol>
-  <li>static type 의 root 로 올라가 check<br /></li>
-  <li>static type direction 으로 내려오면서 check<br /></li>
-</ol>
+export class ChildInputsComponent {
+	name1 : string;
+	name2 : string;
+}
+</pre>
+<p>===&gt; 자식 컴포넌트<br />
+<br /></p>
 
-<p><strong>The compiler searches up starting from the STATIC type util it finds the invoked operation</strong></p>
+<h2 id="eventemitter-를-이용한-값-전달">EventEmitter 를 이용한 값 전달</h2>
+<p><strong><em>부모 컴포넌트로 값을 전달하려면 @Output 장식자로 선언한 변수를 EvenEmitter 로 초기화 한다.<br /><br />
+그리고 부모에게 보낼 시점이 되면 emit() 메서드를 통하여 부모로 이벤트를 전달한다.</em></strong></p>
 
-<p><br /></p>
+<pre>
+import { Component, EventEmitter, Output } from '@angular/core';
+@Component({
+	selector: 'child',
+	template: `&lt; div&gt;자식
+	&lt; button (click)="updateParent(active)"&gt;부모에게 이벤트보내기
+	&lt; /button&gt;&lt; /div&gt;`,
+	styles: [`div{border : 2px soild #666; width:90%; height:50%}`]
+})
 
-<h3 id="--check-dynamic-type">- CHECK DYNAMIC TYPE</h3>
+export class ChildComponent {
+	active = false;
+	@Output() outputProperty = new EventEmitter&lt; boolean&gt;();
+	
+	updateParent(active: boolean) {
+		this.active = !active;
+		this.outputProperty.emit(this.active);
+	}
+}
+</pre>
+<p>===&gt; 자식 컴포넌트<br /><br />
+<strong><em>EventEmiiter 객체의 자료형은 boolean 으로 선언되어있으며 받는 측에서도 동일한 자료형으로 받아야 하며 이벤트가 발생하면 emit() 을 통해 전달된다.</em></strong></p>
 
-<p><img src="http://localhost:4000/assets/check_dynamic_type.png" alt="screenshot" /></p>
+<pre>
+import { Component } from '@angular/core';
+@Component({
+	selector: 'app-root',
+	template: `&lt; div&gt;부모
+				클릭수 : &lt; br&gt;
+				자식상태 : &lt; br&gt;
+				&lt; child (outputProperty)="outputEvent($event)"&gt;
+				&lt; /child&gt;&lt; /div&gt;`,
+	styles: [`div{border : 2px soild #666; width:90%; height:50%}`]
+})
 
-<p><strong>obj.h() —&gt; O ( E’s h() )<br /><br />
-obj.f() —&gt; O ( A’s f() )<br /><br />
-obj.g() —&gt; X<br /><br />
-obj.h() —&gt; C’s h()<br /></strong></p>
-
-<p><strong>When message is sent to a receiver, the runtime selects an operation using dynamic type</strong></p>
-
-<p><strong>The runtime searches up starting from the DYNAMIC type until it finds the first invoked operation</strong></p>
-
-<h2 id="actually-the-determination-of-what-behavior-to-perform-may-be-made-at-compile-time-or-at-run-time">Actually, the determination of what behavior to perform may be made at compile-time or at run-time</h2>
-<h3 id="--at-compile-time">- At compile-time</h3>
-<ul>
-  <li>Static binding or Early binding<br /></li>
-  <li>Static functions in JAVA / C++<br /></li>
-  <li>Nonvirtual functions in C++<br /></li>
-</ul>
-
-<h3 id="--at-run-time">- At run time</h3>
-<ul>
-  <li>Dynamic binding or Late binding<br /></li>
-  <li>Virtual function in JAVA / C++<br /></li>
-</ul>
+export class ChildToParentComponent {
+	cntClick = 0;
+	active = false;
+	
+	outputProperty(active: boolean) {
+		this.cntClick ++;
+		this.active = active; ( 자식으로부터 받은 active 값 )
+	}
+}
+</pre>
+<p>===&gt; 부모 컴포넌트</p>
 
                     
 
@@ -181,7 +259,7 @@ obj.h() —&gt; C’s h()<br /></strong></p>
 
     
     <li class="share-envelope">
-      <a href="mailto:?&subject=Reference Variable&body=Static / Dynamic Type http://localhost:4000/2017/03/Reference-variable" target="_blank" title="Email">
+      <a href="mailto:?&subject=Angular Component2&body=Angular Component - Input / Output / EvenEmitter http://localhost:4000/2017/04/Angular2-Component2" target="_blank" title="Email">
         <span class="fa-stack fa-lg">
           <i class="fa fa-circle-thin fa-stack-2x"></i>
           <i class="fa fa-envelope-o fa-stack-1x"></i>

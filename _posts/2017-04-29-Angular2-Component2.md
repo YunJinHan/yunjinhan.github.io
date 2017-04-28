@@ -38,8 +38,7 @@ export class ParentToChildInputComponent {
 	}
 }
 </pre>
-==> 부모 컴포넌트 ( 자식에게 값을 전달함 )
-
+==> 부모 컴포넌트 ( 자식에게 값을 전달함 )<br>
 ***정적변수 static ( fruit5 ) 은 자식 컴포넌트로 곧바로 전달할 수 없다.<br>
 곧바로 전달하려면 getter 메소드 ( fruit6 ) 를 사용해야 한다***
 
@@ -69,7 +68,6 @@ export class ChildInputComponent {
 }
 </pre>
 ===> 자식 컴포넌트 ( 부모로부터 값을 전달받음 )<br>
-<br>
 < 출력 결과 >
 <pre>
 부모
@@ -81,7 +79,7 @@ name4 : 2
 name5 :
 name6 : 수박
 </pre>
-
+<br>
 
 ### - input 속성을 이용한 값 받기
 Component 장식자 설정의 inputs 속성을 통하여 값을 주고 받는 것이 가능하다.
@@ -119,6 +117,7 @@ export class ChildInputsComponent {
 }
 </pre>
 ===> 자식 컴포넌트
+<br>
 
 EventEmitter 를 이용한 값 전달
 -----
@@ -137,7 +136,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 
 export class ChildComponent {
 	active = false;
-	@Output() outputProperty = new EventEmitter<boolean>();
+	@Output() outputProperty = new EventEmitter< boolean>();
 	
 	updateParent(active: boolean) {
 		this.active = !active;
@@ -147,8 +146,6 @@ export class ChildComponent {
 </pre>
 ===> 자식 컴포넌트<br>
 ***EventEmiiter 객체의 자료형은 boolean 으로 선언되어있으며 받는 측에서도 동일한 자료형으로 받아야 하며 이벤트가 발생하면 emit() 을 통해 전달된다.***
-<br>
-&nbsp;
 
 <pre>
 import { Component } from '@angular/core';
