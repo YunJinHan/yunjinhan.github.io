@@ -7,6 +7,228 @@
 		<atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
+				<title>Angular2 Service2</title>
+				<description>&lt;h1 id=&quot;angular2-service2&quot;&gt;Angular2 Service2&lt;/h1&gt;
+
+&lt;h3 id=&quot;--promise-서비스&quot;&gt;- Promise 서비스&lt;/h3&gt;
+&lt;p&gt;promise 는 비동기 코드를 사용할 때 Call Back Hell 과 같은 비정상적인 호출 형태를 개선하기 이해 나온 방법이다.&lt;/p&gt;
+
+&lt;pre&gt;
+export class User {
+  name: string;
+  id: string;
+}
+&lt;/pre&gt;
+
+&lt;p&gt;===&amp;gt; user.ts&lt;/p&gt;
+
+&lt;pre&gt;
+import { User } from './user';
+
+export var USERS: User[] = [
+  { name: '조조', id: '1' },
+  { name: '하우돈', id: '2' },
+  { name: '허저', id: '3' }
+];
+&lt;/pre&gt;
+
+&lt;p&gt;===&amp;gt; mock-user.ts&lt;/p&gt;
+
+&lt;pre&gt;
+import { Injectable } from '@angular/core';
+import { USERS } from './mock-user';
+import { User } from './user';
+
+@Injectable()
+export class MockService {
+  getUser(): Promise&amp;lt; User[]&amp;gt; {
+    return Promise.resolve(USERS);
+  }
+
+  getUserDelay(): Promise&amp;lt; User[]&amp;gt; {
+    return new Promise&amp;lt; User[]&amp;gt;(resolve =&amp;gt;
+      setTimeout(resolve, 1000))
+      .then(() =&amp;gt; this.getUser());
+  }
+  
+  getRequest(status: boolean): Promise&amp;lt; any&amp;gt; {
+
+    if (status) {
+      return Promise.resolve(&quot;요청을 승낙합니다.&quot;).then(function (reason) {
+        return reason;
+      }, function (reason) {
+        return &quot;NO&quot;;
+      });
+    } else {
+      return Promise.reject(&quot;요청을 거부합니다.&quot;).then(function (reason) {
+        return &quot;YES&quot;;
+      }, function (reason) {
+        return reason;
+      });
+    }
+  }
+}
+&lt;/pre&gt;
+
+&lt;p&gt;===&amp;gt; mock.service.ts&lt;br /&gt;&lt;strong&gt;Promise.resolve()&lt;/strong&gt; 를 통하여 “요청을 승낙합니다” 를 리턴하고&lt;br /&gt;&lt;strong&gt;Promise.reject()&lt;/strong&gt; 를 통하여 “요청을 거부합니다” 를 리턴한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;getUser()&lt;/strong&gt; 는 mock-user.ts 의 USERS 객체를 리턴한다.&lt;br /&gt;&lt;br /&gt;
+&lt;strong&gt;getUserDelay()&lt;/strong&gt; 를 통하여 1초 후 &lt;strong&gt;getUser()&lt;/strong&gt; 를 호출한다.&lt;/p&gt;
+
+&lt;pre&gt;
+import { Component } from '@angular/core';
+import { MockService } from './mock.service';
+import { User } from './user';
+
+@Component({
+  selector: 'promise',
+  template: `
+  &amp;lt; br&amp;gt;
+  &amp;lt; br&amp;gt;  
+  &amp;lt; list-component [list]=&quot;listUser&quot; [title]=&quot;'이름 출력 (지연없음)'&quot;&amp;gt;&amp;lt; /list-component&amp;gt;
+  &amp;lt; list-component [list]=&quot;listUserDelay&quot; [title]=&quot;'이름 출력 (1초 지연)'&quot;&amp;gt;&amp;lt; /list-component&amp;gt;`,
+  providers: [MockService]
+})
+export class PromiseComponent {
+  reqMessage: String ='';
+  reqMessage2: String ='';
+
+  listUser: User[];
+  listUserDelay: User[];
+  
+  constructor(private userService: MockService) {
+    this.userService.getRequest(true).then(reason =&amp;gt; this.reqMessage = reason);
+    this.userService.getRequest(false).then(reason =&amp;gt; this.reqMessage2 = reason);
+    // -&amp;gt; reason 을 리턴받아 =&amp;gt; this.regMessage 에 할당한다.
+
+    this.userService.getUser().then(user =&amp;gt; this.listUser = user);
+    this.userService.getUserDelay().then(user =&amp;gt; this.listUserDelay = user);
+  	// -&amp;gt; user 를 리턴받아 =&amp;gt; this.listUser 에 할당한다.
+  }
+}
+&lt;/pre&gt;
+
+&lt;p&gt;===&amp;gt; promise.component.ts&lt;br /&gt;생성자 부분에서 mock.service 를 선언하고 해당 서비스를 사용하여 값을 받아와&lt;br /&gt;자식 컴포넌트 list-component 로 title 과 list 값을 전달한다.&lt;/p&gt;
+
+&lt;pre&gt;
+import { Component, Input } from '@angular/core';
+import { User } from './user';
+
+@Component({
+  selector: 'list-component',
+  template: `
+  &amp;lt; b&amp;gt;&amp;lt; /b&amp;gt;
+  &amp;lt; div *ngFor=&quot;let o of list&quot;&amp;gt;
+       | 
+  &amp;lt; /div&amp;gt;&amp;lt; br&amp;gt;`,
+})
+export class ListComponent {
+  @Input() title: string;
+  @Input() list: User;
+}
+&lt;/pre&gt;
+
+&lt;p&gt;===&amp;gt; list.component.ts / 부모로 부터 받은 title 과 list 를 출력한다.&lt;/p&gt;
+
+&lt;h3 id=&quot;--shared-서비스&quot;&gt;- Shared 서비스&lt;/h3&gt;
+&lt;p&gt;서비스는 컴포넌트 간 상호작용을 위한 매개자로 두 컴포넌트 간에 데이터를 교환하는 중간 매개자로 이용될 수 있다. &lt;strong&gt;@Input 이나 EventEmitter 를 사용하지 않고 데이터를 교환하려면 부모 / 자식 컴포넌트 관계를 가져야 한다.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;부모 컴포넌트에 제공자 설정을 통해 주입을 한다.&lt;/li&gt;
+  &lt;li&gt;자식 컴포넌트에서는 제공자 설정을 하지 않고 곧바로 서비스를 받아서 사용한다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;pre&gt;
+import { Injectable } from '@angular/core';
+
+@Injectable()
+export class SharedService {
+  
+  num: number;
+  
+  message: string;
+  // -&amp;gt; 현재 실습에서 사용하는 부모 / 자식 컴포넌트 공유 변수
+  
+  public names: string[] = [];
+
+  addName(data: string) {
+    this.names.unshift(data);
+    // unshift : names 배열 앞부분에 data 값을 넣는다
+  } 
+}
+&lt;/pre&gt;
+
+&lt;p&gt;===&amp;gt; shared.service.ts / 공유 서비스 정의&lt;/p&gt;
+
+&lt;pre&gt;
+import { Component, Input } from '@angular/core';
+import { SharedService } from './shared.service';
+
+@Component({
+  selector: 'car-component',
+  template: `car 컴포넌트 :  &amp;lt; button (click)=&quot;s.message='car'&quot;&amp;gt;선택&amp;lt; /button&amp;gt;`
+})
+export class CarComponent {
+  constructor(public s: SharedService) {
+  }
+}
+&lt;/pre&gt;
+
+&lt;p&gt;===&amp;gt; car.component.ts / 자식 컴포넌트&lt;/p&gt;
+
+&lt;pre&gt;
+import { Component, Input } from '@angular/core';
+import { SharedService } from './shared.service';
+
+@Component({
+  selector: 'taxi-component',
+  template: `taxi 컴포넌트 :  &amp;lt; button (click)=&quot;s.message='taxi'&quot;&amp;gt;선택&amp;lt; /button&amp;gt;`
+})
+export class TaxiComponent {
+  constructor(public s: SharedService) {}
+}
+&lt;/pre&gt;
+
+&lt;p&gt;===&amp;gt; taxi.component.ts / 자식 컴포넌트&lt;/p&gt;
+
+&lt;pre&gt;
+import { Component, Input } from '@angular/core';
+import { SharedService } from './shared.service';
+
+@Component({
+  selector: 'parent-component',
+  template: `
+  부모 컴포넌트 :  &amp;lt; button (click)=&quot;s.message='parent'&quot;&amp;gt;선택&amp;lt; /button&amp;gt;&amp;lt; br&amp;gt;
+  &amp;lt; car-component&amp;gt;&amp;lt; /car-component&amp;gt;&amp;lt; br&amp;gt;
+  &amp;lt; taxi-component&amp;gt;&amp;lt; /taxi-component&amp;gt;`,
+  providers: [SharedService]
+})
+export class ParentComponent {
+  constructor(public s: SharedService) {
+    s.message = &quot;hello&quot;;
+  }
+}
+&lt;/pre&gt;
+
+&lt;p&gt;===&amp;gt; parent.component.ts / 부모 컴포넌트&lt;/p&gt;
+
+&lt;p&gt;두개의 자식 컴포넌트의 생성자에서 SharedService 를 선언하여 s.message 를 불러오고&lt;/p&gt;
+
+&lt;p&gt;부모 컴포넌트 생성자에서 SharedService 를 선언하여 처음 s.message 를 hello 로 선언함&lt;/p&gt;
+
+&lt;p&gt;이후 자식에서 버튼 클릭시 s.message 가 각각 car / taxi 로 바뀌어 s.message 를 사용하는&lt;/p&gt;
+
+&lt;p&gt;parent / car / taxi 컴포넌트에서 해당 값이 실시간으로 바뀐다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;공유 서비스를 통해 공유 값이 바뀐다&lt;/strong&gt;&lt;/p&gt;
+
+</description>
+				<pubDate>Sun, 30 Apr 2017 10:00:00 +0900</pubDate>
+				<link>http://localhost:4000/2017/04/Angular2-Service2</link>
+				<guid isPermaLink="true">http://localhost:4000/2017/04/Angular2-Service2</guid>
+			</item>
+		
+			<item>
 				<title>Angular2 Service1</title>
 				<description>&lt;h1 id=&quot;angular2-service&quot;&gt;Angular2 Service&lt;/h1&gt;
 &lt;p&gt;서비스는 &lt;strong&gt;@Injectable&lt;/strong&gt; 장식자 ( = 주입 가능한 클래스라는 뜻 ) 를 추가한 클래스 이다.&lt;br /&gt;&lt;br /&gt;
@@ -1229,82 +1451,6 @@ cat , dog ==&amp;gt;		  3
 				<pubDate>Mon, 10 Apr 2017 00:00:00 +0900</pubDate>
 				<link>http://localhost:4000/2017/04/spelling-correction</link>
 				<guid isPermaLink="true">http://localhost:4000/2017/04/spelling-correction</guid>
-			</item>
-		
-			<item>
-				<title>UP Development - 1.Inception</title>
-				<description>&lt;h1 id=&quot;up-development---1inception&quot;&gt;UP Development - 1.Inception&lt;/h1&gt;
-&lt;p&gt;Most Project require a short initial step in which the following kinds of questions are explored&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;What is the vision and business case for this project?&lt;/li&gt;
-  &lt;li&gt;Feasible?&lt;/li&gt;
-  &lt;li&gt;Buy and/or Build?&lt;/li&gt;
-  &lt;li&gt;Rough estimate of cost&lt;/li&gt;
-  &lt;li&gt;Should we proceed or stop?&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3 id=&quot;--artifacts-in-inception-phase&quot;&gt;- Artifacts in Inception Phase&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;Use-Case Model&lt;/strong&gt; : Describe functional requirements, and related non-functional requirements&lt;/p&gt;
-
-&lt;h3 id=&quot;--useful-classification&quot;&gt;- Useful Classification&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;Functional requirements vs Non-functional requirements&lt;/li&gt;
-  &lt;li&gt;Most of the non-functional requirements are collectively called as &lt;strong&gt;Quality Attributes&lt;/strong&gt; or &lt;strong&gt;Quality Requirements&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;Functional requirements are explored and recorded in the &lt;strong&gt;Use-Case Model&lt;/strong&gt;.&lt;/li&gt;
-  &lt;li&gt;Other requirements can be recorded in the use cases they relate to, or in the &lt;strong&gt;Supplementary Specifications&lt;/strong&gt; artifacts.&lt;/li&gt;
-  &lt;li&gt;The &lt;strong&gt;Vision&lt;/strong&gt; artifact summarizes high-level requirements.&lt;/li&gt;
-  &lt;li&gt;The &lt;strong&gt;Glossary&lt;/strong&gt; encompasses the concept of &lt;strong&gt;Data dictionary&lt;/strong&gt; which records requirements related to data, such as validation rules, acceptable values, and so forth.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;--motivation-for-use-cases&quot;&gt;- Motivation for Use Cases&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;We need a tool to analyze, record, and improve functional requirements&lt;/li&gt;
-  &lt;li&gt;Developers must know exactly what they are going to implement&lt;/li&gt;
-  &lt;li&gt;A Client must understand what will be implemented&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;==&amp;gt; Solution : &lt;strong&gt;Use Case&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;--goals-and-stories&quot;&gt;- Goals and Stories&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;Clients and End users have &lt;strong&gt;Goals (Needs)&lt;/strong&gt; and want the system to help meet them.&lt;/li&gt;
-  &lt;li&gt;Informally, Use Cases are &lt;strong&gt;Stories of using a system to meet goals&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;The most effective way to capture the &lt;strong&gt;Goals&lt;/strong&gt; and system’s &lt;strong&gt;Functional requirements&lt;/strong&gt; is writing &lt;strong&gt;Use Cases&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;--actors&quot;&gt;- Actors&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;Basic Definition&lt;br /&gt;An Actor is anything outside SuD that interacts with SuD.&lt;/li&gt;
-  &lt;li&gt;Extended Definition&lt;br /&gt;An Actor is anything with behavior, including the SuD itself when it calls on the services of other actors&lt;/li&gt;
-  &lt;li&gt;In case of a person acotr, it represents a &lt;strong&gt;role&lt;/strong&gt; that the person plays when interaction with these use cases.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;--types-of-actors&quot;&gt;- Types of Actors&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Primary Actors&lt;/strong&gt;&lt;br /&gt;Goals 을 달성 하기 위해 System 을 이용함.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Supporting Acotrs&lt;/strong&gt;&lt;br /&gt;Primary Actor 를 도와주기 위해 System 을 이용함.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Offstage Actors&lt;/strong&gt;&lt;br /&gt;It has an interest in the behavior of the use case, but is not primary or supporting actors&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;--scenarios--하나의-특정-사례-&quot;&gt;- Scenarios ( 하나의 특정 사례 )&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;A &lt;strong&gt;Scenario ( use case instance )&lt;/strong&gt; is a specific sequence of actions and interactions between actors and the SuD to meet a common goal&lt;/li&gt;
-  &lt;li&gt;It is one particular story of using a system, or one path through the use case.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;--use-cases&quot;&gt;- Use Cases&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;Informally, Use Case is a collection of related success and failure scenarios that describes actors using a system to support a goal&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;UP Definition&lt;/strong&gt; : Use Case is a set of use-case instances, where each instance is a sequence of actions that yields an &lt;strong&gt;Observable Result of Value (Benefits)&lt;/strong&gt; to a particular actor&lt;/li&gt;
-  &lt;li&gt;Use Cases document the behavior ( Functional Requirements ) of the system &lt;strong&gt;From the User’s Point of View&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;A software product implements a set of use cases&lt;/li&gt;
-&lt;/ul&gt;
-
-</description>
-				<pubDate>Sat, 08 Apr 2017 00:00:00 +0900</pubDate>
-				<link>http://localhost:4000/2017/04/UP-Development-1.-Inception</link>
-				<guid isPermaLink="true">http://localhost:4000/2017/04/UP-Development-1.-Inception</guid>
 			</item>
 		
 	</channel>
