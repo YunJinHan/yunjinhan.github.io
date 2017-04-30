@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "Angular Service1"
+title: "Angular2 Service1"
 date: 2017-04-30 +0900
 tags: Angular2
-description: Angular Service - basic / oop / mock service
+description: Angular2 Service - basic / oop / mock service
 share: true
 comments: true
 ---

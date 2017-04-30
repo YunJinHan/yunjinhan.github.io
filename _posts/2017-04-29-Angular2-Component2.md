@@ -1,17 +1,19 @@
 ---
 layout: post
-title: "Angular Component2"
+title: "Angular2 Component2"
 date: 2017-04-29 +0900
 tags: Angular2
-description: Angular Component - Input / Output / EvenEmitter
+description: Angular2 Component - Input / Output / EvenEmitter
 share: true
 comments: true
 ---
 
-Angular Component2
+Angular2 Component2
 =====
+
 Input 을 이용한 값 전달
 -----
+
 ### - input 장식자를 이용한 값 받기
 @input 장식자는 외부에서 전달된 값을 받기 위해 사용된다.<br>( 부모에서 자식으로 값을 전달할 때 많이 사용됨 )
 

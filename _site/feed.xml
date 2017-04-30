@@ -7,7 +7,7 @@
 		<atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
-				<title>Angular Service1</title>
+				<title>Angular2 Service1</title>
 				<description>&lt;h1 id=&quot;angular2-service&quot;&gt;Angular2 Service&lt;/h1&gt;
 &lt;p&gt;서비스는 &lt;strong&gt;@Injectable&lt;/strong&gt; 장식자 ( = 주입 가능한 클래스라는 뜻 ) 를 추가한 클래스 이다.&lt;br /&gt;&lt;br /&gt;
 @Injectable 을 생략한다고 해서 의존성 주입에 문제가 생기는 것은 아니지만, 생략하였을때 일반 클래스라 오인할 수 있기 때문에 반드시 추가해야 한다.&lt;/p&gt;
@@ -213,10 +213,11 @@ export class MockComponent {
 			</item>
 		
 			<item>
-				<title>Angular Component2</title>
-				<description>&lt;h1 id=&quot;angular-component2&quot;&gt;Angular Component2&lt;/h1&gt;
-&lt;p&gt;Input 을 이용한 값 전달&lt;br /&gt;
-—–&lt;/p&gt;
+				<title>Angular2 Component2</title>
+				<description>&lt;h1 id=&quot;angular2-component2&quot;&gt;Angular2 Component2&lt;/h1&gt;
+
+&lt;h2 id=&quot;input-을-이용한-값-전달&quot;&gt;Input 을 이용한 값 전달&lt;/h2&gt;
+
 &lt;h3 id=&quot;--input-장식자를-이용한-값-받기&quot;&gt;- input 장식자를 이용한 값 받기&lt;/h3&gt;
 &lt;p&gt;@input 장식자는 외부에서 전달된 값을 받기 위해 사용된다.&lt;br /&gt;( 부모에서 자식으로 값을 전달할 때 많이 사용됨 )&lt;/p&gt;
 
@@ -939,8 +940,8 @@ SOUNDEX(chaikofski) …&lt;/p&gt;
 			</item>
 		
 			<item>
-				<title>Angular2 Component</title>
-				<description>&lt;h1 id=&quot;angular-component&quot;&gt;Angular Component&lt;/h1&gt;
+				<title>Angular2 Component1</title>
+				<description>&lt;h1 id=&quot;angular2-component&quot;&gt;Angular2 Component&lt;/h1&gt;
 &lt;p&gt;Angular Component 는 &lt;strong&gt;Web Component 기술&lt;/strong&gt;을 기반으로 구성되며 &lt;br /&gt;기존 블록 엘리먼트 구조를 &lt;strong&gt;Component 구조&lt;/strong&gt;로 전환시켜 개발한다.&lt;/p&gt;
 
 &lt;h4 id=&quot;--중첩-component&quot;&gt;- 중첩 Component&lt;/h4&gt;
@@ -1032,8 +1033,8 @@ export class AppHello { }
 
 </description>
 				<pubDate>Thu, 13 Apr 2017 00:00:00 +0900</pubDate>
-				<link>http://localhost:4000/2017/04/Angular2-Component</link>
-				<guid isPermaLink="true">http://localhost:4000/2017/04/Angular2-Component</guid>
+				<link>http://localhost:4000/2017/04/Angular2-Component1</link>
+				<guid isPermaLink="true">http://localhost:4000/2017/04/Angular2-Component1</guid>
 			</item>
 		
 			<item>

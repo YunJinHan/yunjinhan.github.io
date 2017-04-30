@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Angular2 Component"
+title: "Angular2 Component1"
 date: 2017-04-13 +0900
 tags: Angular2
 description: Angular2 Component
@@ -9,7 +9,7 @@ comments: true
 ---
 
 
-Angular Component
+Angular2 Component
 ===========
 Angular Component 는 **Web Component 기술**을 기반으로 구성되며 <br>기존 블록 엘리먼트 구조를 **Component 구조**로 전환시켜 개발한다.
 
