@@ -7,6 +7,212 @@
 		<atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
+				<title>Angular Service1</title>
+				<description>&lt;h1 id=&quot;angular2-service&quot;&gt;Angular2 Service&lt;/h1&gt;
+&lt;p&gt;서비스는 &lt;strong&gt;@Injectable&lt;/strong&gt; 장식자 ( = 주입 가능한 클래스라는 뜻 ) 를 추가한 클래스 이다.&lt;br /&gt;&lt;br /&gt;
+@Injectable 을 생략한다고 해서 의존성 주입에 문제가 생기는 것은 아니지만, 생략하였을때 일반 클래스라 오인할 수 있기 때문에 반드시 추가해야 한다.&lt;/p&gt;
+
+&lt;pre&gt;
+import { Injectable } from '@angular/core';
+
+@Injectable()
+export class HelloService {
+  sayHello(){
+    return &quot;Hello 서비스!&quot;;
+  }
+  constructor() {}
+}
+&lt;/pre&gt;
+
+&lt;p&gt;===&amp;gt; hello.service.ts / HelloService 라는 서비스 생성&lt;/p&gt;
+
+&lt;pre&gt;
+import { Component } from '@angular/core';
+import { HelloService } from './hello.service';
+
+@Component({
+  selector: 'hello',
+  template: ``,
+  providers: [HelloService]
+  // -&amp;gt; providers 로 서비스 선언한다.
+})
+export class HelloComponent {
+  welcome: string;
+
+  constructor(helloService: HelloService) {
+    this.welcome = helloService.sayHello();
+  } // -&amp;gt; 생성자에서 서비스 선언 후 사용 (추천)
+  
+  constructor() {
+  	let Hello = new HelloService();
+  	this.welcome = Hello.sayHello();
+  } // -&amp;gt; 생성자에서 서비스 선언하지 않고 사용 (비추천 : 새로운 변수 생성 / 메모리 사용)
+}
+&lt;/pre&gt;
+
+&lt;p&gt;===&amp;gt; hello.component.ts&lt;br /&gt;providers 에 사용할 서비스를 컴포넌트에서 HelloService 를 불러와 생성자에서 선언 후 사용.&lt;br /&gt;&lt;br /&gt;
+생성자에서 선언하지 않고 &lt;strong&gt;&lt;em&gt;let Hello = new HelloSerivce();&lt;/em&gt;&lt;/strong&gt; 로 사용가능.&lt;/p&gt;
+
+&lt;h3 id=&quot;--객체지향-서비스&quot;&gt;- 객체지향 서비스&lt;/h3&gt;
+&lt;p&gt;크게 부모 / 자식 클래스가 있고 자식 클래스에는 공통 메서드가 정의돼 있기 떄문에 공통 메서드를 제어할 수 있는 인터페이스를 정의한다.&lt;/p&gt;
+
+&lt;pre&gt;
+import { Injectable } from '@angular/core';
+
+@Injectable()
+export class Parent {
+
+  getName(){    
+    return &quot;Parent 서비스!&quot;;
+  }
+}
+&lt;/pre&gt;
+
+&lt;p&gt;===&amp;gt; parent.service.ts / 부모 서비스&lt;/p&gt;
+
+&lt;pre&gt;
+import { Injectable } from '@angular/core';
+import { Parent } from './parent.service';
+
+export interface Child {
+  getData();
+}
+
+@Injectable()
+export class FirstChild implements Child {
+
+  constructor(public parent: Parent) { }
+  // -&amp;gt; Child 인터페이스만 사용하였기 떄문에 부모는 생성자에 선언하여 사용하여야 한다.
+  
+  getData() {
+    return [
+      { Child: 'FirstChild 서비스' },
+      { parent: this.parent.getName() }
+    ];
+  }
+}
+
+@Injectable()
+export class SecondChild extends Parent implements Child {
+  getData() {
+    return [
+      { Child: 'SecondChild 서비스' },
+      { parent: super.getName() }
+      // -&amp;gt; 부모를 상속하였기 때문에 super 로써 사용가능하다.
+    ];
+  }
+}
+&lt;/pre&gt;
+
+&lt;p&gt;===&amp;gt; child.service.ts / 자식 서비스&lt;br /&gt;&lt;br /&gt;
+위의 예시처럼 First / Second 로 Parent 를 사용가능하지만&lt;br /&gt;&lt;br /&gt;
+&lt;strong&gt;&lt;em&gt;SecondChild 에서는 super 를 통하여 호출하기 때문에 다른 컴포넌트나 객체로 부모의 데이터를 전달 할수 없으나 FirstChild 에서 처럼 생성자에서 부모를 선언 후 사용한다면 전달이 가능하기 떄문에 extends 를 사용하는것 대신에 생성자에서 부모를 선언하여 사용하는 것이 바람직하다.&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;
+import { Component } from '@angular/core';
+import { Parent } from './parent.service';
+import { FirstChild, SecondChild } from './child.service';
+
+@Component({
+  selector: 'oop-cmp',
+  template: `
+      생성자 주입방식&amp;lt; br&amp;gt;
+      &amp;lt; br&amp;gt;
+      상속방식&amp;lt; br&amp;gt;
+      `,
+  providers: [Parent, FirstChild, SecondChild]
+})
+export class OopComponent {
+  firstChildData;
+  secondChildData;
+  
+  constructor(firstChild: FirstChild, secondChild: SecondChild) {
+    this.firstChildData = firstChild.getData();
+    this.secondChildData = secondChild.getData();
+  }
+}
+&lt;/pre&gt;
+
+&lt;p&gt;===&amp;gt; oop.component.ts / 컴포넌트&lt;/p&gt;
+
+&lt;h3 id=&quot;--목-객체-서비스&quot;&gt;- 목 객체 서비스&lt;/h3&gt;
+&lt;p&gt;서버 의존성 없이 데이터를 제공하기 위해 테스트 데이터를 정의한 객체이다.&lt;br /&gt;&lt;br /&gt;
+목 객체를 사용하는 이유는 개발 과정에서 서버 의존성과 같은 외부 의존성을 제거함으로써 테스트를 가능하게 하기 위함이다.&lt;/p&gt;
+
+&lt;pre&gt;
+export class User {
+  name: string;  
+  id : string;
+}
+&lt;/pre&gt;
+
+&lt;p&gt;===&amp;gt; user.ts / User 데이터 객체&lt;/p&gt;
+
+&lt;pre&gt;
+import { User } from './user';
+
+export var USER: User[] = [
+  {name: '유비',id:'1'},
+  {name: '관우',id:'2'},
+  {name: '장비',id:'3'}  
+];
+&lt;/pre&gt;
+
+&lt;p&gt;===&amp;gt; mock-user.ts / 테스트 데이터 객체 USER 생성&lt;/p&gt;
+
+&lt;pre&gt;
+import { Injectable } from '@angular/core';
+import { USER } from './mock-user';
+
+export interface DataServiceStructure{
+  getUser();
+}
+
+@Injectable()
+export class MockService implements DataServiceStructure{
+  constructor() {}
+  getUser(){
+    return USER;
+  }
+}
+&lt;/pre&gt;
+
+&lt;p&gt;===&amp;gt; mock.service.ts / 목 서비스 생성 : 테스트 데이터 USER 를 리턴하는 서비스 생성&lt;/p&gt;
+
+&lt;pre&gt;
+import { Component, OnInit } from '@angular/core';
+import { MockService } from './mock.service';
+import { User } from './user';
+
+@Component({
+  selector: 'mock',
+   template: `
+    &amp;lt; b&amp;gt;이름 출력&amp;lt; /b&amp;gt;
+    &amp;lt; div *ngFor=&quot;let o of listUser&quot;&amp;gt;
+         | 
+    &amp;lt; /div&amp;gt;`,
+  providers: [MockService]
+})
+export class MockComponent {
+
+  listUser: User[];
+  // -&amp;gt; listUser 라는 리스트를 해당 User 라는 데이터 타입의 객체로 사용한다.
+
+  constructor(private userService: MockService) {
+    this.listUser = userService.getUser();
+    // -&amp;gt; MockService 를 선언하여 해당 USER 데이터를 불러와 저장함. 
+  }
+}
+&lt;/pre&gt;
+
+&lt;p&gt;===&amp;gt; mock-component.ts / 해당 서비스와 데이터 타입 객체를 불러와 사용&lt;/p&gt;
+</description>
+				<pubDate>Sun, 30 Apr 2017 00:00:00 +0900</pubDate>
+				<link>http://localhost:4000/2017/04/Angular2-Service</link>
+				<guid isPermaLink="true">http://localhost:4000/2017/04/Angular2-Service</guid>
+			</item>
+		
+			<item>
 				<title>Angular Component2</title>
 				<description>&lt;h1 id=&quot;angular-component2&quot;&gt;Angular Component2&lt;/h1&gt;
 &lt;p&gt;Input 을 이용한 값 전달&lt;br /&gt;
@@ -1098,124 +1304,6 @@ cat , dog ==&amp;gt;		  3
 				<pubDate>Sat, 08 Apr 2017 00:00:00 +0900</pubDate>
 				<link>http://localhost:4000/2017/04/UP-Development-1.-Inception</link>
 				<guid isPermaLink="true">http://localhost:4000/2017/04/UP-Development-1.-Inception</guid>
-			</item>
-		
-			<item>
-				<title>Wild - Card Queries</title>
-				<description>&lt;h1 id=&quot;wild---card-queries&quot;&gt;Wild - Card Queries&lt;/h1&gt;
-&lt;h3 id=&quot;--------&quot;&gt;- “ * “ / “ $ “&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;” * “ means 0 or more occurrences&lt;/li&gt;
-  &lt;li&gt;” $ “ represents the end ( m$ : m 으로 끝남 , $m : m 으로 시작함 )&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Example&lt;/p&gt;
-&lt;pre&gt;
-mon* : find all docs containing any word beginning with &quot;mon&quot;
-&lt;/pre&gt;
-&lt;p&gt;Easy with Binary tree ( or B+ Tree ) lexicon ( 사전 ) : retrieve all words in range : mon &amp;lt;= w &amp;lt; moo&lt;/p&gt;
-&lt;pre&gt;
-*mon : find words ending in &quot;mon&quot; : harder
-&lt;/pre&gt;
-&lt;p&gt;Maintain an additional B+ Tree for terms backwards&lt;/p&gt;
-
-&lt;h3 id=&quot;--query-processing&quot;&gt;- Query Processing&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;At this point, we have an enumeration of all terms in the &lt;strong&gt;Dictionary&lt;/strong&gt; that match the wild-card query&lt;/li&gt;
-  &lt;li&gt;We still have to look up the postings for each enumerated term&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Example&lt;/p&gt;
-&lt;pre&gt;
-se * ate
-se *  AND * ate : This may result in the execution of many Boolean AND queries.
-&lt;/pre&gt;
-&lt;p&gt;–&amp;gt; Expensive ( B+ Tree 를 하나 더 사용하게 된다 )&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;Solution : &lt;strong&gt;Transform wild-card queries so that the “ * “ occur at the end&lt;/strong&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;This give rise to the &lt;strong&gt;Permuterm Index&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;--permuterm-index&quot;&gt;- Permuterm Index&lt;/h3&gt;
-
-&lt;pre&gt;
-From term hello, index under :
-- hello$ , ello$h, llo$he, lo$hel, o$hell, $hello 
-( 한칸씩 Shifting 하면서 해당 단어에 대한 Permuterm 을 전부 만든다 )
-&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;해당 Word 에 대해 모든 Permuterm 을  Dictinary 에 넣고 Search 시 사용한다.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/permutermIndex.png&quot; alt=&quot;screenshot&quot; /&gt;&lt;/p&gt;
-
-&lt;pre&gt;
-Search H * llo
-- hello -&amp;gt; llo$he, ...
-- hillo -&amp;gt; llo$hi, ...
-- haaallo -&amp;gt; llo$haaa, ...
---&amp;gt; 미리 Dictionary 에 정의된 단어들의 Permuterm 들 중 Search word 가 match 되는 것을 찾는 방식
-&lt;/pre&gt;
-
-&lt;p&gt;Exercise&lt;/p&gt;
-&lt;pre&gt;
-1. Write down the entries in the permuterm index dictionary that are generated by the term mama.
-- ANS :  mama$, ama$m, ma$ma, a$mam, $mama
-2. If you wanted to search for s*ng in a permuterm wildcard index, what key(s) would one do the lookup on?
-- ANS : ng$s *
-3.
- - Consider again the query fi * mo * er.
- - What Boolean query on a bigram index would be generated for this query?
- 	- ANS : The Boolean query is $f AND fi AND mo AND er AND r$.
- - Can you think of a term that matches the permuterm query, but does not satisfy this Boolean query?
- 	- ANS : The &quot;filibuster&quot; term will match the permuterm query, but does not satisfy this Boolean query
-&lt;/pre&gt;
-
-&lt;h3 id=&quot;--bigram--k---gram--indexes&quot;&gt;- Bigram ( k - gram ) Indexes&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Enumerate all k - grams ( sequence of k chars ) occuring in any term&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/bigramEx.png&quot; alt=&quot;screenshot&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;$ is a special word boundary symbol&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Maintain a second inverted index from bigrams to dictionary terms that match each bigram&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/bigramEx2.png&quot; alt=&quot;screenshot&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Example&lt;/p&gt;
-&lt;pre&gt;
-he * llo
-- he -&amp;gt; hello, he, she, loche, ...
-- lo -&amp;gt; hello, location, log, loche, ...
-Check match he * lo ---&amp;gt; hello, loche, ...
-&lt;/pre&gt;
-
-&lt;h3 id=&quot;--processing-wild---cards&quot;&gt;- Processing wild - cards&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;Query mon * can now be run as&lt;br /&gt;&lt;strong&gt;$m AND mo AND on&lt;/strong&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Gets terms that match AND version of our wildcard query&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;But we may enumerate moon too!&lt;/strong&gt;
-    &lt;ul&gt;
-      &lt;li&gt;Must post-filter these terms against query.&lt;/li&gt;
-      &lt;li&gt;Or positional index can handle this problem&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Surviving enumerated terms are then looked up in the term-document inverted index&lt;/li&gt;
-  &lt;li&gt;Fast, space efficient ( Compared to permuterm )&lt;/li&gt;
-  &lt;li&gt;As before, we must execute a Boolean query for each enumerated, filtered term&lt;/li&gt;
-  &lt;li&gt;Wild-cards can result in expensive query execution (very large disjunctions…)&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-				<pubDate>Fri, 07 Apr 2017 00:00:00 +0900</pubDate>
-				<link>http://localhost:4000/2017/04/wild-card</link>
-				<guid isPermaLink="true">http://localhost:4000/2017/04/wild-card</guid>
 			</item>
 		
 	</channel>
