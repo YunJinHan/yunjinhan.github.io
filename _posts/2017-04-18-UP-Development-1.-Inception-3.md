@@ -23,7 +23,7 @@ UP Development - 1.Inception (Cont'd)
 - Extensions indicate all the other scenarios or branches, both success and failure
 - Extension has two parts **Condition** and **The Handing**
 - **Write the condition as something that can be detected by the system or an actor**
-<pre>
+{% highlight javascript %}
 Example )
 Extensions:
 3a. Invalid identifier:
@@ -33,11 +33,11 @@ Extensions:
 3-6a. Customer asks Cahier to remove an item from the purchase:
 &nbsp;&nbsp;1.Cashier enters the item identifier for removal from the sale.
 &nbsp;&nbsp;2.System displays updated running total.
-</pre>
+{% endhighlight javascript %}
 
 - At the end of extension handing, by default the scenario merges back with the main success scenario, unless the extension indicates otherwise ( such as by halting the system )
 - If a particular extension is quite complex, a separate use case may be written
-<pre>
+{% highlight javascript %}
 Example )
 7b. Paying by credit:
 &nbsp;&nbsp;1.Customer enters their credit card information.
@@ -49,7 +49,7 @@ Example )
 In order to support recovery and correct accounting, ensure all transaction sensative state and events can be recovered at any step in the scenario.
 &nbsp;&nbsp;1.Cahier restarts the System, log in, and requests recovery of prior state.
 &nbsp;&nbsp;2.System reconstructs prior state.
-</pre>
+{% endhighlight javascript %}
 
 ![screenshot]({{ site.url }}/assets/scenarioLevel.png)
 
@@ -58,27 +58,27 @@ In order to support recovery and correct accounting, ensure all transaction sens
 
 ### - Special Requirement
 - Non-functional requirements, quality attributes, and constraints which relates specifically to a use case are recorded with the use case
-<pre>
+{% highlight javascript %}
 Example )
 Special Requirements:
 -Touch screen UI on a large flat panel monitor. Text must be visible from 1 meter. 
 -Credit authorization response within 30 seconds within 90% of time.
 -Language internationalization on the text displayed.
 -Pluggable business rules to be insertable at steps 2 and 6.
-</pre>
+{% endhighlight javascript %}
 
 ### - Technology and Data Variations List
 - This section records technical variations in how something must be done, but not what
 - This section also records variations in data scheme
 - This section should not contain multiple steps to express varying behavior for different cases. If that is necessary, say it in the Extensions section
-<pre>
+{% highlight javascript %}
 Example )
 Technology and Data Variations List:
 3a. Item identifier entered by laser scanner or keyboard.
 3b. Item identifier may be any UPC, EAN, JAN, or SKU coding scheme.
 7a. Credit account information entered by card reader or keyboard.
 7b. Credit payment signature captured on paper receipt. But within two years, we pre-dict many customers will want digital signature capture.
-</pre>
+{% endhighlight javascript %}
 
 ### - Key Four Concepts that apply to every sentence in UseCaese and to the UseCase as a whole
 - **Level : Why do we want this goal? ( 어느 정도의 Goal Level 이냐 )**

@@ -1,0 +1,354 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>JinHan's Blog | Angular2 Root Module </title>
+  <meta name="theme-color" content="#222222" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+  <script src="/js/header.js"></script>
+  <script src="/js/toc.js"></script>
+  <link rel="icon" href="/favicon.png" type="image/x-icon">
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/css/theme.css" rel="stylesheet">
+  <link href="/css/syntax.css" rel="stylesheet">
+  <link href="/css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+  
+
+  
+
+
+ <script type="text/javascript">
+  WebFontConfig = {
+    google: {
+      families: ['Ubuntu::latin']
+    }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">JinHan's Blog</a>
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li><a href="/">/home</a></li>
+          <li><a href="/archive.html">/archive</a></li>
+          <li><a href="/tags.html">/tags</a></li>
+          <li><a href="/about.html">/about</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+    <div class="wrapper">
+      <div class="content">
+        <div class="container container-center">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="article">
+                <div class="well">
+                  <h1><a href="/2017/05/Angular2-Root-Module">Angular2 Root Module</a></h1>
+                  <div class="post-meta">
+                    <div class="post-time">
+                      <i class="fa fa-calendar"></i>
+                      <time>01 May 2017</time>
+                    </div>
+                    <ul>
+                      
+                        <li><a href="/tag/Angular2">Angular2</a></li>
+                      
+                    </ul>
+                  </div>
+                  <div class="post-content">
+                    <div id="toc" class="toc"></div>
+                    <h1 id="angular2-root-module">Angular2 Root Module</h1>
+<p>애플리케이션에서 루트 모듈은 애플리케이션에서 최상위 모듈이며 애플리케이션 레벨의 서비스와 컴포넌트, 지시자, 파이프를 선언하거나 특징 모듈이라고 하는 다른 하위 모듈 설정을 포함하기도 한다.</p>
+
+<p>Angular 애플리케이션은 최소한 하나 이상의 모듈 클래스를 갖는데, 이때 항상 정의되어야 하는 것이 바로 루트 모듈이다. 루트 모듈은 <strong>@NgModule</strong> 장식자를 이용해 정의하며 선언 형식은 아래와 같다.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="err">@</span><span class="nx">NgModule</span><span class="p">({</span>
+	<span class="na">imports</span> <span class="p">:</span> <span class="p">[</span> <span class="err">호출할</span> <span class="err">모듈</span><span class="mi">1</span><span class="p">,</span> <span class="err">호출할</span> <span class="err">모듈</span><span class="mi">2</span><span class="p">,</span> <span class="p">...</span> <span class="p">],</span>
+	<span class="na">exports</span> <span class="p">:</span> <span class="p">[</span> <span class="err">노출할</span> <span class="err">모듈</span><span class="mi">1</span><span class="p">,</span> <span class="err">노출할</span> <span class="err">모듈</span><span class="mi">2</span><span class="p">,</span> <span class="p">...</span> <span class="p">],</span>
+	<span class="na">declarations</span> <span class="p">:</span> <span class="p">[</span> <span class="err">사용할</span> <span class="err">구성요소</span><span class="mi">1</span><span class="p">,</span> <span class="err">사용할</span> <span class="err">구성요소</span><span class="mi">2</span><span class="p">,</span> <span class="p">...</span> <span class="p">],</span>
+	<span class="na">bootstrap</span> <span class="p">:</span> <span class="p">[</span> <span class="err">애플리케이션</span> <span class="err">컴포넌트</span> <span class="p">]</span>
+<span class="p">})</span></code></pre></figure>
+
+<p><strong>@NgModule</strong> 장식자는 애플리케이션 모듈에 대한 메타데이터 정보를 정의한다.<br /><br />
+해당 <strong>@NgModule</strong> 장식자에 사용된 속성으로 <strong>선언자(declarations), 호출자(imports), 제공자(providers), 부트스트랩(bootstrap)</strong> 이 있다.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kr">import</span> <span class="p">{</span> <span class="nx">BrowserModule</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'@angular/platform-browser'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">NgModule</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'@angular/core'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">CommonModule</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'@angular/common'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">FormsModule</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'@angular/forms'</span><span class="p">;</span>
+
+<span class="cm">/* 어플리케이션 라우팅 모듈 */</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">AppRoutingModule</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'./app-routing.module'</span><span class="p">;</span>
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">AppComponent</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'./app.component'</span><span class="p">;</span>
+
+<span class="p">...</span>
+
+<span class="err">@</span><span class="nx">NgModule</span><span class="p">({</span>
+  <span class="na">imports</span><span class="p">:</span> <span class="p">[</span>
+    <span class="nx">BrowserModule</span><span class="p">,</span><span class="nx">CommonModule</span><span class="p">,</span> <span class="nx">FormsModule</span><span class="p">,</span>    
+	 <span class="p">...</span>
+	 <span class="nx">AppRoutingModule</span>
+  <span class="p">],</span>
+  <span class="na">providers</span><span class="p">:</span> <span class="p">[],</span>
+  <span class="na">declarations</span><span class="p">:</span> <span class="p">[</span>
+    <span class="nx">AppComponent</span><span class="p">,</span>
+    <span class="p">...</span>
+  <span class="p">],</span>
+  <span class="na">bootstrap</span><span class="p">:</span> <span class="p">[</span><span class="nx">AppComponent</span><span class="p">]</span>
+  <span class="c1">// 최상위 컴포넌트 : AppComponent</span>
+<span class="p">})</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">AppModule</span> <span class="p">{</span> <span class="p">}</span></code></pre></figure>
+
+<p>===&gt; app.module.ts</p>
+
+<h4 id="imports-속성에는-angular-라이브러리-모듈이나-라우팅-모듈을-등록한다">imports 속성에는 Angular 라이브러리 모듈이나 라우팅 모듈을 등록한다.</h4>
+
+<p>대표적으로<br /></p>
+
+<ul>
+  <li><strong>BrowserModule</strong> : 브라우저 상에서 동작한다면 반드시 포함 / 컴포넌트나 지시자, 파이프 같은 구성요소를 템플릿에 나타나게 하는 역할</li>
+  <li><strong>CommonModule</strong> : 템플릿에서 사용하는 ngIf / ngFor 와 관련된 기능을 포함함 / BrowserModule 은 ommonModule 을 가지므로 BrowserModule 를 이미 선언했다면 CommonModule 를 선언 할 필요가 없다.</li>
+  <li><strong>FormsModule</strong> : 템플릿에서 자주 사용하는 NgModule 지시자나 내장 검증기 지시자등을 포함</li>
+  <li><strong>RoutingModule</strong> : 사용자가 정의할 수 있는 모듈</li>
+</ul>
+
+<h4 id="provider-에는-애플리케이션-전역에서-사용할-서비스를-등록함">provider 에는 애플리케이션 전역에서 사용할 서비스를 등록함</h4>
+
+<h4 id="declarations-에는-애플리케이션-레벨에서-사용하고자-하는-컴포넌트-지시자-파이프를-선언함">declarations 에는 애플리케이션 레벨에서 사용하고자 하는 컴포넌트, 지시자 파이프를 선언함.</h4>
+
+<h4 id="bootstrap-에는-최상위-컴포넌트인-애플리케이션-컴포넌트를-등록함">bootstrap 에는 최상위 컴포넌트인 애플리케이션 컴포넌트를 등록함.</h4>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kr">import</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'@angular/core'</span><span class="p">;</span>
+
+<span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+  <span class="na">selector</span><span class="p">:</span> <span class="s1">'app-root'</span><span class="p">,</span>
+  <span class="na">template</span><span class="p">:</span> <span class="err">`</span> <span class="p">...</span>
+  <span class="o">&lt;</span><span class="nx">div</span> <span class="kr">class</span><span class="o">=</span><span class="s2">"play-box"</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">router</span><span class="o">-</span><span class="nx">outlet</span><span class="o">&gt;&lt;</span> <span class="nx">router</span><span class="o">-</span><span class="nx">outlet</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="sr">/div&gt;</span><span class="err">`
+</span><span class="p">})</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">AppComponent</span> <span class="p">{</span> <span class="p">}</span></code></pre></figure>
+
+<p>===&gt; app.component.ts</p>
+
+<p>app.component 를 보면 하위 특정 컴포넌트로 라우팅 후 하위 컴포넌트를 표시할 목적으로 router outlet 지시자를 포함함을 볼 수 있다. router outlet 에 표시할 컴포넌트가 있다면 애플리케이션 라우팅 모듈 설정에 다음과 같이 등록한다.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kr">import</span> <span class="p">{</span> <span class="nx">NgModule</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'@angular/core'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">Routes</span><span class="p">,</span> <span class="nx">RouterModule</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'@angular/router'</span><span class="p">;</span>
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">IntroComponent</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'./intro.component'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">HelloComponent</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'./hello/hello.component'</span><span class="p">;</span>
+
+<span class="kr">const</span> <span class="nx">appRoutes</span><span class="err">:</span> <span class="nx">Routes</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">{</span> <span class="na">path</span><span class="p">:</span> <span class="s1">''</span><span class="p">,</span> <span class="na">component</span><span class="p">:</span> <span class="nx">IntroComponent</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">path</span><span class="p">:</span> <span class="s1">'hello'</span><span class="p">,</span> <span class="na">component</span><span class="p">:</span> <span class="nx">HelloComponent</span> <span class="p">},</span>
+	<span class="p">...</span>
+<span class="p">];</span>
+
+<span class="err">@</span><span class="nx">NgModule</span><span class="p">({</span>
+  <span class="na">imports</span><span class="p">:</span> <span class="p">[</span><span class="nx">RouterModule</span><span class="p">.</span><span class="nx">forRoot</span><span class="p">(</span><span class="nx">appRoutes</span><span class="p">)],</span>
+  <span class="na">exports</span><span class="p">:</span> <span class="p">[</span><span class="nx">RouterModule</span><span class="p">]</span>
+<span class="p">})</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">AppRoutingModule</span> <span class="p">{}</span></code></pre></figure>
+
+<p>===&gt; app-routing.module.ts</p>
+
+<p>라우팅 경로 (path) 가 hello 이고 component 속성값이 HelloComponent 라면 http://localhost:4200/hello 로 접속하였을 때 HelloComponent 컴포넌트가 router outlet 에 출력된다.</p>
+
+<p>이러한 설정 정보는 appRoutes 변수에 할당되며 해당 변수는 forRoot() 메서드를 이용해 등록한다.<br />
+한 가지 유의할 점은 이 메서드는 애플리케이션 라우팅 모듈에서만 한 번만 사용해야 하고, 특징 모듈 (feature module) 에서는 사용하면 안된다.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kr">import</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'@angular/core'</span><span class="p">;</span>
+
+<span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+  <span class="na">selector</span><span class="p">:</span> <span class="s1">'hello'</span><span class="p">,</span>
+  <span class="na">template</span><span class="p">:</span> <span class="err">`</span><span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="nx">Hello</span><span class="o">!!&lt;</span><span class="sr">/h1&gt;</span><span class="err">`
+</span><span class="p">})</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">HelloComponent</span> <span class="p">{</span> <span class="p">}</span></code></pre></figure>
+
+<p>===&gt; hello.component.ts</p>
+
+<p><strong>따라서 http://localhost:4200/hello 로 접속하였을 때<br /> app.module.ts 애 bootstrap 에 등록된 최상위 컴포넌트 AppComponent 가 호출되고<br />해당 컴포넌트 안에 있는 router-outlet 에서는 <br />app-routing.module.ts 에 appRoute 로 등록된 HelloComponent 가 호출되어 아래와 같이</strong></p>
+
+<pre>
+<h1>Hello!!</h1>
+</pre>
+
+<p><strong>가 출력된다.</strong></p>
+
+
+                    
+
+<div class="share-bar">
+  <ul class="share-buttons">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <li class="share-envelope">
+      <a href="mailto:?&subject=Angular2 Root Module&body=Angular2 Root Module http://localhost:4000/2017/05/Angular2-Root-Module" target="_blank" title="Email">
+        <span class="fa-stack fa-lg">
+          <i class="fa fa-circle-thin fa-stack-2x"></i>
+          <i class="fa fa-envelope-o fa-stack-1x"></i>
+        </span>
+      </a>
+    </li>
+    
+
+  </ul>
+</div>
+
+
+                  </div>
+                  
+                  <div id="disqus_thread">
+                    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 hidden-xs">
+              <div class="sidebar ">
+  <h2>Recent Posts</h2>
+  <ul>
+    
+    <li><a href="/2017/05/Angular2-Root-Module">Angular2 Root Module</a></li>
+    
+    <li><a href="/2017/05/Angular2-Module">Angular2 Module</a></li>
+    
+    <li><a href="/2017/04/Angular2-Service2">Angular2 Service2</a></li>
+    
+    <li><a href="/2017/04/Angular2-Service">Angular2 Service1</a></li>
+    
+    <li><a href="/2017/04/Angular2-Component2">Angular2 Component2</a></li>
+    
+    <li><a href="/2017/04/UP-Development-2.-Elaboration">UP Development - 2.Elaboration</a></li>
+    
+    <li><a href="/2017/04/UP-Development-1.-Inception-3">UP Development - 1.Inception (Cont'd) 2</a></li>
+    
+    <li><a href="/2017/04/blocked-sort-based-indexing">Index Construction</a></li>
+    
+    <li><a href="/2017/04/n-gram-overlap">N - Gram Overlap</a></li>
+    
+    <li><a href="/2017/04/Angular2-Component1">Angular2 Component1</a></li>
+    
+  </ul>
+</div>
+
+<div class="sidebar">
+  <h2>tags</h2>
+  <ul class="sideBarTags">
+    
+    
+    <li>
+      <a href="/tag/Angular2" data-toggle="tooltip" data-placement="right" title="7">
+        <span>Angular2</span></a></li>
+    
+    <li>
+      <a href="/tag/Information_Retrieval" data-toggle="tooltip" data-placement="right" title="11">
+        <span>Information_Retrieval</span></a></li>
+    
+    <li>
+      <a href="/tag/Object-Oriented-Programming" data-toggle="tooltip" data-placement="right" title="11">
+        <span>Object-Oriented-Programming</span></a></li>
+    
+    <li>
+      <a href="/tag/Problems" data-toggle="tooltip" data-placement="right" title="3">
+        <span>Problems</span></a></li>
+    
+  </ul>
+</div>
+
+            </div>
+          </div>
+        </div>
+        
+<script id="dsq-count-scr" src="//https-yunjinhan-github-io.disqus.com/count.js" async></script>
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://https-yunjinhan-github-io.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                                
+
+
+      </div>
+          <footer class="footer-distributed">
+      <div class="container">
+        <div class="footer">
+          <p>JinHan Yun &copy; 2017</p>
+          <h6>Contact Me</h6>
+
+<ul class="social-media">
+
+  
+    <li>
+      <a title="YunJinHan on Github" href="https://github.com/YunJinHan" target="_blank"><i class="fa fa-github fa-2x"></i></a>
+    </li>
+  
+
+  
+    <li>
+      <a title="yjh9234@gmail.com on Email" href="mailto:yjh9234@gmail.com" target=""><i class="fa fa-envelope fa-2x"></i></a>
+    </li>
+  
+
+</ul>
+
+        </div>
+      </div>
+    </footer>
+
+    </div>
+  </body>
+</html>

@@ -89,107 +89,103 @@
 <h3 id="--input-장식자를-이용한-값-받기">- input 장식자를 이용한 값 받기</h3>
 <p>@input 장식자는 외부에서 전달된 값을 받기 위해 사용된다.<br />( 부모에서 자식으로 값을 전달할 때 많이 사용됨 )</p>
 
-<pre>
-import { Component } from '@angular/core';
-@Component({
-	selector: 'parent-to-child-input',
-	template: `&lt; div&gt;부모
-	&lt; child-input [name1]="fruit1" [name2]="fruit2()" [name3]="fruit3"
-	  [name4]="1+1" [name5]="fruit5" [name6]="fruit6"&gt;&lt; /child-input&gt;
-	&lt; /div&gt;`,
-	styles: [`div{border : 2px soild #666; width:90%; height:50%}`]
-})
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kr">import</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'@angular/core'</span><span class="p">;</span>
+<span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+	<span class="na">selector</span><span class="p">:</span> <span class="s1">'parent-to-child-input'</span><span class="p">,</span>
+	<span class="na">template</span><span class="p">:</span> <span class="err">`</span><span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="err">부모</span>
+	<span class="o">&lt;</span><span class="nx">child</span><span class="o">-</span><span class="nx">input</span> <span class="p">[</span><span class="nx">name1</span><span class="p">]</span><span class="o">=</span><span class="s2">"fruit1"</span> <span class="p">[</span><span class="nx">name2</span><span class="p">]</span><span class="o">=</span><span class="s2">"fruit2()"</span> <span class="p">[</span><span class="nx">name3</span><span class="p">]</span><span class="o">=</span><span class="s2">"fruit3"</span>
+	  <span class="p">[</span><span class="nx">name4</span><span class="p">]</span><span class="o">=</span><span class="s2">"1+1"</span> <span class="p">[</span><span class="nx">name5</span><span class="p">]</span><span class="o">=</span><span class="s2">"fruit5"</span> <span class="p">[</span><span class="nx">name6</span><span class="p">]</span><span class="o">=</span><span class="s2">"fruit6"</span><span class="o">&gt;&lt;</span><span class="sr">/child-input</span><span class="err">&gt;
+</span>	<span class="o">&lt;</span><span class="sr">/div&gt;`</span><span class="err">,
+</span>	<span class="na">styles</span><span class="p">:</span> <span class="p">[</span><span class="err">`</span><span class="nx">div</span><span class="p">{</span><span class="na">border</span> <span class="p">:</span> <span class="mi">2</span><span class="nx">px</span> <span class="nx">soild</span> <span class="err">#</span><span class="mi">666</span><span class="p">;</span> <span class="nl">width</span><span class="p">:</span><span class="mi">90</span><span class="o">%</span><span class="p">;</span> <span class="nl">height</span><span class="p">:</span><span class="mi">50</span><span class="o">%</span><span class="p">}</span><span class="err">`</span><span class="p">]</span>
+<span class="p">})</span>
 
-export class ParentToChildInputComponent {
-	fruit1 = "사과";
-	fruit2() {
-		return "배";
-	}
-	fruit3 = ['딸기','포도','참외'];
-	static fruit5 = "수박";
-	get fruit6() {
-		return ParentToChildInputComponent.fruit5;
-	}
-}
-</pre>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">ParentToChildInputComponent</span> <span class="p">{</span>
+	<span class="nx">fruit1</span> <span class="o">=</span> <span class="s2">"사과"</span><span class="p">;</span>
+	<span class="nx">fruit2</span><span class="p">()</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="s2">"배"</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="nx">fruit3</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'딸기'</span><span class="p">,</span><span class="s1">'포도'</span><span class="p">,</span><span class="s1">'참외'</span><span class="p">];</span>
+	<span class="kr">static</span> <span class="nx">fruit5</span> <span class="o">=</span> <span class="s2">"수박"</span><span class="p">;</span>
+	<span class="nx">get</span> <span class="nx">fruit6</span><span class="p">()</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">ParentToChildInputComponent</span><span class="p">.</span><span class="nx">fruit5</span><span class="p">;</span>
+	<span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
 <p>==&gt; 부모 컴포넌트 ( 자식에게 값을 전달함 )<br /><br />
 <strong><em>정적변수 static ( fruit5 ) 은 자식 컴포넌트로 곧바로 전달할 수 없다.<br /><br />
 곧바로 전달하려면 getter 메소드 ( fruit6 ) 를 사용해야 한다</em></strong></p>
 
-<pre>
-import { Component, Input } from '@angular/core';
-@Component({
-	selector: 'child-input',
-	template: `&lt; div&gt;
-	자식&lt; br&gt;
-	name1 : &lt; br&gt;
-	name2 : &lt; br&gt;
-	name3 : &lt; span *ngFor="let i of name3"&gt;&lt; /span&gt;&lt; br&gt;
-	name4 : &lt; br&gt;
-	name5 : &lt; br&gt;
-	name6 : &lt; br&gt;
-	&lt; /div&gt;`,
-	styles: [`div{border : 2px soild #666; width:90%; height:50%}`]
-})
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kr">import</span> <span class="p">{</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">Input</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'@angular/core'</span><span class="p">;</span>
+<span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+	<span class="na">selector</span><span class="p">:</span> <span class="s1">'child-input'</span><span class="p">,</span>
+	<span class="na">template</span><span class="p">:</span> <span class="err">`</span><span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+	<span class="err">자식</span><span class="o">&lt;</span><span class="nx">br</span><span class="o">&gt;</span>
+	<span class="na">name1</span> <span class="p">:</span> <span class="o">&lt;</span><span class="nx">br</span><span class="o">&gt;</span>
+	<span class="na">name2</span> <span class="p">:</span> <span class="o">&lt;</span><span class="nx">br</span><span class="o">&gt;</span>
+	<span class="na">name3</span> <span class="p">:</span> <span class="o">&lt;</span><span class="nx">span</span> <span class="o">*</span><span class="nx">ngFor</span><span class="o">=</span><span class="s2">"let i of name3"</span><span class="o">&gt;&lt;</span><span class="sr">/span&gt;&lt;br</span><span class="err">&gt;
+</span>	<span class="na">name4</span> <span class="p">:</span> <span class="o">&lt;</span><span class="nx">br</span><span class="o">&gt;</span>
+	<span class="na">name5</span> <span class="p">:</span> <span class="o">&lt;</span><span class="nx">br</span><span class="o">&gt;</span>
+	<span class="na">name6</span> <span class="p">:</span> <span class="o">&lt;</span><span class="nx">br</span><span class="o">&gt;</span>
+	<span class="o">&lt;</span><span class="sr">/div&gt;`</span><span class="err">,
+</span>	<span class="na">styles</span><span class="p">:</span> <span class="p">[</span><span class="err">`</span><span class="nx">div</span><span class="p">{</span><span class="na">border</span> <span class="p">:</span> <span class="mi">2</span><span class="nx">px</span> <span class="nx">soild</span> <span class="err">#</span><span class="mi">666</span><span class="p">;</span> <span class="nl">width</span><span class="p">:</span><span class="mi">90</span><span class="o">%</span><span class="p">;</span> <span class="nl">height</span><span class="p">:</span><span class="mi">50</span><span class="o">%</span><span class="p">}</span><span class="err">`</span><span class="p">]</span>
+<span class="p">})</span>
 
-export class ChildInputComponent {
-	@Input() name1 : string;
-	@Input() name2 : string;
-	@Input() name3 : string[];
-	@Input() name4 : number;
-	@Input() name5 : string;
-	@Input() name6 : string;
-}
-</pre>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">ChildInputComponent</span> <span class="p">{</span>
+	<span class="err">@</span><span class="nx">Input</span><span class="p">()</span> <span class="nx">name1</span> <span class="err">:</span> <span class="nx">string</span><span class="p">;</span>
+	<span class="err">@</span><span class="nx">Input</span><span class="p">()</span> <span class="nx">name2</span> <span class="err">:</span> <span class="nx">string</span><span class="p">;</span>
+	<span class="err">@</span><span class="nx">Input</span><span class="p">()</span> <span class="nx">name3</span> <span class="err">:</span> <span class="nx">string</span><span class="p">[];</span>
+	<span class="err">@</span><span class="nx">Input</span><span class="p">()</span> <span class="nx">name4</span> <span class="err">:</span> <span class="nx">number</span><span class="p">;</span>
+	<span class="err">@</span><span class="nx">Input</span><span class="p">()</span> <span class="nx">name5</span> <span class="err">:</span> <span class="nx">string</span><span class="p">;</span>
+	<span class="err">@</span><span class="nx">Input</span><span class="p">()</span> <span class="nx">name6</span> <span class="err">:</span> <span class="nx">string</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
+
 <p>===&gt; 자식 컴포넌트 ( 부모로부터 값을 전달받음 )<br /><br />
 &lt; 출력 결과 &gt;</p>
-<pre>
-부모
-자식
-name1 : 사과
-name2 : 배
-name3 : 딸기 포도 참외
-name4 : 2
-name5 :
-name6 : 수박
-</pre>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="err">부모</span>
+<span class="err">자식</span>
+<span class="nl">name1</span> <span class="p">:</span> <span class="err">사과</span>
+<span class="nl">name2</span> <span class="p">:</span> <span class="err">배</span>
+<span class="nl">name3</span> <span class="p">:</span> <span class="err">딸기</span> <span class="err">포도</span> <span class="err">참외</span>
+<span class="nl">name4</span> <span class="p">:</span> <span class="mi">2</span>
+<span class="nl">name5</span> <span class="p">:</span>
+<span class="nl">name6</span> <span class="p">:</span> <span class="err">수박</span></code></pre></figure>
+
 <p><br /></p>
 
 <h3 id="--input-속성을-이용한-값-받기">- input 속성을 이용한 값 받기</h3>
 <p>Component 장식자 설정의 inputs 속성을 통하여 값을 주고 받는 것이 가능하다.</p>
 
-<pre>
-import { Component } from '@angular/core';
-@Component({
-	selector: 'app-parent-to-child-inputs',
-	template: `&lt; div&gt;부모
-	&lt; child-inputs [name1]="name1" [name2]="name2"&gt;
-	&lt; /child-input&gt;&lt; /div&gt;`,
-	styles: [`div{border : 2px soild #666; width:90%; height:50%}`]
-})
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kr">import</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'@angular/core'</span><span class="p">;</span>
+<span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+	<span class="na">selector</span><span class="p">:</span> <span class="s1">'app-parent-to-child-inputs'</span><span class="p">,</span>
+	<span class="na">template</span><span class="p">:</span> <span class="err">`</span><span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="err">부모</span>
+	<span class="o">&lt;</span><span class="nx">child</span><span class="o">-</span><span class="nx">inputs</span> <span class="p">[</span><span class="nx">name1</span><span class="p">]</span><span class="o">=</span><span class="s2">"name1"</span> <span class="p">[</span><span class="nx">name2</span><span class="p">]</span><span class="o">=</span><span class="s2">"name2"</span><span class="o">&gt;</span>
+	<span class="o">&lt;</span><span class="sr">/child-input&gt;&lt;/</span><span class="nx">div</span><span class="o">&gt;</span><span class="err">`</span><span class="p">,</span>
+	<span class="na">styles</span><span class="p">:</span> <span class="p">[</span><span class="err">`</span><span class="nx">div</span><span class="p">{</span><span class="na">border</span> <span class="p">:</span> <span class="mi">2</span><span class="nx">px</span> <span class="nx">soild</span> <span class="err">#</span><span class="mi">666</span><span class="p">;</span> <span class="nl">width</span><span class="p">:</span><span class="mi">90</span><span class="o">%</span><span class="p">;</span> <span class="nl">height</span><span class="p">:</span><span class="mi">50</span><span class="o">%</span><span class="p">}</span><span class="err">`</span><span class="p">]</span>
+<span class="p">})</span>
 
-export class ParentToChildInputsComponent {
-	name1 = "사과";
-	name2 = "바나나";
-}
-</pre>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">ParentToChildInputsComponent</span> <span class="p">{</span>
+	<span class="nx">name1</span> <span class="o">=</span> <span class="s2">"사과"</span><span class="p">;</span>
+	<span class="nx">name2</span> <span class="o">=</span> <span class="s2">"바나나"</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
+
 <p>===&gt; 부모 컴포넌트</p>
 
-<pre>
-import { Component, Input } from '@angular/core';
-@Component({
-	selector: 'child-inputs',
-	template: `&lt; div&gt;자식&lt; br&gt;
-	input 값 : ,  &lt; /div&gt;`,
-	styles: [`div{border : 2px soild #666; width:90%; height:50%}`],
-	inputs: ['name1','name2']
-})
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kr">import</span> <span class="p">{</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">Input</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'@angular/core'</span><span class="p">;</span>
+<span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+	<span class="na">selector</span><span class="p">:</span> <span class="s1">'child-inputs'</span><span class="p">,</span>
+	<span class="na">template</span><span class="p">:</span> <span class="err">`</span><span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="err">자식</span><span class="o">&lt;</span><span class="nx">br</span><span class="o">&gt;</span>
+	<span class="nx">input</span> <span class="err">값</span> <span class="p">:</span> <span class="p">,</span>  <span class="o">&lt;</span><span class="sr">/div&gt;`</span><span class="err">,
+</span>	<span class="na">styles</span><span class="p">:</span> <span class="p">[</span><span class="err">`</span><span class="nx">div</span><span class="p">{</span><span class="na">border</span> <span class="p">:</span> <span class="mi">2</span><span class="nx">px</span> <span class="nx">soild</span> <span class="err">#</span><span class="mi">666</span><span class="p">;</span> <span class="nl">width</span><span class="p">:</span><span class="mi">90</span><span class="o">%</span><span class="p">;</span> <span class="nl">height</span><span class="p">:</span><span class="mi">50</span><span class="o">%</span><span class="p">}</span><span class="err">`</span><span class="p">],</span>
+	<span class="na">inputs</span><span class="p">:</span> <span class="p">[</span><span class="s1">'name1'</span><span class="p">,</span><span class="s1">'name2'</span><span class="p">]</span>
+<span class="p">})</span>
 
-export class ChildInputsComponent {
-	name1 : string;
-	name2 : string;
-}
-</pre>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">ChildInputsComponent</span> <span class="p">{</span>
+	<span class="nl">name1</span> <span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+	<span class="nl">name2</span> <span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
+
 <p>===&gt; 자식 컴포넌트<br />
 <br /></p>
 
@@ -197,51 +193,49 @@ export class ChildInputsComponent {
 <p><strong><em>부모 컴포넌트로 값을 전달하려면 @Output 장식자로 선언한 변수를 EvenEmitter 로 초기화 한다.<br /><br />
 그리고 부모에게 보낼 시점이 되면 emit() 메서드를 통하여 부모로 이벤트를 전달한다.</em></strong></p>
 
-<pre>
-import { Component, EventEmitter, Output } from '@angular/core';
-@Component({
-	selector: 'child',
-	template: `&lt; div&gt;자식
-	&lt; button (click)="updateParent(active)"&gt;부모에게 이벤트보내기
-	&lt; /button&gt;&lt; /div&gt;`,
-	styles: [`div{border : 2px soild #666; width:90%; height:50%}`]
-})
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kr">import</span> <span class="p">{</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">EventEmitter</span><span class="p">,</span> <span class="nx">Output</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'@angular/core'</span><span class="p">;</span>
+<span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+	<span class="na">selector</span><span class="p">:</span> <span class="s1">'child'</span><span class="p">,</span>
+	<span class="na">template</span><span class="p">:</span> <span class="err">`</span><span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="err">자식</span>
+	<span class="o">&lt;</span><span class="nx">button</span> <span class="p">(</span><span class="nx">click</span><span class="p">)</span><span class="o">=</span><span class="s2">"updateParent(active)"</span><span class="o">&gt;</span><span class="err">부모에게</span> <span class="err">이벤트보내기</span>
+	<span class="o">&lt;</span><span class="sr">/button&gt;&lt;/</span><span class="nx">div</span><span class="o">&gt;</span><span class="err">`</span><span class="p">,</span>
+	<span class="na">styles</span><span class="p">:</span> <span class="p">[</span><span class="err">`</span><span class="nx">div</span><span class="p">{</span><span class="na">border</span> <span class="p">:</span> <span class="mi">2</span><span class="nx">px</span> <span class="nx">soild</span> <span class="err">#</span><span class="mi">666</span><span class="p">;</span> <span class="nl">width</span><span class="p">:</span><span class="mi">90</span><span class="o">%</span><span class="p">;</span> <span class="nl">height</span><span class="p">:</span><span class="mi">50</span><span class="o">%</span><span class="p">}</span><span class="err">`</span><span class="p">]</span>
+<span class="p">})</span>
 
-export class ChildComponent {
-	active = false;
-	@Output() outputProperty = new EventEmitter&lt; boolean&gt;();
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">ChildComponent</span> <span class="p">{</span>
+	<span class="nx">active</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+	<span class="err">@</span><span class="nx">Output</span><span class="p">()</span> <span class="nx">outputProperty</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">EventEmitter</span><span class="o">&lt;</span> <span class="kr">boolean</span><span class="o">&gt;</span><span class="p">();</span>
 	
-	updateParent(active: boolean) {
-		this.active = !active;
-		this.outputProperty.emit(this.active);
-	}
-}
-</pre>
+	<span class="nx">updateParent</span><span class="p">(</span><span class="nx">active</span><span class="err">:</span> <span class="kr">boolean</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">active</span> <span class="o">=</span> <span class="o">!</span><span class="nx">active</span><span class="p">;</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">outputProperty</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">active</span><span class="p">);</span>
+	<span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
 <p>===&gt; 자식 컴포넌트<br /><br />
 <strong><em>EventEmiiter 객체의 자료형은 boolean 으로 선언되어있으며 받는 측에서도 동일한 자료형으로 받아야 하며 이벤트가 발생하면 emit() 을 통해 전달된다.</em></strong></p>
 
-<pre>
-import { Component } from '@angular/core';
-@Component({
-	selector: 'app-root',
-	template: `&lt; div&gt;부모
-				클릭수 : &lt; br&gt;
-				자식상태 : &lt; br&gt;
-				&lt; child (outputProperty)="outputEvent($event)"&gt;
-				&lt; /child&gt;&lt; /div&gt;`,
-	styles: [`div{border : 2px soild #666; width:90%; height:50%}`]
-})
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kr">import</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'@angular/core'</span><span class="p">;</span>
+<span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+	<span class="na">selector</span><span class="p">:</span> <span class="s1">'app-root'</span><span class="p">,</span>
+	<span class="na">template</span><span class="p">:</span> <span class="err">`</span><span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="err">부모</span>
+				<span class="err">클릭수</span> <span class="p">:</span> <span class="o">&lt;</span><span class="nx">br</span><span class="o">&gt;</span>
+				<span class="err">자식상태</span> <span class="p">:</span>  <span class="nx">br</span><span class="o">&gt;</span>
+				<span class="o">&lt;</span><span class="nx">child</span> <span class="p">(</span><span class="nx">outputProperty</span><span class="p">)</span><span class="o">=</span><span class="s2">"outputEvent($event)"</span><span class="o">&gt;</span>
+				<span class="o">&lt;</span><span class="sr">/child&gt;&lt;/</span><span class="nx">div</span><span class="o">&gt;</span><span class="err">`</span><span class="p">,</span>
+	<span class="na">styles</span><span class="p">:</span> <span class="p">[</span><span class="err">`</span><span class="nx">div</span><span class="p">{</span><span class="na">border</span> <span class="p">:</span> <span class="mi">2</span><span class="nx">px</span> <span class="nx">soild</span> <span class="err">#</span><span class="mi">666</span><span class="p">;</span> <span class="nl">width</span><span class="p">:</span><span class="mi">90</span><span class="o">%</span><span class="p">;</span> <span class="nl">height</span><span class="p">:</span><span class="mi">50</span><span class="o">%</span><span class="p">}</span><span class="err">`</span><span class="p">]</span>
+<span class="p">})</span>
 
-export class ChildToParentComponent {
-	cntClick = 0;
-	active = false;
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">ChildToParentComponent</span> <span class="p">{</span>
+	<span class="nx">cntClick</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+	<span class="nx">active</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
 	
-	outputProperty(active: boolean) {
-		this.cntClick ++;
-		this.active = active; ( 자식으로부터 받은 active 값 )
-	}
-}
-</pre>
+	<span class="nx">outputProperty</span><span class="p">(</span><span class="nx">active</span><span class="err">:</span> <span class="kr">boolean</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">cntClick</span> <span class="o">++</span><span class="p">;</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">active</span> <span class="o">=</span> <span class="nx">active</span><span class="p">;</span> <span class="p">(</span> <span class="err">자식으로부터</span> <span class="err">받은</span> <span class="nx">active</span> <span class="err">값</span> <span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
 <p>===&gt; 부모 컴포넌트</p>
 
                     
@@ -288,6 +282,10 @@ export class ChildToParentComponent {
   <h2>Recent Posts</h2>
   <ul>
     
+    <li><a href="/2017/05/Angular2-Root-Module">Angular2 Root Module</a></li>
+    
+    <li><a href="/2017/05/Angular2-Module">Angular2 Module</a></li>
+    
     <li><a href="/2017/04/Angular2-Service2">Angular2 Service2</a></li>
     
     <li><a href="/2017/04/Angular2-Service">Angular2 Service1</a></li>
@@ -304,10 +302,6 @@ export class ChildToParentComponent {
     
     <li><a href="/2017/04/Angular2-Component1">Angular2 Component1</a></li>
     
-    <li><a href="/2017/04/UP-Development-1.-Inception-2">UP Development - 1.Inception (Cont'd)</a></li>
-    
-    <li><a href="/2017/04/spelling-correction">Spelling Correction</a></li>
-    
   </ul>
 </div>
 
@@ -317,7 +311,7 @@ export class ChildToParentComponent {
     
     
     <li>
-      <a href="/tag/Angular2" data-toggle="tooltip" data-placement="right" title="5">
+      <a href="/tag/Angular2" data-toggle="tooltip" data-placement="right" title="7">
         <span>Angular2</span></a></li>
     
     <li>

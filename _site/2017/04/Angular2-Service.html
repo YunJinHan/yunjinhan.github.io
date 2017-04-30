@@ -86,43 +86,38 @@
 <p>서비스는 <strong>@Injectable</strong> 장식자 ( = 주입 가능한 클래스라는 뜻 ) 를 추가한 클래스 이다.<br /><br />
 @Injectable 을 생략한다고 해서 의존성 주입에 문제가 생기는 것은 아니지만, 생략하였을때 일반 클래스라 오인할 수 있기 때문에 반드시 추가해야 한다.</p>
 
-<pre>
-import { Injectable } from '@angular/core';
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kr">import</span> <span class="p">{</span> <span class="nx">Injectable</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'@angular/core'</span><span class="p">;</span>
 
-@Injectable()
-export class HelloService {
-  sayHello(){
-    return "Hello 서비스!";
-  }
-  constructor() {}
-}
-</pre>
+<span class="err">@</span><span class="nx">Injectable</span><span class="p">()</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">HelloService</span> <span class="p">{</span>
+  <span class="nx">sayHello</span><span class="p">(){</span>
+    <span class="k">return</span> <span class="s2">"Hello 서비스!"</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="nx">constructor</span><span class="p">()</span> <span class="p">{}</span>
+<span class="p">}</span></code></pre></figure>
 
 <p>===&gt; hello.service.ts / HelloService 라는 서비스 생성</p>
 
-<pre>
-import { Component } from '@angular/core';
-import { HelloService } from './hello.service';
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kr">import</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'@angular/core'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">HelloService</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'./hello.service'</span><span class="p">;</span>
 
-@Component({
-  selector: 'hello',
-  template: ``,
-  providers: [HelloService]
-  // -&gt; providers 로 서비스 선언한다.
-})
-export class HelloComponent {
-  welcome: string;
+<span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+  <span class="na">selector</span><span class="p">:</span> <span class="s1">'hello'</span><span class="p">,</span>
+  <span class="na">template</span><span class="p">:</span> <span class="err">``</span><span class="p">,</span>
+  <span class="na">providers</span><span class="p">:</span> <span class="p">[</span><span class="nx">HelloService</span><span class="p">]</span>
+  <span class="c1">// -&gt; providers 로 서비스 선언한다.</span>
+<span class="p">})</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">HelloComponent</span> <span class="p">{</span>
+  <span class="nl">welcome</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
 
-  constructor(helloService: HelloService) {
-    this.welcome = helloService.sayHello();
-  } // -&gt; 생성자에서 서비스 선언 후 사용 (추천)
+  <span class="nx">constructor</span><span class="p">(</span><span class="nx">helloService</span><span class="err">:</span> <span class="nx">HelloService</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">welcome</span> <span class="o">=</span> <span class="nx">helloService</span><span class="p">.</span><span class="nx">sayHello</span><span class="p">();</span>
+  <span class="p">}</span> <span class="c1">// -&gt; 생성자에서 서비스 선언 후 사용 (추천)</span>
   
-  constructor() {
-  	let Hello = new HelloService();
-  	this.welcome = Hello.sayHello();
-  } // -&gt; 생성자에서 서비스 선언하지 않고 사용 (비추천 : 새로운 변수 생성 / 메모리 사용)
-}
-</pre>
+  <span class="nx">constructor</span><span class="p">()</span> <span class="p">{</span>
+  	<span class="kd">let</span> <span class="nx">Hello</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">HelloService</span><span class="p">();</span>
+  	<span class="k">this</span><span class="p">.</span><span class="nx">welcome</span> <span class="o">=</span> <span class="nx">Hello</span><span class="p">.</span><span class="nx">sayHello</span><span class="p">();</span>
+  <span class="p">}</span> <span class="c1">// -&gt; 생성자에서 서비스 선언하지 않고 사용 (비추천 : 새로운 변수 생성 / 메모리 사용)</span></code></pre></figure>
 
 <p>===&gt; hello.component.ts<br />providers 에 사용할 서비스를 컴포넌트에서 HelloService 를 불러와 생성자에서 선언 후 사용.<br /><br />
 생성자에서 선언하지 않고 <strong><em>let Hello = new HelloSerivce();</em></strong> 로 사용가능.</p>
@@ -130,82 +125,76 @@ export class HelloComponent {
 <h3 id="--객체지향-서비스">- 객체지향 서비스</h3>
 <p>크게 부모 / 자식 클래스가 있고 자식 클래스에는 공통 메서드가 정의돼 있기 떄문에 공통 메서드를 제어할 수 있는 인터페이스를 정의한다.</p>
 
-<pre>
-import { Injectable } from '@angular/core';
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kr">import</span> <span class="p">{</span> <span class="nx">Injectable</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'@angular/core'</span><span class="p">;</span>
 
-@Injectable()
-export class Parent {
+<span class="err">@</span><span class="nx">Injectable</span><span class="p">()</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">Parent</span> <span class="p">{</span>
 
-  getName(){    
-    return "Parent 서비스!";
-  }
-}
-</pre>
+  <span class="nx">getName</span><span class="p">(){</span>    
+    <span class="k">return</span> <span class="s2">"Parent 서비스!"</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
 
 <p>===&gt; parent.service.ts / 부모 서비스</p>
 
-<pre>
-import { Injectable } from '@angular/core';
-import { Parent } from './parent.service';
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kr">import</span> <span class="p">{</span> <span class="nx">Injectable</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'@angular/core'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">Parent</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'./parent.service'</span><span class="p">;</span>
 
-export interface Child {
-  getData();
-}
+<span class="kr">export</span> <span class="kr">interface</span> <span class="nx">Child</span> <span class="p">{</span>
+  <span class="nx">getData</span><span class="p">();</span>
+<span class="p">}</span>
 
-@Injectable()
-export class FirstChild implements Child {
+<span class="err">@</span><span class="nx">Injectable</span><span class="p">()</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">FirstChild</span> <span class="kr">implements</span> <span class="nx">Child</span> <span class="p">{</span>
 
-  constructor(public parent: Parent) { }
-  // -&gt; Child 인터페이스만 사용하였기 떄문에 부모는 생성자에 선언하여 사용하여야 한다.
+  <span class="nx">constructor</span><span class="p">(</span><span class="kr">public</span> <span class="nx">parent</span><span class="err">:</span> <span class="nx">Parent</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+  <span class="c1">// -&gt; Child 인터페이스만 사용하였기 떄문에 부모는 생성자에 선언하여 사용하여야 한다.</span>
   
-  getData() {
-    return [
-      { Child: 'FirstChild 서비스' },
-      { parent: this.parent.getName() }
-    ];
-  }
-}
+  <span class="nx">getData</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">[</span>
+      <span class="p">{</span> <span class="na">Child</span><span class="p">:</span> <span class="s1">'FirstChild 서비스'</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="na">parent</span><span class="p">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">parent</span><span class="p">.</span><span class="nx">getName</span><span class="p">()</span> <span class="p">}</span>
+    <span class="p">];</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 
-@Injectable()
-export class SecondChild extends Parent implements Child {
-  getData() {
-    return [
-      { Child: 'SecondChild 서비스' },
-      { parent: super.getName() }
-      // -&gt; 부모를 상속하였기 때문에 super 로써 사용가능하다.
-    ];
-  }
-}
-</pre>
+<span class="err">@</span><span class="nx">Injectable</span><span class="p">()</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">SecondChild</span> <span class="kr">extends</span> <span class="nx">Parent</span> <span class="kr">implements</span> <span class="nx">Child</span> <span class="p">{</span>
+  <span class="nx">getData</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">[</span>
+      <span class="p">{</span> <span class="na">Child</span><span class="p">:</span> <span class="s1">'SecondChild 서비스'</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="na">parent</span><span class="p">:</span> <span class="kr">super</span><span class="p">.</span><span class="nx">getName</span><span class="p">()</span> <span class="p">}</span>
+      <span class="c1">// -&gt; 부모를 상속하였기 때문에 super 로써 사용가능하다.</span>
+    <span class="p">];</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
 
 <p>===&gt; child.service.ts / 자식 서비스<br /><br />
 위의 예시처럼 First / Second 로 Parent 를 사용가능하지만<br /><br />
 <strong><em>SecondChild 에서는 super 를 통하여 호출하기 때문에 다른 컴포넌트나 객체로 부모의 데이터를 전달 할수 없으나 FirstChild 에서 처럼 생성자에서 부모를 선언 후 사용한다면 전달이 가능하기 떄문에 extends 를 사용하는것 대신에 생성자에서 부모를 선언하여 사용하는 것이 바람직하다.</em></strong></p>
 
-<pre>
-import { Component } from '@angular/core';
-import { Parent } from './parent.service';
-import { FirstChild, SecondChild } from './child.service';
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kr">import</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'@angular/core'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">Parent</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'./parent.service'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">FirstChild</span><span class="p">,</span> <span class="nx">SecondChild</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'./child.service'</span><span class="p">;</span>
 
-@Component({
-  selector: 'oop-cmp',
-  template: `
-      생성자 주입방식&lt; br&gt;
-      &lt; br&gt;
-      상속방식&lt; br&gt;
-      `,
-  providers: [Parent, FirstChild, SecondChild]
-})
-export class OopComponent {
-  firstChildData;
-  secondChildData;
+<span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+  <span class="na">selector</span><span class="p">:</span> <span class="s1">'oop-cmp'</span><span class="p">,</span>
+  <span class="na">template</span><span class="p">:</span> <span class="err">`</span>
+      <span class="err">생성자</span> <span class="err">주입방식</span><span class="o">&lt;</span><span class="nx">br</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">br</span><span class="o">&gt;</span>
+      <span class="err">상속방식</span><span class="o">&lt;</span><span class="nx">br</span><span class="o">&gt;</span>
+      <span class="err">`</span><span class="p">,</span>
+  <span class="na">providers</span><span class="p">:</span> <span class="p">[</span><span class="nx">Parent</span><span class="p">,</span> <span class="nx">FirstChild</span><span class="p">,</span> <span class="nx">SecondChild</span><span class="p">]</span>
+<span class="p">})</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">OopComponent</span> <span class="p">{</span>
+  <span class="nx">firstChildData</span><span class="p">;</span>
+  <span class="nx">secondChildData</span><span class="p">;</span>
   
-  constructor(firstChild: FirstChild, secondChild: SecondChild) {
-    this.firstChildData = firstChild.getData();
-    this.secondChildData = secondChild.getData();
-  }
-}
-</pre>
+  <span class="nx">constructor</span><span class="p">(</span><span class="nx">firstChild</span><span class="err">:</span> <span class="nx">FirstChild</span><span class="p">,</span> <span class="nx">secondChild</span><span class="err">:</span> <span class="nx">SecondChild</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">firstChildData</span> <span class="o">=</span> <span class="nx">firstChild</span><span class="p">.</span><span class="nx">getData</span><span class="p">();</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">secondChildData</span> <span class="o">=</span> <span class="nx">secondChild</span><span class="p">.</span><span class="nx">getData</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
 
 <p>===&gt; oop.component.ts / 컴포넌트</p>
 
@@ -213,71 +202,63 @@ export class OopComponent {
 <p>서버 의존성 없이 데이터를 제공하기 위해 테스트 데이터를 정의한 객체이다.<br /><br />
 목 객체를 사용하는 이유는 개발 과정에서 서버 의존성과 같은 외부 의존성을 제거함으로써 테스트를 가능하게 하기 위함이다.</p>
 
-<pre>
-export class User {
-  name: string;  
-  id : string;
-}
-</pre>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kr">export</span> <span class="kr">class</span> <span class="nx">User</span> <span class="p">{</span>
+  <span class="nl">name</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>  
+  <span class="nl">id</span> <span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
 
 <p>===&gt; user.ts / User 데이터 객체</p>
 
-<pre>
-import { User } from './user';
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kr">import</span> <span class="p">{</span> <span class="nx">User</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'./user'</span><span class="p">;</span>
 
-export var USER: User[] = [
-  {name: '유비',id:'1'},
-  {name: '관우',id:'2'},
-  {name: '장비',id:'3'}  
-];
-</pre>
+<span class="kr">export</span> <span class="kd">var</span> <span class="nx">USER</span><span class="err">:</span> <span class="nx">User</span><span class="p">[]</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">{</span><span class="na">name</span><span class="p">:</span> <span class="s1">'유비'</span><span class="p">,</span><span class="na">id</span><span class="p">:</span><span class="s1">'1'</span><span class="p">},</span>
+  <span class="p">{</span><span class="na">name</span><span class="p">:</span> <span class="s1">'관우'</span><span class="p">,</span><span class="na">id</span><span class="p">:</span><span class="s1">'2'</span><span class="p">},</span>
+  <span class="p">{</span><span class="na">name</span><span class="p">:</span> <span class="s1">'장비'</span><span class="p">,</span><span class="na">id</span><span class="p">:</span><span class="s1">'3'</span><span class="p">}</span>  
+<span class="p">];</span></code></pre></figure>
 
 <p>===&gt; mock-user.ts / 테스트 데이터 객체 USER 생성</p>
 
-<pre>
-import { Injectable } from '@angular/core';
-import { USER } from './mock-user';
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kr">import</span> <span class="p">{</span> <span class="nx">Injectable</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'@angular/core'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">USER</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'./mock-user'</span><span class="p">;</span>
 
-export interface DataServiceStructure{
-  getUser();
-}
+<span class="kr">export</span> <span class="kr">interface</span> <span class="nx">DataServiceStructure</span><span class="p">{</span>
+  <span class="nx">getUser</span><span class="p">();</span>
+<span class="p">}</span>
 
-@Injectable()
-export class MockService implements DataServiceStructure{
-  constructor() {}
-  getUser(){
-    return USER;
-  }
-}
-</pre>
+<span class="err">@</span><span class="nx">Injectable</span><span class="p">()</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">MockService</span> <span class="kr">implements</span> <span class="nx">DataServiceStructure</span><span class="p">{</span>
+  <span class="nx">constructor</span><span class="p">()</span> <span class="p">{}</span>
+  <span class="nx">getUser</span><span class="p">(){</span>
+    <span class="k">return</span> <span class="nx">USER</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
 
 <p>===&gt; mock.service.ts / 목 서비스 생성 : 테스트 데이터 USER 를 리턴하는 서비스 생성</p>
 
-<pre>
-import { Component, OnInit } from '@angular/core';
-import { MockService } from './mock.service';
-import { User } from './user';
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kr">import</span> <span class="p">{</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">OnInit</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'@angular/core'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">MockService</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'./mock.service'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">User</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'./user'</span><span class="p">;</span>
 
-@Component({
-  selector: 'mock',
-   template: `
-    &lt; b&gt;이름 출력&lt; /b&gt;
-    &lt; div *ngFor="let o of listUser"&gt;
-         | 
-    &lt; /div&gt;`,
-  providers: [MockService]
-})
-export class MockComponent {
+<span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+  <span class="na">selector</span><span class="p">:</span> <span class="s1">'mock'</span><span class="p">,</span>
+   <span class="na">template</span><span class="p">:</span> <span class="err">`</span>
+    <span class="o">&lt;</span><span class="nx">b</span><span class="o">&gt;</span><span class="err">이름</span> <span class="err">출력</span><span class="o">&lt;</span><span class="sr">/b</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="nx">div</span> <span class="o">*</span><span class="nx">ngFor</span><span class="o">=</span><span class="s2">"let o of listUser"</span><span class="o">&gt;</span>
+         <span class="o">|</span> 
+    <span class="o">&lt;</span><span class="sr">/div&gt;`</span><span class="err">,
+</span>  <span class="na">providers</span><span class="p">:</span> <span class="p">[</span><span class="nx">MockService</span><span class="p">]</span>
+<span class="p">})</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">MockComponent</span> <span class="p">{</span>
 
-  listUser: User[];
-  // -&gt; listUser 라는 리스트를 해당 User 라는 데이터 타입의 객체로 사용한다.
+  <span class="nl">listUser</span><span class="p">:</span> <span class="nx">User</span><span class="p">[];</span>
+  <span class="c1">// -&gt; listUser 라는 리스트를 해당 User 라는 데이터 타입의 객체로 사용한다.</span>
 
-  constructor(private userService: MockService) {
-    this.listUser = userService.getUser();
-    // -&gt; MockService 를 선언하여 해당 USER 데이터를 불러와 저장함. 
-  }
-}
-</pre>
+  <span class="nx">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">userService</span><span class="err">:</span> <span class="nx">MockService</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">listUser</span> <span class="o">=</span> <span class="nx">userService</span><span class="p">.</span><span class="nx">getUser</span><span class="p">();</span>
+    <span class="c1">// -&gt; MockService 를 선언하여 해당 USER 데이터를 불러와 저장함. </span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
 
 <p>===&gt; mock-component.ts / 해당 서비스와 데이터 타입 객체를 불러와 사용</p>
 
@@ -325,6 +306,10 @@ export class MockComponent {
   <h2>Recent Posts</h2>
   <ul>
     
+    <li><a href="/2017/05/Angular2-Root-Module">Angular2 Root Module</a></li>
+    
+    <li><a href="/2017/05/Angular2-Module">Angular2 Module</a></li>
+    
     <li><a href="/2017/04/Angular2-Service2">Angular2 Service2</a></li>
     
     <li><a href="/2017/04/Angular2-Service">Angular2 Service1</a></li>
@@ -341,10 +326,6 @@ export class MockComponent {
     
     <li><a href="/2017/04/Angular2-Component1">Angular2 Component1</a></li>
     
-    <li><a href="/2017/04/UP-Development-1.-Inception-2">UP Development - 1.Inception (Cont'd)</a></li>
-    
-    <li><a href="/2017/04/spelling-correction">Spelling Correction</a></li>
-    
   </ul>
 </div>
 
@@ -354,7 +335,7 @@ export class MockComponent {
     
     
     <li>
-      <a href="/tag/Angular2" data-toggle="tooltip" data-placement="right" title="5">
+      <a href="/tag/Angular2" data-toggle="tooltip" data-placement="right" title="7">
         <span>Angular2</span></a></li>
     
     <li>

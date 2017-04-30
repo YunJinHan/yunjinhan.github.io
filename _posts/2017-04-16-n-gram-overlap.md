@@ -13,19 +13,19 @@ N - Gram Overlap
 Use the n-gram index (recall wild-card search) to **retrieve all lexicon terms matching any of the query n-grams**
 
 Example )
-<pre>
+{% highlight javascript %}
 Trigrams
 * november -> nov, ove, vem, emb, mbe, ber
 * december -> dec, ece, cem, emb, mbe, ber
 <br>--> emb, mbe, ber 3 trigrams overlap ( of 6 in each term )
-</pre>
+{% endhighlight javascript %}
 
 ### - Simple Lower Bound of Substring Edit Distance
 **정확하진 않지만 Lower Bound ( 근사값 ) - The minimun number of edit operations**
 
 ![screenshot]({{ site.url }}/assets/SimpleLowerBound.png)
 
-<pre>
+{% highlight javascript %}
 Trigrams --> n == 3
 
 ∂ = Jackson Pollock ( len = 15 )
@@ -39,7 +39,7 @@ Pol, oll, llo, loc, ock ===> 5 matching trigrams ( = c )
 max(|s|,|∂|) - n + 1 - c = max(14,15) - 3 + 1 - 5 = 8
 
 So, Simple Lower Bound of Substring Edit Distance is [8/3] = 3
-</pre>
+{% endhighlight javascript %}
 <br>
 
 

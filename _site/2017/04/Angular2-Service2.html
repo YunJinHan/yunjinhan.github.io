@@ -87,120 +87,110 @@
 <h3 id="--promise-서비스">- Promise 서비스</h3>
 <p>promise 는 비동기 코드를 사용할 때 Call Back Hell 과 같은 비정상적인 호출 형태를 개선하기 이해 나온 방법이다.</p>
 
-<pre>
-export class User {
-  name: string;
-  id: string;
-}
-</pre>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kr">export</span> <span class="kr">class</span> <span class="nx">User</span> <span class="p">{</span>
+  <span class="nl">name</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nl">id</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
 
 <p>===&gt; user.ts</p>
 
-<pre>
-import { User } from './user';
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kr">import</span> <span class="p">{</span> <span class="nx">User</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'./user'</span><span class="p">;</span>
 
-export var USERS: User[] = [
-  { name: '조조', id: '1' },
-  { name: '하우돈', id: '2' },
-  { name: '허저', id: '3' }
-];
-</pre>
+<span class="kr">export</span> <span class="kd">var</span> <span class="nx">USERS</span><span class="err">:</span> <span class="nx">User</span><span class="p">[]</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'조조'</span><span class="p">,</span> <span class="na">id</span><span class="p">:</span> <span class="s1">'1'</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'하우돈'</span><span class="p">,</span> <span class="na">id</span><span class="p">:</span> <span class="s1">'2'</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="s1">'허저'</span><span class="p">,</span> <span class="na">id</span><span class="p">:</span> <span class="s1">'3'</span> <span class="p">}</span>
+<span class="p">];</span></code></pre></figure>
 
 <p>===&gt; mock-user.ts</p>
 
-<pre>
-import { Injectable } from '@angular/core';
-import { USERS } from './mock-user';
-import { User } from './user';
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kr">import</span> <span class="p">{</span> <span class="nx">Injectable</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'@angular/core'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">USERS</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'./mock-user'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">User</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'./user'</span><span class="p">;</span>
 
-@Injectable()
-export class MockService {
-  getUser(): Promise&lt; User[]&gt; {
-    return Promise.resolve(USERS);
-  }
+<span class="err">@</span><span class="nx">Injectable</span><span class="p">()</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">MockService</span> <span class="p">{</span>
+  <span class="nx">getUser</span><span class="p">()</span><span class="err">:</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">User</span><span class="p">[]</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">USERS</span><span class="p">);</span>
+  <span class="p">}</span>
 
-  getUserDelay(): Promise&lt; User[]&gt; {
-    return new Promise&lt; User[]&gt;(resolve =&gt;
-      setTimeout(resolve, 1000))
-      .then(() =&gt; this.getUser());
-  }
+  <span class="nx">getUserDelay</span><span class="p">():</span> <span class="nx">Promise</span><span class="o">&lt;</span><span class="nx">User</span><span class="p">[]</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nx">Promise</span><span class="o">&lt;</span> <span class="nx">User</span><span class="p">[]</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">resolve</span> <span class="o">=&gt;</span>
+      <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span> <span class="mi">1000</span><span class="p">))</span>
+      <span class="p">.</span><span class="nx">then</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">getUser</span><span class="p">());</span>
+  <span class="p">}</span>
   
-  getRequest(status: boolean): Promise&lt; any&gt; {
+  <span class="nx">getRequest</span><span class="p">(</span><span class="na">status</span><span class="p">:</span> <span class="kr">boolean</span><span class="p">):</span> <span class="nx">Promise</span><span class="o">&lt;</span> <span class="nx">any</span><span class="o">&gt;</span> <span class="p">{</span>
 
-    if (status) {
-      return Promise.resolve("요청을 승낙합니다.").then(function (reason) {
-        return reason;
-      }, function (reason) {
-        return "NO";
-      });
-    } else {
-      return Promise.reject("요청을 거부합니다.").then(function (reason) {
-        return "YES";
-      }, function (reason) {
-        return reason;
-      });
-    }
-  }
-}
-</pre>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">status</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="s2">"요청을 승낙합니다."</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">reason</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">reason</span><span class="p">;</span>
+      <span class="p">},</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">reason</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="s2">"NO"</span><span class="p">;</span>
+      <span class="p">});</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">Promise</span><span class="p">.</span><span class="nx">reject</span><span class="p">(</span><span class="s2">"요청을 거부합니다."</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">reason</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="s2">"YES"</span><span class="p">;</span>
+      <span class="p">},</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">reason</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">reason</span><span class="p">;</span>
+      <span class="p">});</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
 
 <p>===&gt; mock.service.ts<br /><strong>Promise.resolve()</strong> 를 통하여 “요청을 승낙합니다” 를 리턴하고<br /><strong>Promise.reject()</strong> 를 통하여 “요청을 거부합니다” 를 리턴한다.</p>
 
 <p><strong>getUser()</strong> 는 mock-user.ts 의 USERS 객체를 리턴한다.<br /><br />
 <strong>getUserDelay()</strong> 를 통하여 1초 후 <strong>getUser()</strong> 를 호출한다.</p>
 
-<pre>
-import { Component } from '@angular/core';
-import { MockService } from './mock.service';
-import { User } from './user';
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kr">import</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'@angular/core'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">MockService</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'./mock.service'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">User</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'./user'</span><span class="p">;</span>
 
-@Component({
-  selector: 'promise',
-  template: `
-  &lt; br&gt;
-  &lt; br&gt;  
-  &lt; list-component [list]="listUser" [title]="'이름 출력 (지연없음)'"&gt;&lt; /list-component&gt;
-  &lt; list-component [list]="listUserDelay" [title]="'이름 출력 (1초 지연)'"&gt;&lt; /list-component&gt;`,
-  providers: [MockService]
-})
-export class PromiseComponent {
-  reqMessage: String ='';
-  reqMessage2: String ='';
+<span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+  <span class="na">selector</span><span class="p">:</span> <span class="s1">'promise'</span><span class="p">,</span>
+  <span class="na">template</span><span class="p">:</span> <span class="err">`</span>
+  <span class="o">&lt;</span><span class="nx">br</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nx">br</span><span class="o">&gt;</span>  
+  <span class="o">&lt;</span><span class="nx">list</span><span class="o">-</span><span class="nx">component</span> <span class="p">[</span><span class="nx">list</span><span class="p">]</span><span class="o">=</span><span class="s2">"listUser"</span> <span class="p">[</span><span class="nx">title</span><span class="p">]</span><span class="o">=</span><span class="s2">"'이름 출력 (지연없음)'"</span><span class="o">&gt;&lt;</span><span class="sr">/list-component</span><span class="err">&gt;
+</span>  <span class="o">&lt;</span><span class="nx">list</span><span class="o">-</span><span class="nx">component</span> <span class="p">[</span><span class="nx">list</span><span class="p">]</span><span class="o">=</span><span class="s2">"listUserDelay"</span> <span class="p">[</span><span class="nx">title</span><span class="p">]</span><span class="o">=</span><span class="s2">"'이름 출력 (1초 지연)'"</span><span class="o">&gt;&lt;</span><span class="sr">/list-component&gt;`</span><span class="err">,
+</span>  <span class="na">providers</span><span class="p">:</span> <span class="p">[</span><span class="nx">MockService</span><span class="p">]</span>
+<span class="p">})</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">PromiseComponent</span> <span class="p">{</span>
+  <span class="nl">reqMessage</span><span class="p">:</span> <span class="nb">String</span> <span class="o">=</span><span class="s1">''</span><span class="p">;</span>
+  <span class="nl">reqMessage2</span><span class="p">:</span> <span class="nb">String</span> <span class="o">=</span><span class="s1">''</span><span class="p">;</span>
 
-  listUser: User[];
-  listUserDelay: User[];
+  <span class="nl">listUser</span><span class="p">:</span> <span class="nx">User</span><span class="p">[];</span>
+  <span class="nl">listUserDelay</span><span class="p">:</span> <span class="nx">User</span><span class="p">[];</span>
   
-  constructor(private userService: MockService) {
-    this.userService.getRequest(true).then(reason =&gt; this.reqMessage = reason);
-    this.userService.getRequest(false).then(reason =&gt; this.reqMessage2 = reason);
-    // -&gt; reason 을 리턴받아 =&gt; this.regMessage 에 할당한다.
+  <span class="nx">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">userService</span><span class="err">:</span> <span class="nx">MockService</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">userService</span><span class="p">.</span><span class="nx">getRequest</span><span class="p">(</span><span class="kc">true</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">reason</span> <span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">reqMessage</span> <span class="o">=</span> <span class="nx">reason</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">userService</span><span class="p">.</span><span class="nx">getRequest</span><span class="p">(</span><span class="kc">false</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">reason</span> <span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">reqMessage2</span> <span class="o">=</span> <span class="nx">reason</span><span class="p">);</span>
+    <span class="c1">// -&gt; reason 을 리턴받아 =&gt; this.regMessage 에 할당한다.</span>
 
-    this.userService.getUser().then(user =&gt; this.listUser = user);
-    this.userService.getUserDelay().then(user =&gt; this.listUserDelay = user);
-  	// -&gt; user 를 리턴받아 =&gt; this.listUser 에 할당한다.
-  }
-}
-</pre>
+    <span class="k">this</span><span class="p">.</span><span class="nx">userService</span><span class="p">.</span><span class="nx">getUser</span><span class="p">().</span><span class="nx">then</span><span class="p">(</span><span class="nx">user</span> <span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">listUser</span> <span class="o">=</span> <span class="nx">user</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">userService</span><span class="p">.</span><span class="nx">getUserDelay</span><span class="p">().</span><span class="nx">then</span><span class="p">(</span><span class="nx">user</span> <span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">listUserDelay</span> <span class="o">=</span> <span class="nx">user</span><span class="p">);</span>
+  	<span class="c1">// -&gt; user 를 리턴받아 =&gt; this.listUser 에 할당한다.</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
 
 <p>===&gt; promise.component.ts<br />생성자 부분에서 mock.service 를 선언하고 해당 서비스를 사용하여 값을 받아와<br />자식 컴포넌트 list-component 로 title 과 list 값을 전달한다.</p>
 
-<pre>
-import { Component, Input } from '@angular/core';
-import { User } from './user';
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kr">import</span> <span class="p">{</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">Input</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'@angular/core'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">User</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'./user'</span><span class="p">;</span>
 
-@Component({
-  selector: 'list-component',
-  template: `
-  &lt; b&gt;&lt; /b&gt;
-  &lt; div *ngFor="let o of list"&gt;
-       | 
-  &lt; /div&gt;&lt; br&gt;`,
-})
-export class ListComponent {
-  @Input() title: string;
-  @Input() list: User;
-}
-</pre>
+<span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+  <span class="na">selector</span><span class="p">:</span> <span class="s1">'list-component'</span><span class="p">,</span>
+  <span class="na">template</span><span class="p">:</span> <span class="err">`</span>
+  <span class="o">&lt;</span><span class="nx">b</span><span class="o">&gt;&lt;</span><span class="sr">/b</span><span class="err">&gt;
+</span>  <span class="o">&lt;</span><span class="nx">div</span> <span class="o">*</span><span class="nx">ngFor</span><span class="o">=</span><span class="s2">"let o of list"</span><span class="o">&gt;</span>
+       <span class="o">|</span> 
+  <span class="o">&lt;</span><span class="sr">/div&gt;&lt;br&gt;`</span><span class="err">,
+</span><span class="p">})</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">ListComponent</span> <span class="p">{</span>
+  <span class="err">@</span><span class="nx">Input</span><span class="p">()</span> <span class="nx">title</span><span class="err">:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="err">@</span><span class="nx">Input</span><span class="p">()</span> <span class="nx">list</span><span class="err">:</span> <span class="nx">User</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
 
 <p>===&gt; list.component.ts / 부모로 부터 받은 title 과 list 를 출력한다.</p>
 
@@ -212,77 +202,69 @@ export class ListComponent {
   <li>자식 컴포넌트에서는 제공자 설정을 하지 않고 곧바로 서비스를 받아서 사용한다.</li>
 </ol>
 
-<pre>
-import { Injectable } from '@angular/core';
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kr">import</span> <span class="p">{</span> <span class="nx">Injectable</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'@angular/core'</span><span class="p">;</span>
 
-@Injectable()
-export class SharedService {
+<span class="err">@</span><span class="nx">Injectable</span><span class="p">()</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">SharedService</span> <span class="p">{</span>
   
-  num: number;
+  <span class="nl">num</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
   
-  message: string;
-  // -&gt; 현재 실습에서 사용하는 부모 / 자식 컴포넌트 공유 변수
+  <span class="nl">message</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="c1">// -&gt; 현재 실습에서 사용하는 부모 / 자식 컴포넌트 공유 변수</span>
   
-  public names: string[] = [];
+  <span class="kr">public</span> <span class="nx">names</span><span class="err">:</span> <span class="nx">string</span><span class="p">[]</span> <span class="o">=</span> <span class="p">[];</span>
 
-  addName(data: string) {
-    this.names.unshift(data);
-    // unshift : names 배열 앞부분에 data 값을 넣는다
-  } 
-}
-</pre>
+  <span class="nx">addName</span><span class="p">(</span><span class="nx">data</span><span class="err">:</span> <span class="nx">string</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">names</span><span class="p">.</span><span class="nx">unshift</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+    <span class="c1">// unshift : names 배열 앞부분에 data 값을 넣는다</span>
+  <span class="p">}</span> 
+<span class="p">}</span></code></pre></figure>
 
 <p>===&gt; shared.service.ts / 공유 서비스 정의</p>
 
-<pre>
-import { Component, Input } from '@angular/core';
-import { SharedService } from './shared.service';
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kr">import</span> <span class="p">{</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">Input</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'@angular/core'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">SharedService</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'./shared.service'</span><span class="p">;</span>
 
-@Component({
-  selector: 'car-component',
-  template: `car 컴포넌트 :  &lt; button (click)="s.message='car'"&gt;선택&lt; /button&gt;`
-})
-export class CarComponent {
-  constructor(public s: SharedService) {
-  }
-}
-</pre>
+<span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+  <span class="na">selector</span><span class="p">:</span> <span class="s1">'car-component'</span><span class="p">,</span>
+  <span class="na">template</span><span class="p">:</span> <span class="err">`</span><span class="nx">car</span> <span class="err">컴포넌트</span> <span class="p">:</span>  <span class="o">&lt;</span><span class="nx">button</span> <span class="p">(</span><span class="nx">click</span><span class="p">)</span><span class="o">=</span><span class="s2">"s.message='car'"</span><span class="o">&gt;</span><span class="err">선택</span><span class="o">&lt;</span><span class="sr">/button&gt;</span><span class="err">`
+</span><span class="p">})</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">CarComponent</span> <span class="p">{</span>
+  <span class="nx">constructor</span><span class="p">(</span><span class="kr">public</span> <span class="nx">s</span><span class="err">:</span> <span class="nx">SharedService</span><span class="p">)</span> <span class="p">{</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
 
 <p>===&gt; car.component.ts / 자식 컴포넌트</p>
 
-<pre>
-import { Component, Input } from '@angular/core';
-import { SharedService } from './shared.service';
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kr">import</span> <span class="p">{</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">Input</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'@angular/core'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">SharedService</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'./shared.service'</span><span class="p">;</span>
 
-@Component({
-  selector: 'taxi-component',
-  template: `taxi 컴포넌트 :  &lt; button (click)="s.message='taxi'"&gt;선택&lt; /button&gt;`
-})
-export class TaxiComponent {
-  constructor(public s: SharedService) {}
-}
-</pre>
+<span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+  <span class="na">selector</span><span class="p">:</span> <span class="s1">'taxi-component'</span><span class="p">,</span>
+  <span class="na">template</span><span class="p">:</span> <span class="err">`</span><span class="nx">taxi</span> <span class="err">컴포넌트</span> <span class="p">:</span>  <span class="o">&lt;</span><span class="nx">button</span> <span class="p">(</span><span class="nx">click</span><span class="p">)</span><span class="o">=</span><span class="s2">"s.message='taxi'"</span><span class="o">&gt;</span><span class="err">선택</span><span class="o">&lt;</span><span class="sr">/button&gt;</span><span class="err">`
+</span><span class="p">})</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">TaxiComponent</span> <span class="p">{</span>
+  <span class="nx">constructor</span><span class="p">(</span><span class="kr">public</span> <span class="nx">s</span><span class="err">:</span> <span class="nx">SharedService</span><span class="p">)</span> <span class="p">{}</span>
+<span class="p">}</span></code></pre></figure>
 
 <p>===&gt; taxi.component.ts / 자식 컴포넌트</p>
 
-<pre>
-import { Component, Input } from '@angular/core';
-import { SharedService } from './shared.service';
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kr">import</span> <span class="p">{</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">Input</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'@angular/core'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">SharedService</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'./shared.service'</span><span class="p">;</span>
 
-@Component({
-  selector: 'parent-component',
-  template: `
-  부모 컴포넌트 :  &lt; button (click)="s.message='parent'"&gt;선택&lt; /button&gt;&lt; br&gt;
-  &lt; car-component&gt;&lt; /car-component&gt;&lt; br&gt;
-  &lt; taxi-component&gt;&lt; /taxi-component&gt;`,
-  providers: [SharedService]
-})
-export class ParentComponent {
-  constructor(public s: SharedService) {
-    s.message = "hello";
-  }
-}
-</pre>
+<span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+  <span class="na">selector</span><span class="p">:</span> <span class="s1">'parent-component'</span><span class="p">,</span>
+  <span class="na">template</span><span class="p">:</span> <span class="err">`</span>
+  <span class="err">부모</span> <span class="err">컴포넌트</span> <span class="p">:</span>  <span class="o">&lt;</span><span class="nx">button</span> <span class="p">(</span><span class="nx">click</span><span class="p">)</span><span class="o">=</span><span class="s2">"s.message='parent'"</span><span class="o">&gt;</span><span class="err">선택</span><span class="o">&lt;</span><span class="sr">/button&gt;&lt;br</span><span class="err">&gt;
+</span>  <span class="o">&lt;</span><span class="nx">car</span><span class="o">-</span><span class="nx">component</span><span class="o">&gt;&lt;</span><span class="sr">/car-component&gt;&lt;br</span><span class="err">&gt;
+</span>  <span class="o">&lt;</span><span class="nx">taxi</span><span class="o">-</span><span class="nx">component</span><span class="o">&gt;&lt;</span><span class="sr">/taxi-component&gt;`</span><span class="err">,
+</span>  <span class="na">providers</span><span class="p">:</span> <span class="p">[</span><span class="nx">SharedService</span><span class="p">]</span>
+<span class="p">})</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">ParentComponent</span> <span class="p">{</span>
+  <span class="nx">constructor</span><span class="p">(</span><span class="kr">public</span> <span class="nx">s</span><span class="err">:</span> <span class="nx">SharedService</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">s</span><span class="p">.</span><span class="nx">message</span> <span class="o">=</span> <span class="s2">"hello"</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
 
 <p>===&gt; parent.component.ts / 부모 컴포넌트</p>
 
@@ -341,6 +323,10 @@ export class ParentComponent {
   <h2>Recent Posts</h2>
   <ul>
     
+    <li><a href="/2017/05/Angular2-Root-Module">Angular2 Root Module</a></li>
+    
+    <li><a href="/2017/05/Angular2-Module">Angular2 Module</a></li>
+    
     <li><a href="/2017/04/Angular2-Service2">Angular2 Service2</a></li>
     
     <li><a href="/2017/04/Angular2-Service">Angular2 Service1</a></li>
@@ -357,10 +343,6 @@ export class ParentComponent {
     
     <li><a href="/2017/04/Angular2-Component1">Angular2 Component1</a></li>
     
-    <li><a href="/2017/04/UP-Development-1.-Inception-2">UP Development - 1.Inception (Cont'd)</a></li>
-    
-    <li><a href="/2017/04/spelling-correction">Spelling Correction</a></li>
-    
   </ul>
 </div>
 
@@ -370,7 +352,7 @@ export class ParentComponent {
     
     
     <li>
-      <a href="/tag/Angular2" data-toggle="tooltip" data-placement="right" title="5">
+      <a href="/tag/Angular2" data-toggle="tooltip" data-placement="right" title="7">
         <span>Angular2</span></a></li>
     
     <li>

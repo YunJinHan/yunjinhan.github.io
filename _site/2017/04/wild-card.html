@@ -91,13 +91,13 @@
 </ul>
 
 <p>Example</p>
-<pre>
-mon* : find all docs containing any word beginning with "mon"
-</pre>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">mon</span><span class="o">*</span> <span class="err">:</span> <span class="nx">find</span> <span class="nx">all</span> <span class="nx">docs</span> <span class="nx">containing</span> <span class="nx">any</span> <span class="nx">word</span> <span class="nx">beginning</span> <span class="kd">with</span> <span class="s2">"mon"</span></code></pre></figure>
+
 <p>Easy with Binary tree ( or B+ Tree ) lexicon ( 사전 ) : retrieve all words in range : mon &lt;= w &lt; moo</p>
-<pre>
-*mon : find words ending in "mon" : harder
-</pre>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="o">*</span><span class="nx">mon</span> <span class="err">:</span> <span class="nx">find</span> <span class="nx">words</span> <span class="nx">ending</span> <span class="k">in</span> <span class="s2">"mon"</span> <span class="err">:</span> <span class="nx">harder</span></code></pre></figure>
+
 <p>Maintain an additional B+ Tree for terms backwards</p>
 
 <h3 id="--query-processing">- Query Processing</h3>
@@ -108,10 +108,10 @@ mon* : find all docs containing any word beginning with "mon"
 </ul>
 
 <p>Example</p>
-<pre>
-se * ate
-se *  AND * ate : This may result in the execution of many Boolean AND queries.
-</pre>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">se</span> <span class="o">*</span> <span class="nx">ate</span>
+<span class="nx">se</span> <span class="o">*</span>  <span class="nx">AND</span> <span class="o">*</span> <span class="nx">ate</span> <span class="err">:</span> <span class="nx">This</span> <span class="nx">may</span> <span class="nx">result</span> <span class="k">in</span> <span class="nx">the</span> <span class="nx">execution</span> <span class="nx">of</span> <span class="nx">many</span> <span class="nb">Boolean</span> <span class="nx">AND</span> <span class="nx">queries</span><span class="p">.</span></code></pre></figure>
+
 <p>–&gt; Expensive ( B+ Tree 를 하나 더 사용하게 된다 )<br /></p>
 
 <p>Solution : <strong>Transform wild-card queries so that the “ * “ occur at the end</strong><br /></p>
@@ -120,37 +120,32 @@ se *  AND * ate : This may result in the execution of many Boolean AND queries.
 
 <h3 id="--permuterm-index">- Permuterm Index</h3>
 
-<pre>
-From term hello, index under :
-- hello$ , ello$h, llo$he, lo$hel, o$hell, $hello 
-( 한칸씩 Shifting 하면서 해당 단어에 대한 Permuterm 을 전부 만든다 )
-</pre>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">From</span> <span class="nx">term</span> <span class="nx">hello</span><span class="p">,</span> <span class="nx">index</span> <span class="nx">under</span> <span class="err">:</span>
+<span class="o">-</span> <span class="nx">hello$</span> <span class="p">,</span> <span class="nx">ello$h</span><span class="p">,</span> <span class="nx">llo$he</span><span class="p">,</span> <span class="nx">lo$hel</span><span class="p">,</span> <span class="nx">o$hell</span><span class="p">,</span> <span class="nx">$hello</span> 
+<span class="p">(</span> <span class="err">한칸씩</span> <span class="nx">Shifting</span> <span class="err">하면서</span> <span class="err">해당</span> <span class="err">단어에</span> <span class="err">대한</span> <span class="nx">Permuterm</span> <span class="err">을</span> <span class="err">전부</span> <span class="err">만든다</span> <span class="p">)</span></code></pre></figure>
 
 <p><strong>해당 Word 에 대해 모든 Permuterm 을  Dictinary 에 넣고 Search 시 사용한다.</strong></p>
 
 <p><img src="http://localhost:4000/assets/permutermIndex.png" alt="screenshot" /></p>
 
-<pre>
-Search H * llo
-- hello -&gt; llo$he, ...
-- hillo -&gt; llo$hi, ...
-- haaallo -&gt; llo$haaa, ...
---&gt; 미리 Dictionary 에 정의된 단어들의 Permuterm 들 중 Search word 가 match 되는 것을 찾는 방식
-</pre>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">Search</span> <span class="nx">H</span> <span class="o">*</span> <span class="nx">llo</span>
+<span class="o">-</span> <span class="nx">hello</span> <span class="o">-&gt;</span> <span class="nx">llo$he</span><span class="p">,</span> <span class="p">...</span>
+<span class="o">-</span> <span class="nx">hillo</span> <span class="o">-&gt;</span> <span class="nx">llo$hi</span><span class="p">,</span> <span class="p">...</span>
+<span class="o">-</span> <span class="nx">haaallo</span> <span class="o">-&gt;</span> <span class="nx">llo$haaa</span><span class="p">,</span> <span class="p">...</span>
+<span class="o">--&gt;</span> <span class="err">미리</span> <span class="nx">Dictionary</span> <span class="err">에</span> <span class="err">정의된</span> <span class="err">단어들의</span> <span class="nx">Permuterm</span> <span class="err">들</span> <span class="err">중</span> <span class="nx">Search</span> <span class="nx">word</span> <span class="err">가</span> <span class="nx">match</span> <span class="err">되는</span> <span class="err">것을</span> <span class="err">찾는</span> <span class="err">방식</span></code></pre></figure>
 
 <p>Exercise</p>
-<pre>
-1. Write down the entries in the permuterm index dictionary that are generated by the term mama.
-- ANS :  mama$, ama$m, ma$ma, a$mam, $mama
-2. If you wanted to search for s*ng in a permuterm wildcard index, what key(s) would one do the lookup on?
-- ANS : ng$s *
-3.
- - Consider again the query fi * mo * er.
- - What Boolean query on a bigram index would be generated for this query?
- 	- ANS : The Boolean query is $f AND fi AND mo AND er AND r$.
- - Can you think of a term that matches the permuterm query, but does not satisfy this Boolean query?
- 	- ANS : The "filibuster" term will match the permuterm query, but does not satisfy this Boolean query
-</pre>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="mi">1</span><span class="p">.</span> <span class="nx">Write</span> <span class="nx">down</span> <span class="nx">the</span> <span class="nx">entries</span> <span class="k">in</span> <span class="nx">the</span> <span class="nx">permuterm</span> <span class="nx">index</span> <span class="nx">dictionary</span> <span class="nx">that</span> <span class="nx">are</span> <span class="nx">generated</span> <span class="nx">by</span> <span class="nx">the</span> <span class="nx">term</span> <span class="nx">mama</span><span class="p">.</span>
+<span class="o">-</span> <span class="nx">ANS</span> <span class="err">:</span>  <span class="nx">mama$</span><span class="p">,</span> <span class="nx">ama$m</span><span class="p">,</span> <span class="nx">ma$ma</span><span class="p">,</span> <span class="nx">a$mam</span><span class="p">,</span> <span class="nx">$mama</span>
+<span class="mi">2</span><span class="p">.</span> <span class="nx">If</span> <span class="nx">you</span> <span class="nx">wanted</span> <span class="nx">to</span> <span class="nx">search</span> <span class="k">for</span> <span class="nx">s</span><span class="o">*</span><span class="nx">ng</span> <span class="k">in</span> <span class="nx">a</span> <span class="nx">permuterm</span> <span class="nx">wildcard</span> <span class="nx">index</span><span class="p">,</span> <span class="nx">what</span> <span class="nx">key</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="nx">would</span> <span class="nx">one</span> <span class="k">do</span> <span class="nx">the</span> <span class="nx">lookup</span> <span class="nx">on</span><span class="p">?</span>
+<span class="o">-</span> <span class="nx">ANS</span> <span class="p">:</span> <span class="nx">ng$s</span> <span class="o">*</span>
+<span class="mi">3</span><span class="p">.</span>
+ <span class="o">-</span> <span class="nx">Consider</span> <span class="nx">again</span> <span class="nx">the</span> <span class="nx">query</span> <span class="nx">fi</span> <span class="o">*</span> <span class="nx">mo</span> <span class="o">*</span> <span class="nx">er</span><span class="p">.</span>
+ <span class="o">-</span> <span class="nx">What</span> <span class="nb">Boolean</span> <span class="nx">query</span> <span class="nx">on</span> <span class="nx">a</span> <span class="nx">bigram</span> <span class="nx">index</span> <span class="nx">would</span> <span class="nx">be</span> <span class="nx">generated</span> <span class="k">for</span> <span class="k">this</span> <span class="nx">query</span><span class="p">?</span>
+ 	<span class="o">-</span> <span class="nx">ANS</span> <span class="p">:</span> <span class="nx">The</span> <span class="nb">Boolean</span> <span class="nx">query</span> <span class="nx">is</span> <span class="nx">$f</span> <span class="nx">AND</span> <span class="nx">fi</span> <span class="nx">AND</span> <span class="nx">mo</span> <span class="nx">AND</span> <span class="nx">er</span> <span class="nx">AND</span> <span class="nx">r$</span><span class="p">.</span>
+ <span class="o">-</span> <span class="nx">Can</span> <span class="nx">you</span> <span class="nx">think</span> <span class="nx">of</span> <span class="nx">a</span> <span class="nx">term</span> <span class="nx">that</span> <span class="nx">matches</span> <span class="nx">the</span> <span class="nx">permuterm</span> <span class="nx">query</span><span class="p">,</span> <span class="nx">but</span> <span class="nx">does</span> <span class="nx">not</span> <span class="nx">satisfy</span> <span class="k">this</span> <span class="nb">Boolean</span> <span class="nx">query</span><span class="p">?</span>
+ 	<span class="o">-</span> <span class="nx">ANS</span> <span class="p">:</span> <span class="nx">The</span> <span class="s2">"filibuster"</span> <span class="nx">term</span> <span class="nx">will</span> <span class="nx">match</span> <span class="nx">the</span> <span class="nx">permuterm</span> <span class="nx">query</span><span class="p">,</span> <span class="nx">but</span> <span class="nx">does</span> <span class="nx">not</span> <span class="nx">satisfy</span> <span class="k">this</span> <span class="nb">Boolean</span> <span class="nx">query</span></code></pre></figure>
 
 <h3 id="--bigram--k---gram--indexes">- Bigram ( k - gram ) Indexes</h3>
 
@@ -168,12 +163,11 @@ Search H * llo
 <p><img src="http://localhost:4000/assets/bigramEx2.png" alt="screenshot" /></p>
 
 <p>Example</p>
-<pre>
-he * llo
-- he -&gt; hello, he, she, loche, ...
-- lo -&gt; hello, location, log, loche, ...
-Check match he * lo ---&gt; hello, loche, ...
-</pre>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">he</span> <span class="o">*</span> <span class="nx">llo</span>
+<span class="o">-</span> <span class="nx">he</span> <span class="o">-&gt;</span> <span class="nx">hello</span><span class="p">,</span> <span class="nx">he</span><span class="p">,</span> <span class="nx">she</span><span class="p">,</span> <span class="nx">loche</span><span class="p">,</span> <span class="p">...</span>
+<span class="o">-</span> <span class="nx">lo</span> <span class="o">-&gt;</span> <span class="nx">hello</span><span class="p">,</span> <span class="nx">location</span><span class="p">,</span> <span class="nx">log</span><span class="p">,</span> <span class="nx">loche</span><span class="p">,</span> <span class="p">...</span>
+<span class="nx">Check</span> <span class="nx">match</span> <span class="nx">he</span> <span class="o">*</span> <span class="nx">lo</span> <span class="o">---&gt;</span> <span class="nx">hello</span><span class="p">,</span> <span class="nx">loche</span><span class="p">,</span> <span class="p">...</span></code></pre></figure>
 
 <h3 id="--processing-wild---cards">- Processing wild - cards</h3>
 <ul>
@@ -237,6 +231,10 @@ Check match he * lo ---&gt; hello, loche, ...
   <h2>Recent Posts</h2>
   <ul>
     
+    <li><a href="/2017/05/Angular2-Root-Module">Angular2 Root Module</a></li>
+    
+    <li><a href="/2017/05/Angular2-Module">Angular2 Module</a></li>
+    
     <li><a href="/2017/04/Angular2-Service2">Angular2 Service2</a></li>
     
     <li><a href="/2017/04/Angular2-Service">Angular2 Service1</a></li>
@@ -253,10 +251,6 @@ Check match he * lo ---&gt; hello, loche, ...
     
     <li><a href="/2017/04/Angular2-Component1">Angular2 Component1</a></li>
     
-    <li><a href="/2017/04/UP-Development-1.-Inception-2">UP Development - 1.Inception (Cont'd)</a></li>
-    
-    <li><a href="/2017/04/spelling-correction">Spelling Correction</a></li>
-    
   </ul>
 </div>
 
@@ -266,7 +260,7 @@ Check match he * lo ---&gt; hello, loche, ...
     
     
     <li>
-      <a href="/tag/Angular2" data-toggle="tooltip" data-placement="right" title="5">
+      <a href="/tag/Angular2" data-toggle="tooltip" data-placement="right" title="7">
         <span>Angular2</span></a></li>
     
     <li>

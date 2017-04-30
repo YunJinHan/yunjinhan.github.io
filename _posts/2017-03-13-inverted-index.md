@@ -13,7 +13,7 @@ Inverted Index
 
 Inverted Index Construction
 -------------
-<pre>
+{% highlight javascript %}
 			Document			ex) Friends are Romans
 				▼
 			Tokenizer			Friends, are, Romans
@@ -22,7 +22,7 @@ Inverted Index Construction
 				▼
 			Indexer				friend -> posting = (2, 4, ...)
 							roman -> posting = (13, 16 ...)
-</pre>
+{% endhighlight javascript %}
 
 Initial Stages of Text Processing
 -------------

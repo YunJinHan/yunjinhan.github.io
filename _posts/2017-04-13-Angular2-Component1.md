@@ -18,71 +18,71 @@ Angular Component 는 **Web Component 기술**을 기반으로 구성되며 <br>
 #### - Component Tree
 Component 끼리의 관계를 나타내는 것으로 Component 사이의 의존성이 존재할 수 있다.
 #### - Component 기반 개발
-<pre>
+{% highlight javascript %}
 @Component({
 	// 컴포넌트 메타 데이터 설정
 })
 export class HelloComponent {
 	// 컴포넌트 로직 작성
 }
-</pre>
+{% endhighlight javascript %}
 < Web Component 기술 요소 >
 -----
 #### - HTML 템플릿
 **Angular 의 템플릿은 Web Component 기술의 템플릿 기술을 이용한다.**
-<pre>
-< template id="nav-item-template">
-	< div class="nav">
-		< div class="item">메인</div>
-		< div class="item">서비스 소개</div>
-		< div class="item">서비스 특징</div>
-	< /div>
-< /template>
-</pre>
+{% highlight javascript %}
+<template id="nav-item-template">
+	<div class="nav">
+		<div class="item">메인</div>
+		<div class="item">서비스 소개</div>
+		<div class="item">서비스 특징</div>
+	</div>
+</template>
+{% endhighlight javascript %}
 #### - 템플릿 호출
 **Angular 에서 템플릿 호출 기능은 Web Component 호출 기술을 이용한다.**
-<pre>
-< head>
-< link rel="import" href="template.html">
-< /head>
+{% highlight javascript %}
+<head>
+<link rel="import" href="template.html">
+</head>
 ...
-< script>
+<script>
 	var link = document.quertSelector('link[re]="import"]');
 	var content = link.import;
 	var el = content.querySelector('#template');
 	document.body.appendChild(el.cloneNode(true));
-< /script>
-</pre>
+</script>
+{% endhighlight javascript %}
 #### - 쉐도우 DOM
 **Angular Component 는 쉐도우 DOM 을 사용하여 문서 트리에 영향을 받지 않는 쉐도우 DOM 을 이용한다.**<br><br>
 DOM 은 크게 문서 DOM 과 쉐도우 DOM 으로 나누어진다.<br>
 문서 DOM 은 현재 페이지에 대한 DOM 이며, 쉐도우 DOM 은 웹 페이지가 실행되는 중 생성되는 가상 DOM 이다.
 #### - 커스텀 엘리먼트
 **Angular Component 의 엘리먼트 이름은 Web Component 의 커스텀 엘리먼트 기술을  이용한다.**
-<pre>
-< hello-button>< /hello-button>
-</pre>
+{% highlight javascript %}
+<hello-button></hello-button>
+{% endhighlight javascript %}
 <br>
 &nbsp;
 
 Angular Component 구조
 =======
 ### - Import 영역
-<pre>
+{% highlight javascript %}
 import { Component } from '@angular/core'; 
-</pre>
+{% endhighlight javascript %}
 Angular 라이브러리 모듈을 호출하거나 사용자 모듈을 호출할때 Import 키워드를 사용한다.<br>
 Angular 라이브러리 모듈은 **@** 를 붙이며 사용자 모듈은 **./** 을 통해 외부 모듈을 호출한다.
 
 ### - Component 장식자 영역
-<pre>
+{% highlight javascript %}
 @Component({
 	selector : 'intro -component',
 	template : '< div>App Hello< /div>',
 	styles : ['div{ background: blue; }']
 })
 export class AppHello { }
-</pre>
+{% endhighlight javascript %}
 @Component 는 Component 장식자라고 불리며 위와 같은 형식을 가진다.
 
 - selector 속성<br>Component 의 이름을 정의. < intro -component>< /intro -component> 같은 형식으로 정의<br>

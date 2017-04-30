@@ -89,7 +89,8 @@
 -&gt; php 와 javascript 간에 정보 공유 가능.</p>
 
 <h2 id="cookie-create">Cookie Create</h2>
-<pre>setcookie(string $name, string $value, int $time, string $path, string $domain, bool $secure = false, bool $httponly = false)</pre>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">setcookie</span><span class="p">(</span><span class="nx">string</span> <span class="nx">$name</span><span class="p">,</span> <span class="nx">string</span> <span class="nx">$value</span><span class="p">,</span> <span class="kr">int</span> <span class="nx">$time</span><span class="p">,</span> <span class="nx">string</span> <span class="nx">$path</span><span class="p">,</span> <span class="nx">string</span> <span class="nx">$domain</span><span class="p">,</span> <span class="nx">bool</span> <span class="nx">$secure</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span> <span class="nx">bool</span> <span class="nx">$httponly</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span></code></pre></figure>
 
 <ol>
   <li>$name : 쿠키 이름 ( 공백이나 마침표 안됨 , 대소문자 구분 )</li>
@@ -103,19 +104,24 @@
 <p>ex) <br />
 PHP<br />
 쿠키 설정</p>
-<pre>setcookie('category', 'test1', time()+(60*60*24));</pre>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">setcookie</span><span class="p">(</span><span class="s1">'category'</span><span class="p">,</span> <span class="s1">'test1'</span><span class="p">,</span> <span class="nx">time</span><span class="p">()</span><span class="o">+</span><span class="p">(</span><span class="mi">60</span><span class="o">*</span><span class="mi">60</span><span class="o">*</span><span class="mi">24</span><span class="p">));</span></code></pre></figure>
 
 <h2 id="cookie-load">Cookie Load</h2>
-<pre>$_COOKIE['category']</pre>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$_COOKIE</span><span class="p">[</span><span class="s1">'category'</span><span class="p">]</span></code></pre></figure>
 
 <h2 id="cookie-modify">Cookie Modify</h2>
-<pre>setcookie('category', 'test2', time()+(60*60*24));</pre>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">setcookie</span><span class="p">(</span><span class="s1">'category'</span><span class="p">,</span> <span class="s1">'test2'</span><span class="p">,</span> <span class="nx">time</span><span class="p">()</span><span class="o">+</span><span class="p">(</span><span class="mi">60</span><span class="o">*</span><span class="mi">60</span><span class="o">*</span><span class="mi">24</span><span class="p">));</span></code></pre></figure>
 
 <h2 id="cookie-delete">Cookie Delete</h2>
-<pre>setcookie('category')</pre>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">setcookie</span><span class="p">(</span><span class="s1">'category'</span><span class="p">)</span></code></pre></figure>
 
 <h2 id="javascript---cookie-create">Javascript - Cookie Create</h2>
-<pre>document.cookie='category=' + cookie_value;</pre>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nb">document</span><span class="p">.</span><span class="nx">cookie</span><span class="o">=</span><span class="s1">'category='</span> <span class="o">+</span> <span class="nx">cookie_value</span><span class="p">;</span></code></pre></figure>
 
 <p><br /><br />
 <br /><br />
@@ -125,21 +131,27 @@ PHP<br />
 <p>데이터를 서버상에 저장하는 방법 ( Cookie 보다 안전하며 , 더 많은 데이터를 저장 )</p>
 
 <h2 id="session-start">Session Start</h2>
-<pre>session start();</pre>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">session</span> <span class="nx">start</span><span class="p">();</span></code></pre></figure>
+
 <p>세션 이용하기 전에 반드시 호출해야하며 호출 전에 어떤 내용도 브라우저에 출력하면 안된다.</p>
 
 <h2 id="session-create">Session Create</h2>
-<pre>$_SESSION['category']</pre>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$_SESSION</span><span class="p">[</span><span class="s1">'category'</span><span class="p">]</span></code></pre></figure>
 
 <h2 id="session-delete">Session Delete</h2>
 <p>특정 세션변수만 삭제</p>
-<pre>unset($_SESSION['category'])</pre>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">unset</span><span class="p">(</span><span class="nx">$_SESSION</span><span class="p">[</span><span class="s1">'category'</span><span class="p">])</span></code></pre></figure>
 
 <p>전체 세션변수 삭제</p>
-<pre>$_SESSINO = array();</pre>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$_SESSINO</span> <span class="o">=</span> <span class="nx">array</span><span class="p">();</span></code></pre></figure>
 
 <p>서버에 저장된 모든 세션 데이터 삭제</p>
-<pre>session_destory();</pre>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">session_destory</span><span class="p">();</span></code></pre></figure>
 
                     
 
@@ -185,6 +197,10 @@ PHP<br />
   <h2>Recent Posts</h2>
   <ul>
     
+    <li><a href="/2017/05/Angular2-Root-Module">Angular2 Root Module</a></li>
+    
+    <li><a href="/2017/05/Angular2-Module">Angular2 Module</a></li>
+    
     <li><a href="/2017/04/Angular2-Service2">Angular2 Service2</a></li>
     
     <li><a href="/2017/04/Angular2-Service">Angular2 Service1</a></li>
@@ -201,10 +217,6 @@ PHP<br />
     
     <li><a href="/2017/04/Angular2-Component1">Angular2 Component1</a></li>
     
-    <li><a href="/2017/04/UP-Development-1.-Inception-2">UP Development - 1.Inception (Cont'd)</a></li>
-    
-    <li><a href="/2017/04/spelling-correction">Spelling Correction</a></li>
-    
   </ul>
 </div>
 
@@ -214,7 +226,7 @@ PHP<br />
     
     
     <li>
-      <a href="/tag/Angular2" data-toggle="tooltip" data-placement="right" title="5">
+      <a href="/tag/Angular2" data-toggle="tooltip" data-placement="right" title="7">
         <span>Angular2</span></a></li>
     
     <li>

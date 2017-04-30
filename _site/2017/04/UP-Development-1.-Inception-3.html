@@ -103,35 +103,33 @@
   <li>Extension has two parts <strong>Condition</strong> and <strong>The Handing</strong></li>
   <li><strong>Write the condition as something that can be detected by the system or an actor</strong></li>
 </ul>
-<pre>
-Example )
-Extensions:
-3a. Invalid identifier:
-&nbsp;&nbsp;1.System signals error and rejects entry.
-3b. There are multiple of same item category and tracking unique item identity not important (e.g., 5 packages of veggie-burgers):
-&nbsp;&nbsp;1.Cashier can enter item category identifier and the quantity. 
-3-6a. Customer asks Cahier to remove an item from the purchase:
-&nbsp;&nbsp;1.Cashier enters the item identifier for removal from the sale.
-&nbsp;&nbsp;2.System displays updated running total.
-</pre>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">Example</span> <span class="p">)</span>
+<span class="nl">Extensions</span><span class="p">:</span>
+<span class="mi">3</span><span class="nx">a</span><span class="p">.</span> <span class="nx">Invalid</span> <span class="nx">identifier</span><span class="err">:</span>
+<span class="o">&amp;</span><span class="nx">nbsp</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">nbsp</span><span class="p">;</span><span class="mi">1</span><span class="p">.</span><span class="nx">System</span> <span class="nx">signals</span> <span class="nx">error</span> <span class="nx">and</span> <span class="nx">rejects</span> <span class="nx">entry</span><span class="p">.</span>
+<span class="mi">3</span><span class="nx">b</span><span class="p">.</span> <span class="nx">There</span> <span class="nx">are</span> <span class="nx">multiple</span> <span class="nx">of</span> <span class="nx">same</span> <span class="nx">item</span> <span class="nx">category</span> <span class="nx">and</span> <span class="nx">tracking</span> <span class="nx">unique</span> <span class="nx">item</span> <span class="nx">identity</span> <span class="nx">not</span> <span class="nx">important</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">g</span><span class="p">.,</span> <span class="mi">5</span> <span class="nx">packages</span> <span class="nx">of</span> <span class="nx">veggie</span><span class="o">-</span><span class="nx">burgers</span><span class="p">)</span><span class="err">:</span>
+<span class="o">&amp;</span><span class="nx">nbsp</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">nbsp</span><span class="p">;</span><span class="mi">1</span><span class="p">.</span><span class="nx">Cashier</span> <span class="nx">can</span> <span class="nx">enter</span> <span class="nx">item</span> <span class="nx">category</span> <span class="nx">identifier</span> <span class="nx">and</span> <span class="nx">the</span> <span class="nx">quantity</span><span class="p">.</span> 
+<span class="mi">3</span><span class="o">-</span><span class="mi">6</span><span class="nx">a</span><span class="p">.</span> <span class="nx">Customer</span> <span class="nx">asks</span> <span class="nx">Cahier</span> <span class="nx">to</span> <span class="nx">remove</span> <span class="nx">an</span> <span class="nx">item</span> <span class="nx">from</span> <span class="nx">the</span> <span class="nx">purchase</span><span class="err">:</span>
+<span class="o">&amp;</span><span class="nx">nbsp</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">nbsp</span><span class="p">;</span><span class="mi">1</span><span class="p">.</span><span class="nx">Cashier</span> <span class="nx">enters</span> <span class="nx">the</span> <span class="nx">item</span> <span class="nx">identifier</span> <span class="k">for</span> <span class="nx">removal</span> <span class="nx">from</span> <span class="nx">the</span> <span class="nx">sale</span><span class="p">.</span>
+<span class="o">&amp;</span><span class="nx">nbsp</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">nbsp</span><span class="p">;</span><span class="mi">2</span><span class="p">.</span><span class="nx">System</span> <span class="nx">displays</span> <span class="nx">updated</span> <span class="nx">running</span> <span class="nx">total</span><span class="p">.</span></code></pre></figure>
 
 <ul>
   <li>At the end of extension handing, by default the scenario merges back with the main success scenario, unless the extension indicates otherwise ( such as by halting the system )</li>
   <li>If a particular extension is quite complex, a separate use case may be written</li>
 </ul>
-<pre>
-Example )
-7b. Paying by credit:
-&nbsp;&nbsp;1.Customer enters their credit card information.
-&nbsp;&nbsp;2.System requests payment validation from external Payment Authorization Serive system.
-&nbsp;&nbsp;2a. System detects failure to collaborate with external system.
-&nbsp;&nbsp;&nbsp;&nbsp;1.System signals error to Cashier.
-&nbsp;&nbsp;&nbsp;&nbsp;2.Cashier asks Customer for alternate payment. 3. ...
-*a. At any time, System crashes:
-In order to support recovery and correct accounting, ensure all transaction sensative state and events can be recovered at any step in the scenario.
-&nbsp;&nbsp;1.Cahier restarts the System, log in, and requests recovery of prior state.
-&nbsp;&nbsp;2.System reconstructs prior state.
-</pre>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">Example</span> <span class="p">)</span>
+<span class="mi">7</span><span class="nx">b</span><span class="p">.</span> <span class="nx">Paying</span> <span class="nx">by</span> <span class="nx">credit</span><span class="err">:</span>
+<span class="o">&amp;</span><span class="nx">nbsp</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">nbsp</span><span class="p">;</span><span class="mi">1</span><span class="p">.</span><span class="nx">Customer</span> <span class="nx">enters</span> <span class="nx">their</span> <span class="nx">credit</span> <span class="nx">card</span> <span class="nx">information</span><span class="p">.</span>
+<span class="o">&amp;</span><span class="nx">nbsp</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">nbsp</span><span class="p">;</span><span class="mi">2</span><span class="p">.</span><span class="nx">System</span> <span class="nx">requests</span> <span class="nx">payment</span> <span class="nx">validation</span> <span class="nx">from</span> <span class="nx">external</span> <span class="nx">Payment</span> <span class="nx">Authorization</span> <span class="nx">Serive</span> <span class="nx">system</span><span class="p">.</span>
+<span class="o">&amp;</span><span class="nx">nbsp</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">nbsp</span><span class="p">;</span><span class="mi">2</span><span class="nx">a</span><span class="p">.</span> <span class="nx">System</span> <span class="nx">detects</span> <span class="nx">failure</span> <span class="nx">to</span> <span class="nx">collaborate</span> <span class="kd">with</span> <span class="nx">external</span> <span class="nx">system</span><span class="p">.</span>
+<span class="o">&amp;</span><span class="nx">nbsp</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">nbsp</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">nbsp</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">nbsp</span><span class="p">;</span><span class="mi">1</span><span class="p">.</span><span class="nx">System</span> <span class="nx">signals</span> <span class="nx">error</span> <span class="nx">to</span> <span class="nx">Cashier</span><span class="p">.</span>
+<span class="o">&amp;</span><span class="nx">nbsp</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">nbsp</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">nbsp</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">nbsp</span><span class="p">;</span><span class="mi">2</span><span class="p">.</span><span class="nx">Cashier</span> <span class="nx">asks</span> <span class="nx">Customer</span> <span class="k">for</span> <span class="nx">alternate</span> <span class="nx">payment</span><span class="p">.</span> <span class="mi">3</span><span class="p">.</span> <span class="p">...</span>
+<span class="o">*</span><span class="nx">a</span><span class="p">.</span> <span class="nx">At</span> <span class="nx">any</span> <span class="nx">time</span><span class="p">,</span> <span class="nx">System</span> <span class="nx">crashes</span><span class="err">:</span>
+<span class="nx">In</span> <span class="nx">order</span> <span class="nx">to</span> <span class="nx">support</span> <span class="nx">recovery</span> <span class="nx">and</span> <span class="nx">correct</span> <span class="nx">accounting</span><span class="p">,</span> <span class="nx">ensure</span> <span class="nx">all</span> <span class="nx">transaction</span> <span class="nx">sensative</span> <span class="nx">state</span> <span class="nx">and</span> <span class="nx">events</span> <span class="nx">can</span> <span class="nx">be</span> <span class="nx">recovered</span> <span class="nx">at</span> <span class="nx">any</span> <span class="nx">step</span> <span class="k">in</span> <span class="nx">the</span> <span class="nx">scenario</span><span class="p">.</span>
+<span class="o">&amp;</span><span class="nx">nbsp</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">nbsp</span><span class="p">;</span><span class="mi">1</span><span class="p">.</span><span class="nx">Cahier</span> <span class="nx">restarts</span> <span class="nx">the</span> <span class="nx">System</span><span class="p">,</span> <span class="nx">log</span> <span class="k">in</span><span class="p">,</span> <span class="nx">and</span> <span class="nx">requests</span> <span class="nx">recovery</span> <span class="nx">of</span> <span class="nx">prior</span> <span class="nx">state</span><span class="p">.</span>
+<span class="o">&amp;</span><span class="nx">nbsp</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">nbsp</span><span class="p">;</span><span class="mi">2</span><span class="p">.</span><span class="nx">System</span> <span class="nx">reconstructs</span> <span class="nx">prior</span> <span class="nx">state</span><span class="p">.</span></code></pre></figure>
 
 <p><img src="http://localhost:4000/assets/scenarioLevel.png" alt="screenshot" /></p>
 
@@ -141,14 +139,13 @@ In order to support recovery and correct accounting, ensure all transaction sens
 <ul>
   <li>Non-functional requirements, quality attributes, and constraints which relates specifically to a use case are recorded with the use case</li>
 </ul>
-<pre>
-Example )
-Special Requirements:
--Touch screen UI on a large flat panel monitor. Text must be visible from 1 meter. 
--Credit authorization response within 30 seconds within 90% of time.
--Language internationalization on the text displayed.
--Pluggable business rules to be insertable at steps 2 and 6.
-</pre>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">Example</span> <span class="p">)</span>
+<span class="nx">Special</span> <span class="nx">Requirements</span><span class="err">:</span>
+<span class="o">-</span><span class="nx">Touch</span> <span class="nx">screen</span> <span class="nx">UI</span> <span class="nx">on</span> <span class="nx">a</span> <span class="nx">large</span> <span class="nx">flat</span> <span class="nx">panel</span> <span class="nx">monitor</span><span class="p">.</span> <span class="nx">Text</span> <span class="nx">must</span> <span class="nx">be</span> <span class="nx">visible</span> <span class="nx">from</span> <span class="mi">1</span> <span class="nx">meter</span><span class="p">.</span> 
+<span class="o">-</span><span class="nx">Credit</span> <span class="nx">authorization</span> <span class="nx">response</span> <span class="nx">within</span> <span class="mi">30</span> <span class="nx">seconds</span> <span class="nx">within</span> <span class="mi">90</span><span class="o">%</span> <span class="nx">of</span> <span class="nx">time</span><span class="p">.</span>
+<span class="o">-</span><span class="nx">Language</span> <span class="nx">internationalization</span> <span class="nx">on</span> <span class="nx">the</span> <span class="nx">text</span> <span class="nx">displayed</span><span class="p">.</span>
+<span class="o">-</span><span class="nx">Pluggable</span> <span class="nx">business</span> <span class="nx">rules</span> <span class="nx">to</span> <span class="nx">be</span> <span class="nx">insertable</span> <span class="nx">at</span> <span class="nx">steps</span> <span class="mi">2</span> <span class="nx">and</span> <span class="mi">6</span><span class="p">.</span></code></pre></figure>
 
 <h3 id="--technology-and-data-variations-list">- Technology and Data Variations List</h3>
 <ul>
@@ -156,14 +153,13 @@ Special Requirements:
   <li>This section also records variations in data scheme</li>
   <li>This section should not contain multiple steps to express varying behavior for different cases. If that is necessary, say it in the Extensions section</li>
 </ul>
-<pre>
-Example )
-Technology and Data Variations List:
-3a. Item identifier entered by laser scanner or keyboard.
-3b. Item identifier may be any UPC, EAN, JAN, or SKU coding scheme.
-7a. Credit account information entered by card reader or keyboard.
-7b. Credit payment signature captured on paper receipt. But within two years, we pre-dict many customers will want digital signature capture.
-</pre>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">Example</span> <span class="p">)</span>
+<span class="nx">Technology</span> <span class="nx">and</span> <span class="nx">Data</span> <span class="nx">Variations</span> <span class="nx">List</span><span class="err">:</span>
+<span class="mi">3</span><span class="nx">a</span><span class="p">.</span> <span class="nx">Item</span> <span class="nx">identifier</span> <span class="nx">entered</span> <span class="nx">by</span> <span class="nx">laser</span> <span class="nx">scanner</span> <span class="nx">or</span> <span class="nx">keyboard</span><span class="p">.</span>
+<span class="mi">3</span><span class="nx">b</span><span class="p">.</span> <span class="nx">Item</span> <span class="nx">identifier</span> <span class="nx">may</span> <span class="nx">be</span> <span class="nx">any</span> <span class="nx">UPC</span><span class="p">,</span> <span class="nx">EAN</span><span class="p">,</span> <span class="nx">JAN</span><span class="p">,</span> <span class="nx">or</span> <span class="nx">SKU</span> <span class="nx">coding</span> <span class="nx">scheme</span><span class="p">.</span>
+<span class="mi">7</span><span class="nx">a</span><span class="p">.</span> <span class="nx">Credit</span> <span class="nx">account</span> <span class="nx">information</span> <span class="nx">entered</span> <span class="nx">by</span> <span class="nx">card</span> <span class="nx">reader</span> <span class="nx">or</span> <span class="nx">keyboard</span><span class="p">.</span>
+<span class="mi">7</span><span class="nx">b</span><span class="p">.</span> <span class="nx">Credit</span> <span class="nx">payment</span> <span class="nx">signature</span> <span class="nx">captured</span> <span class="nx">on</span> <span class="nx">paper</span> <span class="nx">receipt</span><span class="p">.</span> <span class="nx">But</span> <span class="nx">within</span> <span class="nx">two</span> <span class="nx">years</span><span class="p">,</span> <span class="nx">we</span> <span class="nx">pre</span><span class="o">-</span><span class="nx">dict</span> <span class="nx">many</span> <span class="nx">customers</span> <span class="nx">will</span> <span class="nx">want</span> <span class="nx">digital</span> <span class="nx">signature</span> <span class="nx">capture</span><span class="p">.</span></code></pre></figure>
 
 <h3 id="--key-four-concepts-that-apply-to-every-sentence-in-usecaese-and-to-the-usecase-as-a-whole">- Key Four Concepts that apply to every sentence in UseCaese and to the UseCase as a whole</h3>
 <ul>
@@ -396,6 +392,10 @@ success scenario</li>
   <h2>Recent Posts</h2>
   <ul>
     
+    <li><a href="/2017/05/Angular2-Root-Module">Angular2 Root Module</a></li>
+    
+    <li><a href="/2017/05/Angular2-Module">Angular2 Module</a></li>
+    
     <li><a href="/2017/04/Angular2-Service2">Angular2 Service2</a></li>
     
     <li><a href="/2017/04/Angular2-Service">Angular2 Service1</a></li>
@@ -412,10 +412,6 @@ success scenario</li>
     
     <li><a href="/2017/04/Angular2-Component1">Angular2 Component1</a></li>
     
-    <li><a href="/2017/04/UP-Development-1.-Inception-2">UP Development - 1.Inception (Cont'd)</a></li>
-    
-    <li><a href="/2017/04/spelling-correction">Spelling Correction</a></li>
-    
   </ul>
 </div>
 
@@ -425,7 +421,7 @@ success scenario</li>
     
     
     <li>
-      <a href="/tag/Angular2" data-toggle="tooltip" data-placement="right" title="5">
+      <a href="/tag/Angular2" data-toggle="tooltip" data-placement="right" title="7">
         <span>Angular2</span></a></li>
     
     <li>

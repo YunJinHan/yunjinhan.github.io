@@ -17,7 +17,7 @@ Cookie
 
 Cookie Create
 -------------
-<pre>setcookie(string $name, string $value, int $time, string $path, string $domain, bool $secure = false, bool $httponly = false)</pre>
+{% highlight javascript %}setcookie(string $name, string $value, int $time, string $path, string $domain, bool $secure = false, bool $httponly = false){% endhighlight javascript %}
 
 1. $name : 쿠키 이름 ( 공백이나 마침표 안됨 , 대소문자 구분 )
 2. $value : 쿠키 값
@@ -30,27 +30,27 @@ Cookie Create
 ex) 
 PHP
 쿠키 설정
-<pre>setcookie('category', 'test1', time()+(60*60*24));</pre>
+{% highlight javascript %}setcookie('category', 'test1', time()+(60*60*24));{% endhighlight javascript %}
 
 
 Cookie Load
 ------------
-<pre>$_COOKIE['category']</pre>
+{% highlight javascript %}$_COOKIE['category']{% endhighlight javascript %}
 
 
 Cookie Modify
 ------------
-<pre>setcookie('category', 'test2', time()+(60*60*24));</pre>
+{% highlight javascript %}setcookie('category', 'test2', time()+(60*60*24));{% endhighlight javascript %}
 
 
 Cookie Delete
 ------------
-<pre>setcookie('category')</pre>
+{% highlight javascript %}setcookie('category'){% endhighlight javascript %}
 
 
 Javascript - Cookie Create
 ------------
-<pre>document.cookie='category=' + cookie_value;</pre>
+{% highlight javascript %}document.cookie='category=' + cookie_value;{% endhighlight javascript %}
 
 <br>
 <br>
@@ -62,21 +62,21 @@ Session
 
 Session Start
 ------------
-<pre>session start();</pre>
+{% highlight javascript %}session start();{% endhighlight javascript %}
 세션 이용하기 전에 반드시 호출해야하며 호출 전에 어떤 내용도 브라우저에 출력하면 안된다.
 
 
 Session Create
 ------------
-<pre>$_SESSION['category']</pre>
+{% highlight javascript %}$_SESSION['category']{% endhighlight javascript %}
 
 Session Delete
 ------------
 특정 세션변수만 삭제
-<pre>unset($_SESSION['category'])</pre>
+{% highlight javascript %}unset($_SESSION['category']){% endhighlight javascript %}
 
 전체 세션변수 삭제
-<pre>$_SESSINO = array();</pre>
+{% highlight javascript %}$_SESSINO = array();{% endhighlight javascript %}
 
 서버에 저장된 모든 세션 데이터 삭제
-<pre>session_destory();</pre>
+{% highlight javascript %}session_destory();{% endhighlight javascript %}

@@ -22,7 +22,7 @@ Ajax 안에서 Predeclare 된 변수들중 DOM 으로 선언된 변수들은 찾
 
 ex)
 
-<pre>
+{% highlight javascript %}
 this.test = document.getElementById('test');
 
 ...
@@ -51,6 +51,6 @@ $.ajax({
 	
 });
 
-</pre>
+{% endhighlight javascript %}
 
 ---> ajax 통신이 Asynchronous (비동기식) 통신으로 구동된다면 Predeclare 된 변수들은 Checking 하지 못할수도 있다.

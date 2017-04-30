@@ -96,15 +96,15 @@
 </ul>
 
 <p>Example)</p>
-<pre>
-Movie m = new Movie();
-m = new JamesBondMovie();<br />
-JamesBondMovie jm;
-jm = new JamesBondMovie();
-m = jm; ---&gt; NO ERROR!!
-jm = m; ---&gt; ERROR!!
-( static type 을 가지고서 판단한다.<br /> jm 의 static type 은 jm 이기 떄문에 자식은 부모의 특성 + @ 를 가지고 있기 때문에 부모는 자식을 포한하는 관계는 아니다.<br /> 따라서 jm != m 이다 )
-</pre>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">Movie</span> <span class="nx">m</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Movie</span><span class="p">();</span>
+<span class="nx">m</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">JamesBondMovie</span><span class="p">();</span><span class="o">&lt;</span><span class="nx">br</span><span class="o">&gt;</span>
+<span class="nx">JamesBondMovie</span> <span class="nx">jm</span><span class="p">;</span>
+<span class="nx">jm</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">JamesBondMovie</span><span class="p">();</span>
+<span class="nx">m</span> <span class="o">=</span> <span class="nx">jm</span><span class="p">;</span> <span class="o">---&gt;</span> <span class="nx">NO</span> <span class="nx">ERROR</span><span class="o">!!</span>
+<span class="nx">jm</span> <span class="o">=</span> <span class="nx">m</span><span class="p">;</span> <span class="o">---&gt;</span> <span class="nx">ERROR</span><span class="o">!!</span>
+<span class="p">(</span> <span class="kr">static</span> <span class="nx">type</span> <span class="err">을</span> <span class="err">가지고서</span> <span class="err">판단한다</span><span class="p">.</span><span class="o">&lt;</span><span class="nx">br</span><span class="o">&gt;</span> <span class="nx">jm</span> <span class="err">의</span> <span class="kr">static</span> <span class="nx">type</span> <span class="err">은</span> <span class="nx">jm</span> <span class="err">이기</span> <span class="err">떄문에</span> <span class="err">자식은</span> <span class="err">부모의</span> <span class="err">특성</span> <span class="o">+</span> <span class="err">@</span> <span class="err">를</span> <span class="err">가지고</span> <span class="err">있기</span> <span class="err">때문에</span> <span class="err">부모는</span> <span class="err">자식을</span> <span class="err">포한하는</span> <span class="err">관계는</span> <span class="err">아니다</span><span class="p">.</span><span class="o">&lt;</span><span class="nx">br</span><span class="o">&gt;</span> <span class="err">따라서</span> <span class="nx">jm</span> <span class="o">!=</span> <span class="nx">m</span> <span class="err">이다</span> <span class="p">)</span></code></pre></figure>
+
 <p> <br />
 <br /><br />
 A subclasses can be assigned to its superclass, but not vice versa<br />
@@ -209,6 +209,10 @@ obj.h() —&gt; C’s h()<br /></strong></p>
   <h2>Recent Posts</h2>
   <ul>
     
+    <li><a href="/2017/05/Angular2-Root-Module">Angular2 Root Module</a></li>
+    
+    <li><a href="/2017/05/Angular2-Module">Angular2 Module</a></li>
+    
     <li><a href="/2017/04/Angular2-Service2">Angular2 Service2</a></li>
     
     <li><a href="/2017/04/Angular2-Service">Angular2 Service1</a></li>
@@ -225,10 +229,6 @@ obj.h() —&gt; C’s h()<br /></strong></p>
     
     <li><a href="/2017/04/Angular2-Component1">Angular2 Component1</a></li>
     
-    <li><a href="/2017/04/UP-Development-1.-Inception-2">UP Development - 1.Inception (Cont'd)</a></li>
-    
-    <li><a href="/2017/04/spelling-correction">Spelling Correction</a></li>
-    
   </ul>
 </div>
 
@@ -238,7 +238,7 @@ obj.h() —&gt; C’s h()<br /></strong></p>
     
     
     <li>
-      <a href="/tag/Angular2" data-toggle="tooltip" data-placement="right" title="5">
+      <a href="/tag/Angular2" data-toggle="tooltip" data-placement="right" title="7">
         <span>Angular2</span></a></li>
     
     <li>

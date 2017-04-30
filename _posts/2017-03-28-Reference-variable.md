@@ -20,7 +20,7 @@ A reference ( or pointer ) variable has two types associated with it
 - can be changed during lifetime<br>
 
 Example)
-<pre>
+{% highlight javascript %}
 Movie m = new Movie();
 m = new JamesBondMovie();<br>
 JamesBondMovie jm;
@@ -28,7 +28,7 @@ jm = new JamesBondMovie();
 m = jm; ---> NO ERROR!!
 jm = m; ---> ERROR!!
 ( static type 을 가지고서 판단한다.<br> jm 의 static type 은 jm 이기 떄문에 자식은 부모의 특성 + @ 를 가지고 있기 때문에 부모는 자식을 포한하는 관계는 아니다.<br> 따라서 jm != m 이다 )
-</pre>
+{% endhighlight javascript %}
 &nbsp;
 <br>
 A subclasses can be assigned to its superclass, but not vice versa

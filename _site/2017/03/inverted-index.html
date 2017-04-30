@@ -85,16 +85,15 @@
                     <h1 id="inverted-index">Inverted Index</h1>
 
 <h2 id="inverted-index-construction">Inverted Index Construction</h2>
-<pre>
-			Document			ex) Friends are Romans
-				▼
-			Tokenizer			Friends, are, Romans
-				▼
-			Linguistic Modules		friend, are, roman
-				▼
-			Indexer				friend -&gt; posting = (2, 4, ...)
-							roman -&gt; posting = (13, 16 ...)
-</pre>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript">			<span class="nx">Document</span>			<span class="nx">ex</span><span class="p">)</span> <span class="nx">Friends</span> <span class="nx">are</span> <span class="nx">Romans</span>
+				<span class="err">▼</span>
+			<span class="nx">Tokenizer</span>			<span class="nx">Friends</span><span class="p">,</span> <span class="nx">are</span><span class="p">,</span> <span class="nx">Romans</span>
+				<span class="err">▼</span>
+			<span class="nx">Linguistic</span> <span class="nx">Modules</span>		<span class="nx">friend</span><span class="p">,</span> <span class="nx">are</span><span class="p">,</span> <span class="nx">roman</span>
+				<span class="err">▼</span>
+			<span class="nx">Indexer</span>				<span class="nx">friend</span> <span class="o">-&gt;</span> <span class="nx">posting</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="p">...)</span>
+							<span class="nx">roman</span> <span class="o">-&gt;</span> <span class="nx">posting</span> <span class="o">=</span> <span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="mi">16</span> <span class="p">...)</span></code></pre></figure>
 
 <h2 id="initial-stages-of-text-processing">Initial Stages of Text Processing</h2>
 
@@ -235,6 +234,10 @@ if A length is A’ and B length is B’ , O(A’+B’) linear time<br /><br />
   <h2>Recent Posts</h2>
   <ul>
     
+    <li><a href="/2017/05/Angular2-Root-Module">Angular2 Root Module</a></li>
+    
+    <li><a href="/2017/05/Angular2-Module">Angular2 Module</a></li>
+    
     <li><a href="/2017/04/Angular2-Service2">Angular2 Service2</a></li>
     
     <li><a href="/2017/04/Angular2-Service">Angular2 Service1</a></li>
@@ -251,10 +254,6 @@ if A length is A’ and B length is B’ , O(A’+B’) linear time<br /><br />
     
     <li><a href="/2017/04/Angular2-Component1">Angular2 Component1</a></li>
     
-    <li><a href="/2017/04/UP-Development-1.-Inception-2">UP Development - 1.Inception (Cont'd)</a></li>
-    
-    <li><a href="/2017/04/spelling-correction">Spelling Correction</a></li>
-    
   </ul>
 </div>
 
@@ -264,7 +263,7 @@ if A length is A’ and B length is B’ , O(A’+B’) linear time<br /><br />
     
     
     <li>
-      <a href="/tag/Angular2" data-toggle="tooltip" data-placement="right" title="5">
+      <a href="/tag/Angular2" data-toggle="tooltip" data-placement="right" title="7">
         <span>Angular2</span></a></li>
     
     <li>

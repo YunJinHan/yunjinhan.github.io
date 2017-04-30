@@ -12,7 +12,7 @@ Intersecting two postings lists ( Continue )
 ============
 
 AND NOT (p1, p2) -> p1 에는 있고 p2 에는 없는것
-<pre>
+{% highlight javascript %}
 Intersect AND NOT (p1,p2)
 	answer = {}
 	while p1 is not null and p2 is not null:
@@ -28,10 +28,10 @@ Intersect AND NOT (p1,p2)
 		add(answer,docId(p1))
 		p1 <- next(p1)
 	return answer
-</pre>
+{% endhighlight javascript %}
 
 OR (p1,p2) -> p1 이나 p2 둘중 아무 곳에다 있는것
-<pre>
+{% highlight javascript %}
 Intersect OR (p1,p2)
 	answer = {}
 	if p1 is not NULL:
@@ -42,7 +42,7 @@ Intersect OR (p1,p2)
 	    while p1 not NULL:      
 	        add(answer, p1)
 	        p1 <- next(p1)
-</pre>
+{% endhighlight javascript %}
 Boolean queries
 ============
 Boolean Queries are queries using AND, OR and NOT to join query terms <br>Perhaps the simplest model to build an IR system on<br>
@@ -52,11 +52,11 @@ Boolean Queries are queries using AND, OR and NOT to join query terms <br>Perhap
 
 Example - WestLaw
 ------------
-<pre>
+{% highlight javascript %}
 LIMIT! /3 STATUTE ACTION /S FEDERAL /2 TORT /3 CLAIM
 blank : or operation
 ~! : start with prefix ( ex LIMIT 로 시작하는 단어 )
-</pre>
+{% endhighlight javascript %}
 Phrase queries
 ============
 Biword indexes

@@ -83,7 +83,9 @@ p > code,
 
 .hll { background-color: #49483e }
 .c { color: $comments } /* Comment */
-.err { color: #960050; background-color: #1e0010 } /* Error */
+.err { 
+  // color: #960050; background-color: #1e0010 
+  } /* Error */
 .k { color: $keywords } /* Keyword */
 .l { color: $numbers} /* Literal */
 .n { color: $varAndProp } /* Name */

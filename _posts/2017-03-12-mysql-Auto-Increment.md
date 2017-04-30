@@ -17,17 +17,17 @@ MySQL - auto_increment
 - 마지막 값이 삭제된다면 해당 auto_increment 값 부터 시작한다.
 <br>
 #오류 발생 Query
-<pre>
+{% highlight javascript %}
 CREATE TABLE table (
 	num int auto_increment
 );
-</pre>
+{% endhighlight javascript %}
 <br>
 #정상 Query
-<pre>
+{% highlight javascript %}
 CREATE TABLE table (
 	num int auto_increment primary key
 );
-</pre>
+{% endhighlight javascript %}
 <br>
 위와 같은 문법적 오류를 발생시키는 원인은 auto_increment 속성이 유니크한 키 값을 자동으로 생성해주는 명령어로서 테이블 내에서 유니크한 키 값을 제외한 다른 primary key 를 선언할 수 없게 문법적으로 막아놓은 것이다.

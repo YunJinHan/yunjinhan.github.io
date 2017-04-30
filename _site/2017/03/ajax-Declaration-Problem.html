@@ -93,36 +93,33 @@ Ajax의 동작원리는 Browser에서 서버로 보낼 Data를 Ajax Engine을 �
 
 <p>ex)</p>
 
-<pre>
-this.test = document.getElementById('test');
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="k">this</span><span class="p">.</span><span class="nx">test</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">'test'</span><span class="p">);</span>
 
-...
+<span class="p">...</span>
 
-this.test 사용 ----&gt;  O
-$("#test) 사용 ----&gt;  O
+<span class="k">this</span><span class="p">.</span><span class="nx">test</span> <span class="err">사용</span> <span class="o">----&gt;</span>  <span class="nx">O</span>
+<span class="nx">$</span><span class="p">(</span><span class="s2">"#test) 사용 ----&gt;  O
 
 $.ajax({
 
 	this.test 사용 ----&gt;  X
-	$("#test) 사용 ----&gt;  O
+	$("</span><span class="err">#</span><span class="nx">test</span><span class="p">)</span> <span class="err">사용</span> <span class="o">----&gt;</span>  <span class="nx">O</span>
 
-	type : 'POST',
-	url : '',
-	data : {
-		what : 0
-	},
-	success: function(data){
+	<span class="nl">type</span> <span class="p">:</span> <span class="s1">'POST'</span><span class="p">,</span>
+	<span class="nx">url</span> <span class="err">:</span> <span class="s1">''</span><span class="p">,</span>
+	<span class="nx">data</span> <span class="err">:</span> <span class="p">{</span>
+		<span class="nl">what</span> <span class="p">:</span> <span class="mi">0</span>
+	<span class="p">},</span>
+	<span class="nx">success</span><span class="err">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">){</span>
 		
-		this.test 사용 ----&gt;  X
-		$("#test) 사용 ----&gt;  O
+		<span class="k">this</span><span class="p">.</span><span class="nx">test</span> <span class="err">사용</span> <span class="o">----&gt;</span>  <span class="nx">X</span>
+		<span class="nx">$</span><span class="p">(</span><span class="err">"#</span><span class="nx">test</span><span class="p">)</span> <span class="err">사용</span> <span class="o">----&gt;</span>  <span class="nx">O</span>
 		
-	}, error: function(data){
+	<span class="p">},</span> <span class="nx">error</span><span class="err">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">){</span>
 	
-	}
+	<span class="p">}</span>
 	
-});
-
-</pre>
+<span class="p">});</span></code></pre></figure>
 
 <p>—&gt; ajax 통신이 Asynchronous (비동기식) 통신으로 구동된다면 Predeclare 된 변수들은 Checking 하지 못할수도 있다.</p>
 
@@ -170,6 +167,10 @@ $.ajax({
   <h2>Recent Posts</h2>
   <ul>
     
+    <li><a href="/2017/05/Angular2-Root-Module">Angular2 Root Module</a></li>
+    
+    <li><a href="/2017/05/Angular2-Module">Angular2 Module</a></li>
+    
     <li><a href="/2017/04/Angular2-Service2">Angular2 Service2</a></li>
     
     <li><a href="/2017/04/Angular2-Service">Angular2 Service1</a></li>
@@ -186,10 +187,6 @@ $.ajax({
     
     <li><a href="/2017/04/Angular2-Component1">Angular2 Component1</a></li>
     
-    <li><a href="/2017/04/UP-Development-1.-Inception-2">UP Development - 1.Inception (Cont'd)</a></li>
-    
-    <li><a href="/2017/04/spelling-correction">Spelling Correction</a></li>
-    
   </ul>
 </div>
 
@@ -199,7 +196,7 @@ $.ajax({
     
     
     <li>
-      <a href="/tag/Angular2" data-toggle="tooltip" data-placement="right" title="5">
+      <a href="/tag/Angular2" data-toggle="tooltip" data-placement="right" title="7">
         <span>Angular2</span></a></li>
     
     <li>

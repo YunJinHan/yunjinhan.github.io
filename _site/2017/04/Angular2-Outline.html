@@ -120,28 +120,28 @@ AoT 컴파일 사용 <br /> ==&gt; HTML Template 과  CSS 파일을 컴파일해
 
 <h2 id="angular2-구성요소">Angular2 구성요소</h2>
 <h3 id="--component--컴포넌트-">- Component ( 컴포넌트 )</h3>
-<pre>
-import { Component } from '@angular/core';
 
-@Component({
-	selector : 'my-component',
-	template: ''
-})
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kr">import</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'@angular/core'</span><span class="p">;</span>
 
-export class MyComponent {
-	msg : string = "hello";
-}
-</pre>
+<span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+	<span class="na">selector</span> <span class="p">:</span> <span class="s1">'my-component'</span><span class="p">,</span>
+	<span class="na">template</span><span class="p">:</span> <span class="s1">''</span>
+<span class="p">})</span>
+
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">MyComponent</span> <span class="p">{</span>
+	<span class="nl">msg</span> <span class="p">:</span> <span class="nx">string</span> <span class="o">=</span> <span class="s2">"hello"</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
+
 <p>Component 를 정의할 때는  @Component 를 이용하여 정의한다.<br />Selector 속성은 Component 의 지시자가 위치하며 Template 속성에는 해당 Template UI 가 위치한다.<br /><br />
 Class 에는  Component 에서 사용할 Logic 이 위치한다.<br /> <br />
 ===&gt; Component 는  독립적으로 동작하지 않고  Module 이나 Service, Directive 와 함께 동작합니다.<br />
 <br /></p>
 <h3 id="--module--모듈-">- Module ( 모듈 )</h3>
 <p><br /></p>
-<pre>
-export class Hello{}
-import { Hello } from './hello';
-</pre>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kr">export</span> <span class="kr">class</span> <span class="nx">Hello</span><span class="p">{}</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">Hello</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'./hello'</span><span class="p">;</span></code></pre></figure>
+
 <p>Module 에는 Angular 라이브러리 Module 과 사용자가 정의하는 Module 이 있다.<br /><br />
 Module 을 정의하려면 export 키워드를 사용하여 Module 을 정의한다.</p>
 
@@ -150,27 +150,26 @@ Module 을 정의하려면 export 키워드를 사용하여 Module 을 정의한
 
 <p>허나, Component 를 기반으로  Module 을 구성하는 과정은 체계적이지 않고 복잡하기 때문에<br /> <strong>@NgModule</strong> 장식자를 이용하여 일반적인 Module 을 구성한다.</p>
 
-<pre>
-@NgModule({
-	import: [
-		Angular 모듈 , Routing 모듈, ...
-	],
-	declarations: [
-		Componennt, Directive, Pipe, ...
-	],
-	providers : [
-		Service Module, ...
-	]
-})
-export class MyModule {}
-</pre>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="err">@</span><span class="nx">NgModule</span><span class="p">({</span>
+	<span class="na">import</span><span class="p">:</span> <span class="p">[</span>
+		<span class="nx">Angular</span> <span class="err">모듈</span> <span class="p">,</span> <span class="nx">Routing</span> <span class="err">모듈</span><span class="p">,</span> <span class="p">...</span>
+	<span class="p">],</span>
+	<span class="na">declarations</span><span class="p">:</span> <span class="p">[</span>
+		<span class="nx">Componennt</span><span class="p">,</span> <span class="nx">Directive</span><span class="p">,</span> <span class="nx">Pipe</span><span class="p">,</span> <span class="p">...</span>
+	<span class="p">],</span>
+	<span class="na">providers</span> <span class="p">:</span> <span class="p">[</span>
+		<span class="nx">Service</span> <span class="nx">Module</span><span class="p">,</span> <span class="p">...</span>
+	<span class="p">]</span>
+<span class="p">})</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">MyModule</span> <span class="p">{}</span></code></pre></figure>
+
 <p> <br /></p>
 <h3 id="--service--서비스-">- Service ( 서비스 )</h3>
 <p><br /></p>
-<pre>
-import { Injectable } from '@angular/core';
-export class HelloService {}
-</pre>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kr">import</span> <span class="p">{</span> <span class="nx">Injectable</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'@angular/core'</span><span class="p">;</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">HelloService</span> <span class="p">{}</span></code></pre></figure>
+
 <p>Service 는  Component 에 제공할 목적으로 외부에 정의한 Class 이며 재사용 가능한 Logic 을 정의하기 위한 용도로 Component 외부에 정의하며 직접적으로 Component 와 관련이 없는 Logic 은  Service 를 통하여 정의한다.<br /></p>
 
 <p><strong>@Injectable</strong> 장식자를 이용하여 Service 를 선언하고 위와 같이 정의한다.</p>
@@ -179,12 +178,12 @@ export class HelloService {}
 <br /></p>
 <h3 id="--directive--지시자-">- Directive ( 지시자 )</h3>
 <p><br /></p>
-<pre>
-@Component({
-	selector : 'my-component',
-	template : '&lt;   div helloStyle&gt;&lt;   /div&gt;'
-})
-</pre>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+	<span class="na">selector</span> <span class="p">:</span> <span class="s1">'my-component'</span><span class="p">,</span>
+	<span class="na">template</span> <span class="p">:</span> <span class="s1">'&lt;div helloStyle&gt;&lt;/div&gt;'</span>
+<span class="p">})</span></code></pre></figure>
+
 <p>==&gt; helloStyle 이란 Directive 가 Template 에 표현되는 방법<br /><br />
 Angular 는 선언형 프로그래밍을 권장하며 선언형 프로그래밍은 Directive 를 이용해 개발하는 것을 의미한다.<br />
 Directive 는 Component 의 Template 에서 Element 의 속성과 같이 구성요소의 속상이나 이름으로 표현한다.</p>
@@ -193,16 +192,15 @@ Directive 는 Component 의 Template 에서 Element 의 속성과 같이 구성�
 
 <p>Directive 는 화면 출력시 필요한 기능을 외부 Module 로 분리해 정의하고  <strong>@Directive</strong> 장식자를 이용해 정의한다.</p>
 
-<pre>
-import { Directive, ElementRef, Renderer } from '@angular/core';
-@Directive({
-	selector : '[helloStyle]'
-})
-export class HelloStyleDirective {
-	constructor(private el : ElementRef, privatae renderer : Renderer) {}
-	...
-}
-</pre>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kr">import</span> <span class="p">{</span> <span class="nx">Directive</span><span class="p">,</span> <span class="nx">ElementRef</span><span class="p">,</span> <span class="nx">Renderer</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'@angular/core'</span><span class="p">;</span>
+<span class="err">@</span><span class="nx">Directive</span><span class="p">({</span>
+	<span class="na">selector</span> <span class="p">:</span> <span class="s1">'[helloStyle]'</span>
+<span class="p">})</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">HelloStyleDirective</span> <span class="p">{</span>
+	<span class="nx">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">el</span> <span class="err">:</span> <span class="nx">ElementRef</span><span class="p">,</span> <span class="nx">privatae</span> <span class="nx">renderer</span> <span class="err">:</span> <span class="nx">Renderer</span><span class="p">)</span> <span class="p">{}</span>
+	<span class="p">...</span>
+<span class="p">}</span></code></pre></figure>
+
 <p>Angular 에서는 Template 에서 사용할 수 있는 활용성 높은 여러 내장 Directive 를 제공한다.</p>
 
                     
@@ -249,6 +247,10 @@ export class HelloStyleDirective {
   <h2>Recent Posts</h2>
   <ul>
     
+    <li><a href="/2017/05/Angular2-Root-Module">Angular2 Root Module</a></li>
+    
+    <li><a href="/2017/05/Angular2-Module">Angular2 Module</a></li>
+    
     <li><a href="/2017/04/Angular2-Service2">Angular2 Service2</a></li>
     
     <li><a href="/2017/04/Angular2-Service">Angular2 Service1</a></li>
@@ -265,10 +267,6 @@ export class HelloStyleDirective {
     
     <li><a href="/2017/04/Angular2-Component1">Angular2 Component1</a></li>
     
-    <li><a href="/2017/04/UP-Development-1.-Inception-2">UP Development - 1.Inception (Cont'd)</a></li>
-    
-    <li><a href="/2017/04/spelling-correction">Spelling Correction</a></li>
-    
   </ul>
 </div>
 
@@ -278,7 +276,7 @@ export class HelloStyleDirective {
     
     
     <li>
-      <a href="/tag/Angular2" data-toggle="tooltip" data-placement="right" title="5">
+      <a href="/tag/Angular2" data-toggle="tooltip" data-placement="right" title="7">
         <span>Angular2</span></a></li>
     
     <li>

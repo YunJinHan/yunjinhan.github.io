@@ -86,33 +86,31 @@
 <p>Use the n-gram index (recall wild-card search) to <strong>retrieve all lexicon terms matching any of the query n-grams</strong></p>
 
 <p>Example )</p>
-<pre>
-Trigrams
-* november -&gt; nov, ove, vem, emb, mbe, ber
-* december -&gt; dec, ece, cem, emb, mbe, ber
-<br />--&gt; emb, mbe, ber 3 trigrams overlap ( of 6 in each term )
-</pre>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">Trigrams</span>
+<span class="o">*</span> <span class="nx">november</span> <span class="o">-&gt;</span> <span class="nx">nov</span><span class="p">,</span> <span class="nx">ove</span><span class="p">,</span> <span class="nx">vem</span><span class="p">,</span> <span class="nx">emb</span><span class="p">,</span> <span class="nx">mbe</span><span class="p">,</span> <span class="nx">ber</span>
+<span class="o">*</span> <span class="nx">december</span> <span class="o">-&gt;</span> <span class="nx">dec</span><span class="p">,</span> <span class="nx">ece</span><span class="p">,</span> <span class="nx">cem</span><span class="p">,</span> <span class="nx">emb</span><span class="p">,</span> <span class="nx">mbe</span><span class="p">,</span> <span class="nx">ber</span>
+<span class="o">&lt;</span><span class="nx">br</span><span class="o">&gt;--&gt;</span> <span class="nx">emb</span><span class="p">,</span> <span class="nx">mbe</span><span class="p">,</span> <span class="nx">ber</span> <span class="mi">3</span> <span class="nx">trigrams</span> <span class="nx">overlap</span> <span class="p">(</span> <span class="nx">of</span> <span class="mi">6</span> <span class="k">in</span> <span class="nx">each</span> <span class="nx">term</span> <span class="p">)</span></code></pre></figure>
 
 <h3 id="--simple-lower-bound-of-substring-edit-distance">- Simple Lower Bound of Substring Edit Distance</h3>
 <p><strong>정확하진 않지만 Lower Bound ( 근사값 ) - The minimun number of edit operations</strong></p>
 
 <p><img src="http://localhost:4000/assets/SimpleLowerBound.png" alt="screenshot" /></p>
 
-<pre>
-Trigrams --&gt; n == 3
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">Trigrams</span> <span class="o">--&gt;</span> <span class="nx">n</span> <span class="o">==</span> <span class="mi">3</span>
 
-∂ = Jackson Pollock ( len = 15 )
-s = JalksenPollock
+<span class="err">∂</span> <span class="o">=</span> <span class="nx">Jackson</span> <span class="nx">Pollock</span> <span class="p">(</span> <span class="nx">len</span> <span class="o">=</span> <span class="mi">15</span> <span class="p">)</span>
+<span class="nx">s</span> <span class="o">=</span> <span class="nx">JalksenPollock</span>
 
-Jac, ack, cks, kso, son, on_, n_P, _Po
-Jal, alk, lks, kse, sen, enP, nPo, Pol&nbsp;&nbsp;===&gt;&nbsp;8 mismatching trigrams
+<span class="nx">Jac</span><span class="p">,</span> <span class="nx">ack</span><span class="p">,</span> <span class="nx">cks</span><span class="p">,</span> <span class="nx">kso</span><span class="p">,</span> <span class="nx">son</span><span class="p">,</span> <span class="nx">on_</span><span class="p">,</span> <span class="nx">n_P</span><span class="p">,</span> <span class="nx">_Po</span>
+<span class="nx">Jal</span><span class="p">,</span> <span class="nx">alk</span><span class="p">,</span> <span class="nx">lks</span><span class="p">,</span> <span class="nx">kse</span><span class="p">,</span> <span class="nx">sen</span><span class="p">,</span> <span class="nx">enP</span><span class="p">,</span> <span class="nx">nPo</span><span class="p">,</span> <span class="nx">Pol</span><span class="o">&amp;</span><span class="nx">nbsp</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">nbsp</span><span class="p">;</span><span class="o">===&gt;&amp;</span><span class="nx">nbsp</span><span class="p">;</span><span class="mi">8</span> <span class="nx">mismatching</span> <span class="nx">trigrams</span>
 
-Pol, oll, llo, loc, ock ===&gt; 5 matching trigrams ( = c )
+<span class="nx">Pol</span><span class="p">,</span> <span class="nx">oll</span><span class="p">,</span> <span class="nx">llo</span><span class="p">,</span> <span class="nx">loc</span><span class="p">,</span> <span class="nx">ock</span> <span class="o">===&gt;</span> <span class="mi">5</span> <span class="nx">matching</span> <span class="nx">trigrams</span> <span class="p">(</span> <span class="o">=</span> <span class="nx">c</span> <span class="p">)</span>
 
-max(|s|,|∂|) - n + 1 - c = max(14,15) - 3 + 1 - 5 = 8
+<span class="nx">max</span><span class="p">(</span><span class="o">|</span><span class="nx">s</span><span class="o">|</span><span class="p">,</span><span class="o">|</span><span class="err">∂</span><span class="o">|</span><span class="p">)</span> <span class="o">-</span> <span class="nx">n</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">-</span> <span class="nx">c</span> <span class="o">=</span> <span class="nx">max</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span><span class="mi">15</span><span class="p">)</span> <span class="o">-</span> <span class="mi">3</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">-</span> <span class="mi">5</span> <span class="o">=</span> <span class="mi">8</span>
 
-So, Simple Lower Bound of Substring Edit Distance is [8/3] = 3
-</pre>
+<span class="nx">So</span><span class="p">,</span> <span class="nx">Simple</span> <span class="nx">Lower</span> <span class="nx">Bound</span> <span class="nx">of</span> <span class="nx">Substring</span> <span class="nx">Edit</span> <span class="nx">Distance</span> <span class="nx">is</span> <span class="p">[</span><span class="mi">8</span><span class="o">/</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span></code></pre></figure>
+
 <p><br /></p>
 
 <h1 id="soundex">SOUNDEX</h1>
@@ -204,6 +202,10 @@ SOUNDEX(chaikofski) …</p>
   <h2>Recent Posts</h2>
   <ul>
     
+    <li><a href="/2017/05/Angular2-Root-Module">Angular2 Root Module</a></li>
+    
+    <li><a href="/2017/05/Angular2-Module">Angular2 Module</a></li>
+    
     <li><a href="/2017/04/Angular2-Service2">Angular2 Service2</a></li>
     
     <li><a href="/2017/04/Angular2-Service">Angular2 Service1</a></li>
@@ -220,10 +222,6 @@ SOUNDEX(chaikofski) …</p>
     
     <li><a href="/2017/04/Angular2-Component1">Angular2 Component1</a></li>
     
-    <li><a href="/2017/04/UP-Development-1.-Inception-2">UP Development - 1.Inception (Cont'd)</a></li>
-    
-    <li><a href="/2017/04/spelling-correction">Spelling Correction</a></li>
-    
   </ul>
 </div>
 
@@ -233,7 +231,7 @@ SOUNDEX(chaikofski) …</p>
     
     
     <li>
-      <a href="/tag/Angular2" data-toggle="tooltip" data-placement="right" title="5">
+      <a href="/tag/Angular2" data-toggle="tooltip" data-placement="right" title="7">
         <span>Angular2</span></a></li>
     
     <li>

@@ -90,70 +90,69 @@
 <h4 id="--component-tree">- Component Tree</h4>
 <p>Component 끼리의 관계를 나타내는 것으로 Component 사이의 의존성이 존재할 수 있다.</p>
 <h4 id="--component-기반-개발">- Component 기반 개발</h4>
-<pre>
-@Component({
-	// 컴포넌트 메타 데이터 설정
-})
-export class HelloComponent {
-	// 컴포넌트 로직 작성
-}
-</pre>
-<p>&lt; Web Component 기술 요소 &gt;<br />
-—–</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+	<span class="c1">// 컴포넌트 메타 데이터 설정</span>
+<span class="p">})</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">HelloComponent</span> <span class="p">{</span>
+	<span class="c1">// 컴포넌트 로직 작성</span>
+<span class="p">}</span></code></pre></figure>
+
+<h2 id="-web-component-기술-요소-">&lt; Web Component 기술 요소 &gt;</h2>
 <h4 id="--html-템플릿">- HTML 템플릿</h4>
 <p><strong>Angular 의 템플릿은 Web Component 기술의 템플릿 기술을 이용한다.</strong></p>
-<pre>
-&lt; template id="nav-item-template"&gt;
-	&lt; div class="nav"&gt;
-		&lt; div class="item"&gt;메인&lt;/div&gt;
-		&lt; div class="item"&gt;서비스 소개&lt;/div&gt;
-		&lt; div class="item"&gt;서비스 특징&lt;/div&gt;
-	&lt; /div&gt;
-&lt; /template&gt;
-</pre>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="o">&lt;</span><span class="nx">template</span> <span class="nx">id</span><span class="o">=</span><span class="s2">"nav-item-template"</span><span class="o">&gt;</span>
+	<span class="o">&lt;</span><span class="nx">div</span> <span class="kr">class</span><span class="o">=</span><span class="s2">"nav"</span><span class="o">&gt;</span>
+		<span class="o">&lt;</span><span class="nx">div</span> <span class="kr">class</span><span class="o">=</span><span class="s2">"item"</span><span class="o">&gt;</span><span class="err">메인</span><span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>		<span class="o">&lt;</span><span class="nx">div</span> <span class="kr">class</span><span class="o">=</span><span class="s2">"item"</span><span class="o">&gt;</span><span class="err">서비스</span> <span class="err">소개</span><span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>		<span class="o">&lt;</span><span class="nx">div</span> <span class="kr">class</span><span class="o">=</span><span class="s2">"item"</span><span class="o">&gt;</span><span class="err">서비스</span> <span class="err">특징</span><span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>	<span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span><span class="o">&lt;</span><span class="sr">/template&gt;</span></code></pre></figure>
+
 <h4 id="--템플릿-호출">- 템플릿 호출</h4>
 <p><strong>Angular 에서 템플릿 호출 기능은 Web Component 호출 기술을 이용한다.</strong></p>
-<pre>
-&lt; head&gt;
-&lt; link rel="import" href="template.html"&gt;
-&lt; /head&gt;
-...
-&lt; script&gt;
-	var link = document.quertSelector('link[re]="import"]');
-	var content = link.import;
-	var el = content.querySelector('#template');
-	document.body.appendChild(el.cloneNode(true));
-&lt; /script&gt;
-</pre>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="o">&lt;</span><span class="nx">head</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="nx">link</span> <span class="nx">rel</span><span class="o">=</span><span class="s2">"import"</span> <span class="nx">href</span><span class="o">=</span><span class="s2">"template.html"</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="sr">/head</span><span class="err">&gt;
+</span><span class="p">...</span>
+<span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+	<span class="kd">var</span> <span class="nx">link</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">quertSelector</span><span class="p">(</span><span class="s1">'link[re]="import"]'</span><span class="p">);</span>
+	<span class="kd">var</span> <span class="nx">content</span> <span class="o">=</span> <span class="nx">link</span><span class="p">.</span><span class="kr">import</span><span class="p">;</span>
+	<span class="kd">var</span> <span class="nx">el</span> <span class="o">=</span> <span class="nx">content</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">'#template'</span><span class="p">);</span>
+	<span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">el</span><span class="p">.</span><span class="nx">cloneNode</span><span class="p">(</span><span class="kc">true</span><span class="p">));</span>
+<span class="o">&lt;</span><span class="sr">/script&gt;</span></code></pre></figure>
+
 <h4 id="--쉐도우-dom">- 쉐도우 DOM</h4>
 <p><strong>Angular Component 는 쉐도우 DOM 을 사용하여 문서 트리에 영향을 받지 않는 쉐도우 DOM 을 이용한다.</strong><br /><br /><br />
 DOM 은 크게 문서 DOM 과 쉐도우 DOM 으로 나누어진다.<br /><br />
 문서 DOM 은 현재 페이지에 대한 DOM 이며, 쉐도우 DOM 은 웹 페이지가 실행되는 중 생성되는 가상 DOM 이다.</p>
 <h4 id="--커스텀-엘리먼트">- 커스텀 엘리먼트</h4>
 <p><strong>Angular Component 의 엘리먼트 이름은 Web Component 의 커스텀 엘리먼트 기술을  이용한다.</strong></p>
-<pre>
-&lt; hello-button&gt;&lt; /hello-button&gt;
-</pre>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="o">&lt;</span><span class="nx">hello</span><span class="o">-</span><span class="nx">button</span><span class="o">&gt;&lt;</span><span class="sr">/hello-button&gt;</span></code></pre></figure>
+
 <p><br /><br />
  </p>
 
 <h1 id="angular-component-구조">Angular Component 구조</h1>
 <h3 id="--import-영역">- Import 영역</h3>
-<pre>
-import { Component } from '@angular/core'; 
-</pre>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kr">import</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'@angular/core'</span><span class="p">;</span> </code></pre></figure>
+
 <p>Angular 라이브러리 모듈을 호출하거나 사용자 모듈을 호출할때 Import 키워드를 사용한다.<br /><br />
 Angular 라이브러리 모듈은 <strong>@</strong> 를 붙이며 사용자 모듈은 <strong>./</strong> 을 통해 외부 모듈을 호출한다.</p>
 
 <h3 id="--component-장식자-영역">- Component 장식자 영역</h3>
-<pre>
-@Component({
-	selector : 'intro -component',
-	template : '&lt; div&gt;App Hello&lt; /div&gt;',
-	styles : ['div{ background: blue; }']
-})
-export class AppHello { }
-</pre>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+	<span class="na">selector</span> <span class="p">:</span> <span class="s1">'intro -component'</span><span class="p">,</span>
+	<span class="na">template</span> <span class="p">:</span> <span class="s1">'&lt; div&gt;App Hello&lt; /div&gt;'</span><span class="p">,</span>
+	<span class="na">styles</span> <span class="p">:</span> <span class="p">[</span><span class="s1">'div{ background: blue; }'</span><span class="p">]</span>
+<span class="p">})</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">AppHello</span> <span class="p">{</span> <span class="p">}</span></code></pre></figure>
+
 <p>@Component 는 Component 장식자라고 불리며 위와 같은 형식을 가진다.</p>
 
 <ul>
@@ -217,6 +216,10 @@ export class AppHello { }
   <h2>Recent Posts</h2>
   <ul>
     
+    <li><a href="/2017/05/Angular2-Root-Module">Angular2 Root Module</a></li>
+    
+    <li><a href="/2017/05/Angular2-Module">Angular2 Module</a></li>
+    
     <li><a href="/2017/04/Angular2-Service2">Angular2 Service2</a></li>
     
     <li><a href="/2017/04/Angular2-Service">Angular2 Service1</a></li>
@@ -233,10 +236,6 @@ export class AppHello { }
     
     <li><a href="/2017/04/Angular2-Component1">Angular2 Component1</a></li>
     
-    <li><a href="/2017/04/UP-Development-1.-Inception-2">UP Development - 1.Inception (Cont'd)</a></li>
-    
-    <li><a href="/2017/04/spelling-correction">Spelling Correction</a></li>
-    
   </ul>
 </div>
 
@@ -246,7 +245,7 @@ export class AppHello { }
     
     
     <li>
-      <a href="/tag/Angular2" data-toggle="tooltip" data-placement="right" title="5">
+      <a href="/tag/Angular2" data-toggle="tooltip" data-placement="right" title="7">
         <span>Angular2</span></a></li>
     
     <li>

@@ -41,7 +41,7 @@ Angular2 는 **Component (컴포넌트)** 중심으로 개발된다.
 Angular2 구성요소
 ------------
 ### - Component ( 컴포넌트 )
-<pre>
+{% highlight javascript %}
 import { Component } from '@angular/core';
 
 @Component({
@@ -52,17 +52,17 @@ import { Component } from '@angular/core';
 export class MyComponent {
 	msg : string = "hello";
 }
-</pre>
+{% endhighlight javascript %}
 Component 를 정의할 때는  @Component 를 이용하여 정의한다.<br>Selector 속성은 Component 의 지시자가 위치하며 Template 속성에는 해당 Template UI 가 위치한다.<br>
 Class 에는  Component 에서 사용할 Logic 이 위치한다.<br> 
 ===> Component 는  독립적으로 동작하지 않고  Module 이나 Service, Directive 와 함께 동작합니다.
 <br>
 ### - Module ( 모듈 )
 <br>
-<pre>
+{% highlight javascript %}
 export class Hello{}
 import { Hello } from './hello';
-</pre>
+{% endhighlight javascript %}
 Module 에는 Angular 라이브러리 Module 과 사용자가 정의하는 Module 이 있다.<br>
 Module 을 정의하려면 export 키워드를 사용하여 Module 을 정의한다.
 
@@ -71,7 +71,7 @@ Angular 에서는 Module 을 체계적으로 구성하기 위해서 Class 선언
 
 허나, Component 를 기반으로  Module 을 구성하는 과정은 체계적이지 않고 복잡하기 때문에<br> **@NgModule** 장식자를 이용하여 일반적인 Module 을 구성한다.
 
-<pre>
+{% highlight javascript %}
 @NgModule({
 	import: [
 		Angular 모듈 , Routing 모듈, ...
@@ -84,14 +84,14 @@ Angular 에서는 Module 을 체계적으로 구성하기 위해서 Class 선언
 	]
 })
 export class MyModule {}
-</pre>
+{% endhighlight javascript %}
 &nbsp;<br>
 ### - Service ( 서비스 )
 <br>
-<pre>
+{% highlight javascript %}
 import { Injectable } from '@angular/core';
 export class HelloService {}
-</pre>
+{% endhighlight javascript %}
 Service 는  Component 에 제공할 목적으로 외부에 정의한 Class 이며 재사용 가능한 Logic 을 정의하기 위한 용도로 Component 외부에 정의하며 직접적으로 Component 와 관련이 없는 Logic 은  Service 를 통하여 정의한다.<br>
 
 **@Injectable** 장식자를 이용하여 Service 를 선언하고 위와 같이 정의한다.
@@ -100,12 +100,12 @@ Service 를 이용하면 중복 Logic 을 제거할 수 있고, Component 내부
 <br>
 ### - Directive ( 지시자 )
 <br>
-<pre>
+{% highlight javascript %}
 @Component({
 	selector : 'my-component',
-	template : '<   div helloStyle><   /div>'
+	template : '<div helloStyle></div>'
 })
-</pre>
+{% endhighlight javascript %}
 ==> helloStyle 이란 Directive 가 Template 에 표현되는 방법<br>
 Angular 는 선언형 프로그래밍을 권장하며 선언형 프로그래밍은 Directive 를 이용해 개발하는 것을 의미한다.
 Directive 는 Component 의 Template 에서 Element 의 속성과 같이 구성요소의 속상이나 이름으로 표현한다.
@@ -115,7 +115,7 @@ Directive 를 이용하면 UI logic 코드를 반복적으로 입력할 필요�
 
 Directive 는 화면 출력시 필요한 기능을 외부 Module 로 분리해 정의하고  **@Directive** 장식자를 이용해 정의한다.
 
-<pre>
+{% highlight javascript %}
 import { Directive, ElementRef, Renderer } from '@angular/core';
 @Directive({
 	selector : '[helloStyle]'
@@ -124,5 +124,5 @@ export class HelloStyleDirective {
 	constructor(private el : ElementRef, privatae renderer : Renderer) {}
 	...
 }
-</pre>
+{% endhighlight javascript %}
 Angular 에서는 Template 에서 사용할 수 있는 활용성 높은 여러 내장 Directive 를 제공한다.

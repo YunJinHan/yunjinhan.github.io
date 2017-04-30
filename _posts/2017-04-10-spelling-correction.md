@@ -37,12 +37,12 @@ Isolated Word Correction
 - Give two strings S1 and S2, the minimum number of operations to convert one to the other
 - Operations are typically character-level<br>**Insert, Delete, Replace**
 
-<pre>
+{% highlight javascript %}
 				Edit Distance
 dof , dog ==>		  1
 cat , act ==>		  2
 cat , dog ==>		  3
-</pre>
+{% endhighlight javascript %}
 
 - Generally found by **Dynamic Programming**
 

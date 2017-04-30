@@ -86,20 +86,19 @@
 <p><br /><br />
 For the intersection of two posting lists of lengths x and y, its time complexity is O(x + y)<br />
 <br /></p>
-<pre>
-Intersect(p1,p2)
-	answer = {}
-	while p1 is not null and p2 is not null:
-		if docId(p1) == docId(p2):
-			add(answer,docId(p1))
-			p1 &lt;- next(p1)
-			p2 &lt;- next(p2)
-		else if docId(p1) &lt; docId(p2):
-			p1 &lt;- next(p1)
-		else :
-			p2 &lt;- next(p2)
-	return answer
-</pre>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">Intersect</span><span class="p">(</span><span class="nx">p1</span><span class="p">,</span><span class="nx">p2</span><span class="p">)</span>
+	<span class="nx">answer</span> <span class="o">=</span> <span class="p">{}</span>
+	<span class="k">while</span> <span class="nx">p1</span> <span class="nx">is</span> <span class="nx">not</span> <span class="kc">null</span> <span class="nx">and</span> <span class="nx">p2</span> <span class="nx">is</span> <span class="nx">not</span> <span class="kc">null</span><span class="err">:</span>
+		<span class="k">if</span> <span class="nx">docId</span><span class="p">(</span><span class="nx">p1</span><span class="p">)</span> <span class="o">==</span> <span class="nx">docId</span><span class="p">(</span><span class="nx">p2</span><span class="p">)</span><span class="err">:</span>
+			<span class="nx">add</span><span class="p">(</span><span class="nx">answer</span><span class="p">,</span><span class="nx">docId</span><span class="p">(</span><span class="nx">p1</span><span class="p">))</span>
+			<span class="nx">p1</span> <span class="o">&lt;-</span> <span class="nx">next</span><span class="p">(</span><span class="nx">p1</span><span class="p">)</span>
+			<span class="nx">p2</span> <span class="o">&lt;-</span> <span class="nx">next</span><span class="p">(</span><span class="nx">p2</span><span class="p">)</span>
+		<span class="k">else</span> <span class="k">if</span> <span class="nx">docId</span><span class="p">(</span><span class="nx">p1</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nx">docId</span><span class="p">(</span><span class="nx">p2</span><span class="p">)</span><span class="err">:</span>
+			<span class="nx">p1</span> <span class="o">&lt;-</span> <span class="nx">next</span><span class="p">(</span><span class="nx">p1</span><span class="p">)</span>
+		<span class="nl">else</span> <span class="p">:</span>
+			<span class="nx">p2</span> <span class="o">&lt;-</span> <span class="nx">next</span><span class="p">(</span><span class="nx">p2</span><span class="p">)</span>
+	<span class="k">return</span> <span class="nx">answer</span></code></pre></figure>
 
 <h2 id="completeness">Completeness</h2>
 <p><br /><br />
@@ -123,15 +122,15 @@ Lists L1 and L2 share a set of common docIDs &lt;d1, d2, .., dn&gt; which are in
     <p>Maintenance</p>
   </li>
 </ol>
-<pre>
-	if docId(p1) == docId(p2) == d(i):
-		answer = {d0, ... , d(i)}
-		d(i) &lt; docId(p1) &lt;= d(i+1)
-		d(i) &lt; docId(p2) &lt;= d(i+1)
-	else :
-		d(i-1) &lt; docId(p1) &lt;= d(i)
-		d(i-1) &lt; docId(p2) &lt;= d(i)
-</pre>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript">	<span class="k">if</span> <span class="nx">docId</span><span class="p">(</span><span class="nx">p1</span><span class="p">)</span> <span class="o">==</span> <span class="nx">docId</span><span class="p">(</span><span class="nx">p2</span><span class="p">)</span> <span class="o">==</span> <span class="nx">d</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span><span class="err">:</span>
+		<span class="nx">answer</span> <span class="o">=</span> <span class="p">{</span><span class="nx">d0</span><span class="p">,</span> <span class="p">...</span> <span class="p">,</span> <span class="nx">d</span><span class="p">(</span><span class="nx">i</span><span class="p">)}</span>
+		<span class="nx">d</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nx">docId</span><span class="p">(</span><span class="nx">p1</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="nx">d</span><span class="p">(</span><span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+		<span class="nx">d</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nx">docId</span><span class="p">(</span><span class="nx">p2</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="nx">d</span><span class="p">(</span><span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+	<span class="nl">else</span> <span class="p">:</span>
+		<span class="nx">d</span><span class="p">(</span><span class="nx">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nx">docId</span><span class="p">(</span><span class="nx">p1</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="nx">d</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span>
+		<span class="nx">d</span><span class="p">(</span><span class="nx">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nx">docId</span><span class="p">(</span><span class="nx">p2</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="nx">d</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span></code></pre></figure>
+
 <p>  =&gt; p1 이나 p2 가 shift 되면 d(i)보다 커질수 있다?<br /><br />
   ===&gt;  아니다. Loop Invariant 에서 어긋남<br /><br />
   ===&gt; Thus, At the beginning of next Iteration, the loop invariant is still true<br />
@@ -186,6 +185,10 @@ Lists L1 and L2 share a set of common docIDs &lt;d1, d2, .., dn&gt; which are in
   <h2>Recent Posts</h2>
   <ul>
     
+    <li><a href="/2017/05/Angular2-Root-Module">Angular2 Root Module</a></li>
+    
+    <li><a href="/2017/05/Angular2-Module">Angular2 Module</a></li>
+    
     <li><a href="/2017/04/Angular2-Service2">Angular2 Service2</a></li>
     
     <li><a href="/2017/04/Angular2-Service">Angular2 Service1</a></li>
@@ -202,10 +205,6 @@ Lists L1 and L2 share a set of common docIDs &lt;d1, d2, .., dn&gt; which are in
     
     <li><a href="/2017/04/Angular2-Component1">Angular2 Component1</a></li>
     
-    <li><a href="/2017/04/UP-Development-1.-Inception-2">UP Development - 1.Inception (Cont'd)</a></li>
-    
-    <li><a href="/2017/04/spelling-correction">Spelling Correction</a></li>
-    
   </ul>
 </div>
 
@@ -215,7 +214,7 @@ Lists L1 and L2 share a set of common docIDs &lt;d1, d2, .., dn&gt; which are in
     
     
     <li>
-      <a href="/tag/Angular2" data-toggle="tooltip" data-placement="right" title="5">
+      <a href="/tag/Angular2" data-toggle="tooltip" data-placement="right" title="7">
         <span>Angular2</span></a></li>
     
     <li>

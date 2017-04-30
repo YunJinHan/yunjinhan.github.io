@@ -13,7 +13,7 @@ Intersecting two postings lists ( Continue )
 <br>
 For the intersection of two posting lists of lengths x and y, its time complexity is O(x + y)
 <br>
-<pre>
+{% highlight javascript %}
 Intersect(p1,p2)
 	answer = {}
 	while p1 is not null and p2 is not null:
@@ -26,7 +26,7 @@ Intersect(p1,p2)
 		else :
 			p2 <- next(p2)
 	return answer
-</pre>
+{% endhighlight javascript %}
 
 Completeness
 ------------
@@ -45,7 +45,7 @@ Lists L1 and L2 share a set of common docIDs <d1, d2, .., dn> which are in the i
 (Loop Invariant)
 
 3. Maintenance
-<pre>
+{% highlight javascript %}
 	if docId(p1) == docId(p2) == d(i):
 		answer = {d0, ... , d(i)}
 		d(i) < docId(p1) <= d(i+1)
@@ -53,7 +53,7 @@ Lists L1 and L2 share a set of common docIDs <d1, d2, .., dn> which are in the i
 	else :
 		d(i-1) < docId(p1) <= d(i)
 		d(i-1) < docId(p2) <= d(i)
-</pre>
+{% endhighlight javascript %}
 &nbsp;&nbsp;=> p1 이나 p2 가 shift 되면 d(i)보다 커질수 있다?<br>
 &nbsp;&nbsp;===>  아니다. Loop Invariant 에서 어긋남<br>
 &nbsp;&nbsp;===> Thus, At the beginning of next Iteration, the loop invariant is still true
