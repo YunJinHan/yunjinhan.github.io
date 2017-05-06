@@ -50,19 +50,21 @@ Asynchronous Programming Example
 -----
 **비동기적 코드 예제**
 {% highlight javascript %}
-var fs = require('fs');<br>
-console.log("I'm First!");<br>
+var fs = require('fs');
+console.log("I'm First!");
 // practice.txt에는 "I'm Second!"라는 문장이 적혀있다.
 fs.readFile("./practice.txt", (err, res) => { 
   console.log(res);
-});<br>
+});
 console.log("I'm Third!");
 {% endhighlight javascript %}
 
 **출력 결과**
 {% highlight javascript %}
-I'm First!<br>
-I'm Third!<br>
+I'm First!
+
+I'm Third!
+
 I'm Second!
 {% endhighlight javascript %}
 
@@ -75,8 +77,8 @@ function regist(user) {
 	var shopUser = findShopUser(user);
 	if(shopUser != null) {
 		return 'already';
-	}<br>
-	var result = registShopUser(user);<br>
+	}
+	var result = registShopUser(user);
 	if(result == true) {
 		return 'success';
 	} else {
@@ -91,7 +93,7 @@ function regist(user, callback) {
 	var shopUser = findShopUser(user, function(shopUser) { // callback1
 		if(shopUser != null) {
 			callback('already');
-		}<br>
+		}
 		registShopUser(user, function(result) { // callback2
 			if(result == true) {
 				callback('success');  
@@ -131,7 +133,7 @@ waterfall 에는 두가지 인자를 넘기는데,<br>첫번째 인자는 실행
 ![screenshot]({{ site.url }}/assets/waterfall.png)
 
 {% highlight javascript %}
-var async = require('async');<br>
+var async = require('async');
 async.waterfall(
 	[
 		function(callback){
