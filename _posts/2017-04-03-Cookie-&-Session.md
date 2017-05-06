@@ -2,7 +2,7 @@
 layout: post
 title: "Cookie & Session"
 date: 2017-04-03 +0900
-tags: Problems
+tags: PHP
 description: Cookie & Session
 share: true
 comments: true

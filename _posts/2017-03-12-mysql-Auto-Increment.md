@@ -2,7 +2,7 @@
 layout: post
 title: "MySQL - auto_increment"
 date: 2017-03-12 +0900
-tags: Problems
+tags: MySQL
 description: MySQL - auto_increment
 share: true
 comments: true

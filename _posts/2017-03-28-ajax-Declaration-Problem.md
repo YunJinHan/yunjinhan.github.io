@@ -2,7 +2,7 @@
 layout: post
 title: "ajax - Declaration Problem"
 date: 2017-03-28 +0900
-tags: Problems
+tags: JavaScript
 description: ajax - Declaration Problem
 share: true
 comments: true

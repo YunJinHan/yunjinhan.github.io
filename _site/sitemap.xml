@@ -2,6 +2,10 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     
     <url>
+        <loc>http://localhost:4000/2017/05/Node-js-Asynchronous-Programming</loc>
+    </url>
+    
+    <url>
         <loc>http://localhost:4000/2017/05/Angular2-Root-Module</loc>
     </url>
     
@@ -190,7 +194,23 @@
     
     
     <url>
-        <loc>http://localhost:4000/tag/Problems/</loc>
+        <loc>http://localhost:4000/tag/MySQL/</loc>
+    </url>
+    
+    
+    
+    
+    
+    <url>
+        <loc>http://localhost:4000/tag/JavaScript/</loc>
+    </url>
+    
+    
+    
+    
+    
+    <url>
+        <loc>http://localhost:4000/tag/PHP/</loc>
     </url>
     
     
@@ -199,6 +219,14 @@
     
     <url>
         <loc>http://localhost:4000/tag/Angular2/</loc>
+    </url>
+    
+    
+    
+    
+    
+    <url>
+        <loc>http://localhost:4000/tag/NodeJS/</loc>
     </url>
     
     
