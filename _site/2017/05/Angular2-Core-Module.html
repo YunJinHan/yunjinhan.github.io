@@ -1,0 +1,409 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>JinHan's Blog | Angular2 Core Module </title>
+  <meta name="theme-color" content="#222222" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+  <script src="/js/header.js"></script>
+  <script src="/js/toc.js"></script>
+  <link rel="icon" href="/favicon.png" type="image/x-icon">
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/css/theme.css" rel="stylesheet">
+  <link href="/css/syntax.css" rel="stylesheet">
+  <link href="/css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+  
+
+  
+
+
+ <script type="text/javascript">
+  WebFontConfig = {
+    google: {
+      families: ['Ubuntu::latin']
+    }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">JinHan's Blog</a>
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li><a href="/">/home</a></li>
+          <li><a href="/archive.html">/archive</a></li>
+          <li><a href="/tags.html">/tags</a></li>
+          <li><a href="/about.html">/about</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+    <div class="wrapper">
+      <div class="content">
+        <div class="container container-center">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="article">
+                <div class="well">
+                  <h1><a href="/2017/05/Angular2-Core-Module">Angular2 Core Module</a></h1>
+                  <div class="post-meta">
+                    <div class="post-time">
+                      <i class="fa fa-calendar"></i>
+                      <time>07 May 2017</time>
+                    </div>
+                    <ul>
+                      
+                        <li><a href="/tag/Angular2">Angular2</a></li>
+                      
+                    </ul>
+                  </div>
+                  <div class="post-content">
+                    <div id="toc" class="toc"></div>
+                    <h1 id="angular2-core-module">Angular2 Core Module</h1>
+<p>핵심 모듈은 Angular 애플리케이션 관점에서 핵심이 되는 모듈로, 애플리케이션 루트 모듈에 한번 설정함으로써 전역에서 사용할 수 있는 모듈을 말한다. 루트 모듈에 등록됐다는 것은 애플리케이션이 시작될 때 처음 한 번만 호출해서 전역으로 사용하겠다는 의미이다.</p>
+
+<p>대표적인 예로 <strong>타이틀컴포넌트</strong>가 있다.</p>
+
+<h4 id="--title-component">- title component</h4>
+<p>애플리케이션 실행 시 호출되어 애플리케이션이 실행되는 동안 항상 사용된다.</p>
+
+<p>아래의 예제에서는 컴포넌트와 서비스를 핵심 모듈로 등록해서 핵심 모듈을 구성해 보겠다.<br /><br />
+핵심 모듈에 등록할 title component 는 다음과 같이 정의하며 편의상 대부분 app/core 디렉토리에 정의한다.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kr">import</span> <span class="p">{</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">Input</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'@angular/core'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">UserService</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'../core/user.service'</span><span class="p">;</span>
+
+<span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+  <span class="na">selector</span><span class="p">:</span> <span class="s1">'app-title'</span><span class="p">,</span>
+  <span class="na">template</span><span class="p">:</span> <span class="err">`</span>
+  <span class="o">&lt;</span><span class="nx">h1</span> <span class="nx">highlight</span><span class="o">&gt;&lt;</span><span class="sr">/h1</span><span class="err">&gt;
+</span>  <span class="nx">by</span> <span class="o">&lt;</span><span class="nx">b</span><span class="o">&gt;&lt;</span><span class="sr">/b&gt;</span><span class="err">`
+</span><span class="p">})</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">TitleComponent</span> <span class="p">{</span>
+  <span class="err">@</span><span class="nx">Input</span><span class="p">()</span> <span class="nx">title</span> <span class="o">=</span> <span class="s1">''</span><span class="p">;</span>
+  <span class="nx">user</span> <span class="o">=</span> <span class="s1">''</span><span class="p">;</span>
+
+  <span class="nx">constructor</span><span class="p">(</span><span class="nx">userService</span><span class="err">:</span> <span class="nx">UserService</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">user</span> <span class="o">=</span> <span class="nx">userService</span><span class="p">.</span><span class="nx">nickName</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>===&gt; title.component.ts</p>
+
+<p>이이서 핵심 모듈에 등록할 UserService 는 다음과 같다.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kr">import</span> <span class="p">{</span> <span class="nx">Injectable</span><span class="p">,</span> <span class="nx">Optional</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'@angular/core'</span><span class="p">;</span>
+
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">UserServiceConfig</span> <span class="p">{</span>
+  <span class="nx">nickName</span> <span class="o">=</span> <span class="s1">''</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="err">@</span><span class="nx">Injectable</span><span class="p">()</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">UserService</span> <span class="p">{</span>
+  <span class="kr">private</span> <span class="nx">_nickName</span> <span class="o">=</span> <span class="s1">''</span><span class="p">;</span>
+
+  <span class="nx">constructor</span><span class="p">(</span> <span class="err">@</span><span class="nx">Optional</span><span class="p">()</span> <span class="nx">config</span><span class="err">:</span> <span class="nx">UserServiceConfig</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">config</span><span class="p">)</span> <span class="p">{</span> <span class="k">this</span><span class="p">.</span><span class="nx">_nickName</span> <span class="o">=</span> <span class="nx">config</span><span class="p">.</span><span class="nx">nickName</span><span class="p">;</span> <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="nx">get</span> <span class="nx">nickName</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">_nickName</span><span class="p">;</span>
+  <span class="p">}</span></code></pre></figure>
+
+<p>===&gt; user.service.ts</p>
+
+<p>Userservice 서비스는 애플리케이션 루트 모듈에 등록되기 떄문에 싱글턴으로 존재하며, 전역 서비스로 사용이 된다.<br /><br />
+<strong>위의 생성자에서 @Optional 장식자를 이용해 주입객체가 있다면, 해당 객체를 받게하고, 없다면 null 값을 반환한다.</strong><br /><br />
+<strong>그리고 주입 객체에 대한 조건문 검사를 통해 객체가 있다면 서비스에 선언된 _nickName 프로퍼티를 갱신한다.</strong></p>
+
+<p>마지막으로 핵심 모듈 설정은 다음과 같이 한다.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kr">import</span> <span class="p">{</span> <span class="nx">ModuleWithProviders</span><span class="p">,</span> <span class="nx">NgModule</span><span class="p">,</span> <span class="nx">Optional</span><span class="p">,</span> <span class="nx">SkipSelf</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'@angular/core'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">CommonModule</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'@angular/common'</span><span class="p">;</span>
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">TitleComponent</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'./title.component'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">UserService</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'./user.service'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">UserServiceConfig</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'./user.service'</span><span class="p">;</span>
+
+<span class="err">@</span><span class="nx">NgModule</span><span class="p">({</span>
+  <span class="na">imports</span><span class="p">:</span> <span class="p">[</span><span class="nx">CommonModule</span><span class="p">],</span>
+  <span class="na">declarations</span><span class="p">:</span> <span class="p">[</span><span class="nx">TitleComponent</span><span class="p">],</span>
+  <span class="na">exports</span><span class="p">:</span> <span class="p">[</span><span class="nx">TitleComponent</span><span class="p">],</span>
+  <span class="na">providers</span><span class="p">:</span> <span class="p">[</span><span class="nx">UserService</span><span class="p">]</span>
+<span class="p">})</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">CoreModule</span> <span class="p">{</span>
+  <span class="nx">constructor</span><span class="p">(</span> <span class="err">@</span><span class="nx">Optional</span><span class="p">()</span> <span class="err">@</span><span class="nx">SkipSelf</span><span class="p">()</span> <span class="nx">parentModule</span><span class="err">:</span> <span class="nx">CoreModule</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">parentModule</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span>
+        <span class="s1">'CoreModule이 이미 로딩되었습니다.'</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="kr">static</span> <span class="nx">forRoot</span><span class="p">(</span><span class="nx">config</span><span class="err">:</span> <span class="nx">UserServiceConfig</span><span class="p">)</span><span class="err">:</span> <span class="nx">ModuleWithProviders</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="na">ngModule</span><span class="p">:</span> <span class="nx">CoreModule</span><span class="p">,</span>
+      <span class="na">providers</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span> <span class="na">provide</span><span class="p">:</span> <span class="nx">UserServiceConfig</span><span class="p">,</span> <span class="na">useValue</span><span class="p">:</span> <span class="nx">config</span> <span class="p">}</span>
+      <span class="p">]</span>
+    <span class="p">};</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>===&gt; core-module.ts</p>
+
+<p>핵심 모듈을 애플리케이션 루트 모듈에 추가하기 위해 @NgModule 설정에서 TitleComponent 를 declarations에 선언하고 다시 외부로 노출하도록 exports에 선언하였다.</p>
+
+<p><strong>생성자에서는 핵심 모듈인 자기 자신을 호출하여 부모 주입기에 핵심 모듈이 이미 생성되어 있는지 검사한다.</strong></p>
+
+<p><strong>부모 주입기에 대한 의존성을 확인하기 위해 @SkipSelf 장식자를 이용하며, 부모 주입기에 객체 ( 자기자신 ) 이 존재하는지 확인 후 존재하면 해당 객체를 받기 위해 @Optional 장식자를 이용해 주입받는다</strong></p>
+
+<p><strong>@Optional 장식자는 객체 존재시 해당 객체를 전달하고, 없다면 null 을 전달한다.</strong></p>
+
+<p><strong>마지막으로 해당 핵심 모듈 설정을 전부 작성하였으면 export 로 노출 시킨 후 이를 AppRoot 모듈에 임포트 한다.</strong></p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="p">...</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">CoreModule</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'./core/core.module'</span><span class="p">;</span>
+<span class="p">...</span>
+
+<span class="err">@</span><span class="nx">NgModule</span><span class="p">({</span>
+  <span class="na">imports</span><span class="p">:</span> <span class="p">[</span>
+	 <span class="p">...,</span>
+    <span class="nx">CoreModule</span><span class="p">.</span><span class="nx">forRoot</span><span class="p">({</span><span class="na">nickName</span><span class="p">:</span> <span class="s1">'Happy'</span><span class="p">}),</span>
+    <span class="p">...</span>
+  <span class="p">],</span>
+	<span class="p">...</span>
+<span class="p">})</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">AppModule</span> <span class="p">{</span> <span class="p">}</span></code></pre></figure>
+
+<p>===&gt; app-routing.module.ts</p>
+
+<p><strong>forRoot 에 선언된 값 제공자를 받아 설정하기 위해 CoreModule.forRoot() 메서드를 호출해 값 제공자에 매개변수로 값을 전달한다.</strong></p>
+
+<p><strong>이제 해당 핵심 모듈은 전역에서 사용 가능하게 등록이 되었다.</strong></p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kr">import</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'@angular/core'</span><span class="p">;</span>
+
+<span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+  <span class="na">selector</span><span class="p">:</span> <span class="s1">'core-test'</span><span class="p">,</span>
+  <span class="na">template</span><span class="p">:</span> <span class="err">`</span>
+  <span class="o">&lt;</span><span class="nx">app</span><span class="o">-</span><span class="nx">title</span> <span class="p">[</span><span class="nx">title</span><span class="p">]</span><span class="o">=</span><span class="s2">"title"</span><span class="o">&gt;&lt;</span><span class="sr">/app-title&gt;</span><span class="err">`
+</span><span class="p">})</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">CoreTestComponent</span> <span class="p">{</span>
+
+  <span class="nx">title</span> <span class="o">=</span> <span class="s1">'반갑습니다! Core Module!'</span><span class="p">;</span>
+
+<span class="p">}</span></code></pre></figure>
+
+<p>===&gt; core-test.component.ts</p>
+
+<p>테스트 컴포넌트는 루트 라우팅 모듈에 다음과 같이 등록한다.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kr">import</span> <span class="p">{</span> <span class="nx">NgModule</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'@angular/core'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">Routes</span><span class="p">,</span> <span class="nx">RouterModule</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'@angular/router'</span><span class="p">;</span>
+<span class="p">...</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">CoreTestComponent</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'./core-test/core-test.component'</span><span class="p">;</span>
+
+<span class="kr">const</span> <span class="nx">appRoutes</span><span class="err">:</span> <span class="nx">Routes</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">...,</span>
+  <span class="p">{</span> <span class="na">path</span><span class="p">:</span> <span class="s1">'core-test'</span><span class="p">,</span> <span class="na">component</span><span class="p">:</span> <span class="nx">CoreTestComponent</span> <span class="p">}</span>
+<span class="p">];</span>
+
+<span class="err">@</span><span class="nx">NgModule</span><span class="p">({</span>
+  <span class="na">imports</span><span class="p">:</span> <span class="p">[</span><span class="nx">RouterModule</span><span class="p">.</span><span class="nx">forRoot</span><span class="p">(</span><span class="nx">appRoutes</span><span class="p">)],</span>
+  <span class="na">exports</span><span class="p">:</span> <span class="p">[</span><span class="nx">RouterModule</span><span class="p">]</span>
+<span class="p">})</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">AppRoutingModule</span> <span class="p">{}</span></code></pre></figure>
+
+<p>===&gt; app-routing.module.ts</p>
+
+<p>테스트 컴포넌트에 대한 라우터 설정이 끝났고, http://localhost:4200/core-test 로 접속하면 다음과 같이 테스트 컴포넌트에 추가한 타이틀 컴포넌트가 실행된다.</p>
+
+<pre>
+<h1 highlight="">반갑습니다! Core Module!</h1>
+by <b>Happy</b>
+</pre>
+
+                    
+
+<div class="share-bar">
+  <ul class="share-buttons">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <li class="share-envelope">
+      <a href="mailto:?&subject=Angular2 Core Module&body=Angular2 Core Module http://localhost:4000/2017/05/Angular2-Core-Module" target="_blank" title="Email">
+        <span class="fa-stack fa-lg">
+          <i class="fa fa-circle-thin fa-stack-2x"></i>
+          <i class="fa fa-envelope-o fa-stack-1x"></i>
+        </span>
+      </a>
+    </li>
+    
+
+  </ul>
+</div>
+
+
+                  </div>
+                  
+                  <div id="disqus_thread">
+                    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 hidden-xs">
+              <div class="sidebar ">
+  <h2>Recent Posts</h2>
+  <ul>
+    
+    <li><a href="/2017/05/Node-js-Asynchronous-Programming">Node js - Asynchronous Programming</a></li>
+    
+    <li><a href="/2017/05/Angular2-Core-Module">Angular2 Core Module</a></li>
+    
+    <li><a href="/2017/05/Angular2-Root-Module">Angular2 Root Module</a></li>
+    
+    <li><a href="/2017/05/Angular2-Module">Angular2 Module</a></li>
+    
+    <li><a href="/2017/04/Angular2-Service2">Angular2 Service2</a></li>
+    
+    <li><a href="/2017/04/Angular2-Service">Angular2 Service1</a></li>
+    
+    <li><a href="/2017/04/Angular2-Component2">Angular2 Component2</a></li>
+    
+    <li><a href="/2017/04/UP-Development-2.-Elaboration">UP Development - 2.Elaboration</a></li>
+    
+    <li><a href="/2017/04/UP-Development-1.-Inception-3">UP Development - 1.Inception (Cont'd) 2</a></li>
+    
+    <li><a href="/2017/04/blocked-sort-based-indexing">Index Construction</a></li>
+    
+  </ul>
+</div>
+
+<div class="sidebar">
+  <h2>tags</h2>
+  <ul class="sideBarTags">
+    
+    
+    <li>
+      <a href="/tag/Angular2" data-toggle="tooltip" data-placement="right" title="8">
+        <span>Angular2</span></a></li>
+    
+    <li>
+      <a href="/tag/Information_Retrieval" data-toggle="tooltip" data-placement="right" title="11">
+        <span>Information_Retrieval</span></a></li>
+    
+    <li>
+      <a href="/tag/JavaScript" data-toggle="tooltip" data-placement="right" title="1">
+        <span>JavaScript</span></a></li>
+    
+    <li>
+      <a href="/tag/MySQL" data-toggle="tooltip" data-placement="right" title="1">
+        <span>MySQL</span></a></li>
+    
+    <li>
+      <a href="/tag/NodeJS" data-toggle="tooltip" data-placement="right" title="1">
+        <span>NodeJS</span></a></li>
+    
+    <li>
+      <a href="/tag/Object-Oriented-Programming" data-toggle="tooltip" data-placement="right" title="11">
+        <span>Object-Oriented-Programming</span></a></li>
+    
+    <li>
+      <a href="/tag/PHP" data-toggle="tooltip" data-placement="right" title="1">
+        <span>PHP</span></a></li>
+    
+  </ul>
+</div>
+
+            </div>
+          </div>
+        </div>
+        
+<script id="dsq-count-scr" src="//https-yunjinhan-github-io.disqus.com/count.js" async></script>
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://https-yunjinhan-github-io.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                                
+
+
+      </div>
+          <footer class="footer-distributed">
+      <div class="container">
+        <div class="footer">
+          <p>JinHan Yun &copy; 2017</p>
+          <h6>Contact Me</h6>
+
+<ul class="social-media">
+
+  
+    <li>
+      <a title="YunJinHan on Github" href="https://github.com/YunJinHan" target="_blank"><i class="fa fa-github fa-2x"></i></a>
+    </li>
+  
+
+  
+    <li>
+      <a title="yjh9234@gmail.com on Email" href="mailto:yjh9234@gmail.com" target=""><i class="fa fa-envelope fa-2x"></i></a>
+    </li>
+  
+
+</ul>
+
+        </div>
+      </div>
+    </footer>
+
+    </div>
+  </body>
+</html>

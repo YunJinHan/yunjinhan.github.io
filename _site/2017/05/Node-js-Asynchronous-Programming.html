@@ -122,18 +122,20 @@
 <h2 id="asynchronous-programming-example">Asynchronous Programming Example</h2>
 <p><strong>비동기적 코드 예제</strong></p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'fs'</span><span class="p">);</span><span class="o">&lt;</span><span class="nx">br</span><span class="o">&gt;</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"I'm First!"</span><span class="p">);</span><span class="o">&lt;</span><span class="nx">br</span><span class="o">&gt;</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'fs'</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"I'm First!"</span><span class="p">);</span>
 <span class="c1">// practice.txt에는 "I'm Second!"라는 문장이 적혀있다.</span>
 <span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span><span class="p">(</span><span class="s2">"./practice.txt"</span><span class="p">,</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span> 
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">res</span><span class="p">);</span>
-<span class="p">});</span><span class="o">&lt;</span><span class="nx">br</span><span class="o">&gt;</span>
+<span class="p">});</span>
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"I'm Third!"</span><span class="p">);</span></code></pre></figure>
 
 <p><strong>출력 결과</strong></p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">I</span><span class="s1">'m First!&lt;br&gt;
-I'</span><span class="nx">m</span> <span class="nx">Third</span><span class="o">!&lt;</span><span class="nx">br</span><span class="o">&gt;</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">I</span><span class="s1">'m First!
+
+I'</span><span class="nx">m</span> <span class="nx">Third</span><span class="o">!</span>
+
 <span class="nx">I</span><span class="err">'</span><span class="nx">m</span> <span class="nx">Second</span><span class="o">!</span></code></pre></figure>
 
 <p>동기적 코드처럼 순서대로 처리되지 않으며, callback 함수가 언제 끝나고 시작될지는 모른다.<br />
@@ -145,8 +147,8 @@ I'</span><span class="nx">m</span> <span class="nx">Third</span><span class="o">
 	<span class="kd">var</span> <span class="nx">shopUser</span> <span class="o">=</span> <span class="nx">findShopUser</span><span class="p">(</span><span class="nx">user</span><span class="p">);</span>
 	<span class="k">if</span><span class="p">(</span><span class="nx">shopUser</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
 		<span class="k">return</span> <span class="s1">'already'</span><span class="p">;</span>
-	<span class="p">}</span><span class="o">&lt;</span><span class="nx">br</span><span class="o">&gt;</span>
-	<span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">registShopUser</span><span class="p">(</span><span class="nx">user</span><span class="p">);</span><span class="o">&lt;</span><span class="nx">br</span><span class="o">&gt;</span>
+	<span class="p">}</span>
+	<span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">registShopUser</span><span class="p">(</span><span class="nx">user</span><span class="p">);</span>
 	<span class="k">if</span><span class="p">(</span><span class="nx">result</span> <span class="o">==</span> <span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
 		<span class="k">return</span> <span class="s1">'success'</span><span class="p">;</span>
 	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
@@ -160,7 +162,7 @@ I'</span><span class="nx">m</span> <span class="nx">Third</span><span class="o">
 	<span class="kd">var</span> <span class="nx">shopUser</span> <span class="o">=</span> <span class="nx">findShopUser</span><span class="p">(</span><span class="nx">user</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">shopUser</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// callback1</span>
 		<span class="k">if</span><span class="p">(</span><span class="nx">shopUser</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
 			<span class="nx">callback</span><span class="p">(</span><span class="s1">'already'</span><span class="p">);</span>
-		<span class="p">}</span><span class="o">&lt;</span><span class="nx">br</span><span class="o">&gt;</span>
+		<span class="p">}</span>
 		<span class="nx">registShopUser</span><span class="p">(</span><span class="nx">user</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// callback2</span>
 			<span class="k">if</span><span class="p">(</span><span class="nx">result</span> <span class="o">==</span> <span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
 				<span class="nx">callback</span><span class="p">(</span><span class="s1">'success'</span><span class="p">);</span>  
@@ -195,7 +197,7 @@ I'</span><span class="nx">m</span> <span class="nx">Third</span><span class="o">
 
 <p><img src="http://localhost:4000/assets/waterfall.png" alt="screenshot" /></p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">async</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'async'</span><span class="p">);</span><span class="o">&lt;</span><span class="nx">br</span><span class="o">&gt;</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">async</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'async'</span><span class="p">);</span>
 <span class="nx">async</span><span class="p">.</span><span class="nx">waterfall</span><span class="p">(</span>
 	<span class="p">[</span>
 		<span class="kd">function</span><span class="p">(</span><span class="nx">callback</span><span class="p">){</span>
@@ -370,6 +372,8 @@ I'</span><span class="nx">m</span> <span class="nx">Third</span><span class="o">
     
     <li><a href="/2017/05/Node-js-Asynchronous-Programming">Node js - Asynchronous Programming</a></li>
     
+    <li><a href="/2017/05/Angular2-Core-Module">Angular2 Core Module</a></li>
+    
     <li><a href="/2017/05/Angular2-Root-Module">Angular2 Root Module</a></li>
     
     <li><a href="/2017/05/Angular2-Module">Angular2 Module</a></li>
@@ -386,8 +390,6 @@ I'</span><span class="nx">m</span> <span class="nx">Third</span><span class="o">
     
     <li><a href="/2017/04/blocked-sort-based-indexing">Index Construction</a></li>
     
-    <li><a href="/2017/04/n-gram-overlap">N - Gram Overlap</a></li>
-    
   </ul>
 </div>
 
@@ -397,7 +399,7 @@ I'</span><span class="nx">m</span> <span class="nx">Third</span><span class="o">
     
     
     <li>
-      <a href="/tag/Angular2" data-toggle="tooltip" data-placement="right" title="7">
+      <a href="/tag/Angular2" data-toggle="tooltip" data-placement="right" title="8">
         <span>Angular2</span></a></li>
     
     <li>
