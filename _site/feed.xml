@@ -7,6 +7,120 @@
 		<atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
+				<title>Ranked retrieval</title>
+				<description>&lt;h2 id=&quot;boolean-model&quot;&gt;Boolean Model&lt;/h2&gt;
+&lt;h3 id=&quot;--strength&quot;&gt;- Strength&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Rich expressions for queries&lt;/li&gt;
+  &lt;li&gt;Clear logical interpretation&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;--problems&quot;&gt;- Problems&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Relevancy ( = Score , &lt;strong&gt;two component [ query, document ]&lt;/strong&gt; ) is either 1 or 0&lt;br /&gt;many documents or few/no documents in the result&lt;br /&gt;No term weighting in document and query is used&lt;/li&gt;
+  &lt;li&gt;Difficulty for end-users for form a correct Boolean query&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Problem with Boolean search&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Boolean queries often result in either too few (=0) or too many (1000s) results&lt;br /&gt;Example)&lt;br /&gt;Query 1: “standard user iptime N4” → 200,000 hits&lt;br /&gt;Query 2: “standard user iptime N4 no channel found” → 0 hits&lt;/li&gt;
+      &lt;li&gt;It takes a lot of skill to come up with a query that produces a manageable number of hits&lt;br /&gt;( AND gives too few; OR gives too many )&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;–&amp;gt; &lt;strong&gt;Solution&lt;/strong&gt; : &lt;strong&gt;Ranked Retrieval&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;ranked-retrieval&quot;&gt;Ranked retrieval&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;Using Free Text Queries&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;--feast-or-famine-not-a-problem-in-ranked-retrieval&quot;&gt;- Feast or famine: not a problem in ranked retrieval&lt;/h3&gt;
+
+&lt;h3 id=&quot;--query-document-matching-scores-해당-term-이-많이-있으면-high-score-부여---jaccard-coefficient-&quot;&gt;- Query Document Matching Scores&lt;br /&gt;( 해당 term 이 많이 있으면 High Score 부여 - Jaccard coefficient )&lt;/h3&gt;
+
+&lt;h2 id=&quot;jaccard-coefficient&quot;&gt;Jaccard coefficient&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/Jaccard coefficient.png&quot; alt=&quot;screenshot&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;A and B don’t have to be the same size&lt;/li&gt;
+  &lt;li&gt;Always assings a nubmer between 0 and 1&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Example)&lt;/p&gt;
+
+&lt;p&gt;Query : idess of march&lt;br /&gt;&lt;br /&gt;
+Doc1 : caesar died in march → jaccard : 1/6&lt;br /&gt;&lt;br /&gt;
+Doc2 : the long march → jaccard : 1/5&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;→ 의미상으론 Doc1 이 더 가깝지만 jaccard 를 통해 Doc2 가 더 높은 rank 를 부여받는다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;We need a more sophisticated way of normalizing for length&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/Jaccard coefficient2.png&quot; alt=&quot;screenshot&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;bag-of-words-model&quot;&gt;Bag of words model&lt;/h2&gt;
+&lt;h3 id=&quot;--term-frequency&quot;&gt;- Term Frequency&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;don’t consider ordering of words&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Term Frequency&lt;/strong&gt; : &lt;strong&gt;tf&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;The term frequency tf(t,d) of term t in document d is defined as the number of times that t occurs in d.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;log-frequency-weighting&quot;&gt;Log-frequency weighting&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/Log-frequency weighting.png&quot; alt=&quot;screenshot&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Example)&lt;br /&gt;&lt;br /&gt;
+Doc1 : Hanyang Ansan Univ Hanyang&lt;br /&gt;&lt;br /&gt;
+Query : Hanyang Ansan&lt;br /&gt;&lt;br /&gt;
+→ score(query,doc1) = (1 + log(2)) : Hanyang 2번  + (1 + log(0)) : Ansan 0번 = 2&lt;/p&gt;
+
+&lt;h3 id=&quot;--document-frequency&quot;&gt;- Document frequency&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Rare terms are more informative than frequent terms&lt;br /&gt;&lt;br /&gt;
+  → We want a high weight for rare terms like arachnocentric.8&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Document frequency&lt;/strong&gt; : &lt;strong&gt;df&lt;/strong&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;idf-weight&quot;&gt;idf weight&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/idf weight.png&quot; alt=&quot;screenshot&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;effect-of-idf-on-ranking&quot;&gt;Effect of idf on ranking&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;idf has no effect on ranking one term queries&lt;br /&gt;( if one term, same ranking with df )&lt;/li&gt;
+  &lt;li&gt;idf affects the ranking of documents for queries with at least two terms&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;tf-idf-weighting&quot;&gt;tf-idf weighting&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/tf-idf weighting.png&quot; alt=&quot;screenshot&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;score-for-a-document-given-a-query&quot;&gt;Score for a document given a query&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/Score for a document given a query.png&quot; alt=&quot;screenshot&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Example)&lt;br /&gt;&lt;br /&gt;
+Query : Hanyang Univ&lt;br /&gt;&lt;br /&gt;
+Doc1 : Hanyang Ansan Univ Hanyang&lt;br /&gt;&lt;br /&gt;
+Doc2 : Hanyang Ansan&lt;br /&gt;&lt;br /&gt;
+→ score(query, doc1) = [ ( 1 + log(2) ) x log (10/2) ] : Hanyang + [ 1 x log(10/1) ] : Univ&lt;br /&gt;&lt;br /&gt;
+→ score(query, doc2) = [ (1) x log(10/1) ] : Hanyang&lt;br /&gt;&lt;/p&gt;
+
+</description>
+				<pubDate>Wed, 10 May 2017 00:00:00 +0900</pubDate>
+				<link>http://localhost:4000/2017/05/Ranked-retrieval</link>
+				<guid isPermaLink="true">http://localhost:4000/2017/05/Ranked-retrieval</guid>
+			</item>
+		
+			<item>
 				<title>Node js - Asynchronous Programming</title>
 				<description>&lt;h1 id=&quot;node-js-비동기-프로그래밍&quot;&gt;Node js 비동기 프로그래밍&lt;/h1&gt;
 &lt;h3 id=&quot;--multi-thread-의-한계&quot;&gt;- Multi-Thread 의 한계&lt;/h3&gt;
@@ -1571,62 +1685,6 @@ success scenario&lt;/li&gt;
 				<pubDate>Tue, 18 Apr 2017 00:00:00 +0900</pubDate>
 				<link>http://localhost:4000/2017/04/UP-Development-1.-Inception-3</link>
 				<guid isPermaLink="true">http://localhost:4000/2017/04/UP-Development-1.-Inception-3</guid>
-			</item>
-		
-			<item>
-				<title>Index Construction</title>
-				<description>&lt;h1 id=&quot;index-construction&quot;&gt;Index Construction&lt;/h1&gt;
-&lt;ul&gt;
-  &lt;li&gt;How do we construct an index?&lt;/li&gt;
-  &lt;li&gt;What strategies can we use with limited main memory?&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;--hardware-basics&quot;&gt;- Hardware Basics&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;Access to data in memory is much faster than access to data on disk&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Disk seeks&lt;/strong&gt; : No data is transferred from disk while the disk head is being positioned&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Disk I/O is block-based&lt;/strong&gt; : Reading and writing of entire blocks (as opposed to smaller chunks)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;--can-we-use-the-same-index-construction-algorithm-for-larger-collections-but-by-using-disk-instead-of-memory&quot;&gt;- Can we use the same index construction algorithm for larger collections, but by using disk instead of memory?&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;No , too many disk seeks needs ( &lt;strong&gt;Overhead&lt;/strong&gt; Increased )&lt;/li&gt;
-  &lt;li&gt;So, We need an &lt;strong&gt;External Sorting Algorithm&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;blocked-sort-based-indexing--bsbi-&quot;&gt;Blocked Sort-Based Indexing ( BSBI )&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/BSBI.png&quot; alt=&quot;screenshot&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Run : 처음부터 끝까지 Seek 한다 -&amp;gt; 디스크 Seek 한번만 필요하게 저장이 되어있는 경우&lt;/strong&gt;&lt;br /&gt;&lt;br /&gt;
-Disk 에서 Memory 로 한 Page 씩 읽어들임&lt;br /&gt;&lt;strong&gt;HIT / OS Caching ( 다음에 근처 Data 를 읽을 때 좀 더 빠르게 접근 가능 )&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;external-sorting-using-merge-sort&quot;&gt;External Sorting Using Merge Sort&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/ExternalMergeSort.png&quot; alt=&quot;screenshot&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;M : Main Memory 에 들어갈 수 있는 공간&lt;/strong&gt;&lt;br /&gt;&lt;br /&gt;
-Using &lt;strong&gt;Quicksort&lt;/strong&gt; in Memory Pairs because mergesort has more memory space than &lt;strong&gt;Quicksort&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;--example-1-&quot;&gt;- Example 1 )&lt;/h4&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/ExternalMergeSort2.png&quot; alt=&quot;screenshot&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;--example-2-&quot;&gt;- Example 2 )&lt;/h4&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/ExternalMergeSort3.png&quot; alt=&quot;screenshot&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;cost-analysis--io-&quot;&gt;Cost Analysis ( i/O )&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/costAnalysis.png&quot; alt=&quot;screenshot&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;cost-seek&quot;&gt;Cost Seek&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/costSeek.png&quot; alt=&quot;screenshot&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;exercise&quot;&gt;Exercise&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/ExternalMergeSortExample.png&quot; alt=&quot;screenshot&quot; /&gt;&lt;/p&gt;
-</description>
-				<pubDate>Mon, 17 Apr 2017 00:00:00 +0900</pubDate>
-				<link>http://localhost:4000/2017/04/blocked-sort-based-indexing</link>
-				<guid isPermaLink="true">http://localhost:4000/2017/04/blocked-sort-based-indexing</guid>
 			</item>
 		
 	</channel>

@@ -2,7 +2,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>JinHan's Blog | IS A relationship </title>
+  <title>JinHan's Blog | Ranked retrieval </title>
   <meta name="theme-color" content="#222222" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="/js/jquery.min.js"></script>
@@ -68,69 +68,125 @@
             <div class="col-md-8">
               <div class="article">
                 <div class="well">
-                  <h1><a href="/2017/03/IS-A-Relationship">IS A relationship</a></h1>
+                  <h1><a href="/2017/05/Ranked-retrieval">Ranked retrieval</a></h1>
                   <div class="post-meta">
                     <div class="post-time">
                       <i class="fa fa-calendar"></i>
-                      <time>23 Mar 2017</time>
+                      <time>10 May 2017</time>
                     </div>
                     <ul>
                       
-                        <li><a href="/tag/Object-Oriented-Programming">Object-Oriented-Programming</a></li>
+                        <li><a href="/tag/Information_Retrieval">Information_Retrieval</a></li>
                       
                     </ul>
                   </div>
                   <div class="post-content">
                     <div id="toc" class="toc"></div>
-                    <h2 id="inheritance-models-an-is-a-relationship-aka-generalization--specialization-realtionship-among-the-classes">Inheritance models an IS A relationship (aka Generalization / Specialization realtionship) among the classes</h2>
-
-<p>== &gt; Public Inheritance relationship is <strong>IS A</strong> relationship<br /><br />
-( 부모 인터페이스를 자식 인터페이스의 일부로 포함시킴 )</p>
-
-<p><img src="http://localhost:4000/assets/dependency.jpg" alt="screenshot" /></p>
-
-<p>자식이 부모에 dependent 하다. (<strong>data flow 가 아닌 dependency 의존관계 표현</strong>)</p>
-
-<h2 id="a-class-can-be-a-superclass-as-well-as-a-subclass-at-the-same-time-and-the-is-a--relationship-is-transtive">A class can be a superclass as well as a subclass at the same time and the IS A  relationship is transtive</h2>
-<p>Subclasses inherit all sttributes and operations from its superclass and its ancestors<br />
-—————</p>
-
-<h2 id="subclasses-can-be-redefine-inherited-operations-overriding">Subclasses can be redefine inherited operations (<strong>Overriding</strong>)</h2>
-<p>–&gt;  Operations must have the same <strong>Signatures</strong><br /><br />
-–&gt;  Subclasses can alter or override information inherited from parent classes<br />
-<br /><br />
-<br /></p>
-
-<h2 id="anything-that-is-true-of-an-object-of-person-type-is-also-true-of-an-object-of-student-type-but-not-vice---versa-부모에-성립되는-것들은-자식에서도-성립된다">Anything that is true of an object of Person type is also true of an object of Student type, but Not vice - versa   (부모에 성립되는 것들은 자식에서도 성립된다.)</h2>
-<p>Anything a superclass can do, a subclass can do as well<br />
-<br /><br />
-Subtyping uses inheritance as a mechanism for <strong>Interface sharing</strong><br />
-—————-</p>
+                    <h2 id="boolean-model">Boolean Model</h2>
+<h3 id="--strength">- Strength</h3>
 <ul>
-  <li>enforces the <strong>IS A</strong> relationship</li>
-  <li>also called <strong>Interface inheritance</strong></li>
+  <li>Rich expressions for queries</li>
+  <li>Clear logical interpretation</li>
 </ul>
 
-<h2 id="subclassing-uses-inheritance-as-a-mechanism-for-implementation-sharing">Subclassing uses inheritance as a mechanism for Implementation sharing</h2>
+<h3 id="--problems">- Problems</h3>
 <ul>
-  <li>enforces implemented in terms of relationship</li>
-  <li>also called class inheritance or implementation inheritance<br />-&gt; private Inheritance ( only C++ )</li>
+  <li>Relevancy ( = Score , <strong>two component [ query, document ]</strong> ) is either 1 or 0<br />many documents or few/no documents in the result<br />No term weighting in document and query is used</li>
+  <li>Difficulty for end-users for form a correct Boolean query</li>
+  <li><strong>Problem with Boolean search</strong>
+    <ul>
+      <li>Boolean queries often result in either too few (=0) or too many (1000s) results<br />Example)<br />Query 1: “standard user iptime N4” → 200,000 hits<br />Query 2: “standard user iptime N4 no channel found” → 0 hits</li>
+      <li>It takes a lot of skill to come up with a query that produces a manageable number of hits<br />( AND gives too few; OR gives too many )</li>
+    </ul>
+  </li>
 </ul>
 
-<h2 id="pure-virtual-function">Pure virtual function</h2>
+<p>–&gt; <strong>Solution</strong> : <strong>Ranked Retrieval</strong></p>
+
+<h1 id="ranked-retrieval">Ranked retrieval</h1>
+<p><strong>Using Free Text Queries</strong></p>
+
+<h3 id="--feast-or-famine-not-a-problem-in-ranked-retrieval">- Feast or famine: not a problem in ranked retrieval</h3>
+
+<h3 id="--query-document-matching-scores-해당-term-이-많이-있으면-high-score-부여---jaccard-coefficient-">- Query Document Matching Scores<br />( 해당 term 이 많이 있으면 High Score 부여 - Jaccard coefficient )</h3>
+
+<h2 id="jaccard-coefficient">Jaccard coefficient</h2>
+<p><img src="http://localhost:4000/assets/Jaccard coefficient.png" alt="screenshot" /></p>
+
 <ul>
-  <li>to have derived class inherit a function interface only</li>
+  <li>A and B don’t have to be the same size</li>
+  <li>Always assings a nubmer between 0 and 1</li>
 </ul>
 
-<h2 id="virtual-function">Virtual function</h2>
+<p>Example)</p>
+
+<p>Query : idess of march<br /><br />
+Doc1 : caesar died in march → jaccard : 1/6<br /><br />
+Doc2 : the long march → jaccard : 1/5<br /></p>
+
+<p>→ 의미상으론 Doc1 이 더 가깝지만 jaccard 를 통해 Doc2 가 더 높은 rank 를 부여받는다.</p>
+
 <ul>
-  <li>to have derived classes inherit a function interface as well as a default implementation<br /> (<strong>overriding O == abstract method</strong>)</li>
+  <li>We need a more sophisticated way of normalizing for length</li>
 </ul>
 
-<h2 id="nonvirtual-function">Nonvirtual function</h2>
+<p><img src="http://localhost:4000/assets/Jaccard coefficient2.png" alt="screenshot" /></p>
+
+<h2 id="bag-of-words-model">Bag of words model</h2>
+<h3 id="--term-frequency">- Term Frequency</h3>
+
 <ul>
-  <li>to have derived classes inherit a function interfaces as well as a mandatory implementation<br />(<strong>overriding X == final method</strong>)</li>
+  <li>don’t consider ordering of words</li>
+  <li><strong>Term Frequency</strong> : <strong>tf</strong></li>
+  <li>The term frequency tf(t,d) of term t in document d is defined as the number of times that t occurs in d.</li>
 </ul>
+
+<h4 id="log-frequency-weighting">Log-frequency weighting</h4>
+
+<p><img src="http://localhost:4000/assets/Log-frequency weighting.png" alt="screenshot" /></p>
+
+<p>Example)<br /><br />
+Doc1 : Hanyang Ansan Univ Hanyang<br /><br />
+Query : Hanyang Ansan<br /><br />
+→ score(query,doc1) = (1 + log(2)) : Hanyang 2번  + (1 + log(0)) : Ansan 0번 = 2</p>
+
+<h3 id="--document-frequency">- Document frequency</h3>
+
+<ul>
+  <li>
+    <p>Rare terms are more informative than frequent terms<br /><br />
+  → We want a high weight for rare terms like arachnocentric.8</p>
+  </li>
+  <li>
+    <p><strong>Document frequency</strong> : <strong>df</strong></p>
+  </li>
+</ul>
+
+<h4 id="idf-weight">idf weight</h4>
+
+<p><img src="http://localhost:4000/assets/idf weight.png" alt="screenshot" /></p>
+
+<h4 id="effect-of-idf-on-ranking">Effect of idf on ranking</h4>
+
+<ul>
+  <li>idf has no effect on ranking one term queries<br />( if one term, same ranking with df )</li>
+  <li>idf affects the ranking of documents for queries with at least two terms</li>
+</ul>
+
+<h3 id="tf-idf-weighting">tf-idf weighting</h3>
+
+<p><img src="http://localhost:4000/assets/tf-idf weighting.png" alt="screenshot" /></p>
+
+<h4 id="score-for-a-document-given-a-query">Score for a document given a query</h4>
+
+<p><img src="http://localhost:4000/assets/Score for a document given a query.png" alt="screenshot" /></p>
+
+<p>Example)<br /><br />
+Query : Hanyang Univ<br /><br />
+Doc1 : Hanyang Ansan Univ Hanyang<br /><br />
+Doc2 : Hanyang Ansan<br /><br />
+→ score(query, doc1) = [ ( 1 + log(2) ) x log (10/2) ] : Hanyang + [ 1 x log(10/1) ] : Univ<br /><br />
+→ score(query, doc2) = [ (1) x log(10/1) ] : Hanyang<br /></p>
 
 
                     
@@ -149,7 +205,7 @@ Subtyping uses inheritance as a mechanism for <strong>Interface sharing</strong>
 
     
     <li class="share-envelope">
-      <a href="mailto:?&subject=IS A relationship&body=Inheritance models an IS A relationship http://localhost:4000/2017/03/IS-A-Relationship" target="_blank" title="Email">
+      <a href="mailto:?&subject=Ranked retrieval&body=Jaccard coefficient / Bag of words model http://localhost:4000/2017/05/Ranked-retrieval" target="_blank" title="Email">
         <span class="fa-stack fa-lg">
           <i class="fa fa-circle-thin fa-stack-2x"></i>
           <i class="fa fa-envelope-o fa-stack-1x"></i>
