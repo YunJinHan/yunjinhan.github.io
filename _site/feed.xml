@@ -7,6 +7,118 @@
 		<atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
+				<title>Unranked Retrieval Evaluation</title>
+				<description>&lt;h1 id=&quot;unranked-retrieval-evaluation&quot;&gt;Unranked Retrieval Evaluation&lt;/h1&gt;
+
+&lt;h2 id=&quot;precision-and-recall&quot;&gt;Precision and Recall&lt;/h2&gt;
+&lt;h3 id=&quot;precision--정확도---fraction-of-retrieved-docs-that-are-relevant-p--relevant--retrieved&quot;&gt;Precision ( 정확도 ) : Fraction of retrieved docs that are relevant&lt;br /&gt; P = relevant / retrieved&lt;/h3&gt;
+
+&lt;p&gt;Relevant : 검색결과에 포함된 것&lt;br /&gt;
+Retrieved : 검색결과와 관련된 것&lt;/p&gt;
+
+&lt;h3 id=&quot;recall--fraction-of-relevant-docs-that-are-retrieved-p--retrieved--relevant&quot;&gt;Recall : Fraction of relevant docs that are retrieved&lt;br /&gt; P = retrieved / relevant&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/precision_recall.png&quot; alt=&quot;screenshot&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;tp : ture positive / fp : false positive&lt;br /&gt;&lt;br /&gt;
+fn : false negative / tn : ture negative&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;
+ture : is relevant / false : is not relevant&lt;br /&gt;&lt;br /&gt;
+positive : include docs / negative : do not include docs&lt;/p&gt;
+
+&lt;h2 id=&quot;precisionk&quot;&gt;Precision@K&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Set a rank threshold K&lt;/li&gt;
+  &lt;li&gt;Compute % relevant in top K&lt;/li&gt;
+  &lt;li&gt;Ignores docs ranked lower than K&lt;/li&gt;
+  &lt;li&gt;Example )
+    &lt;ul&gt;
+      &lt;li&gt;&lt;img src=&quot;http://localhost:4000/assets/precision_ex.png&quot; alt=&quot;screenshot&quot; /&gt;&lt;/li&gt;
+      &lt;li&gt;Prec@3 : 2/3 ( top 3개의 docs 중 몇 개가 relevant 한 docs 인가 )&lt;/li&gt;
+      &lt;li&gt;Prec@4 : 2/4&lt;/li&gt;
+      &lt;li&gt;Prec@5 : 3/5&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;recallk&quot;&gt;Recall@K&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Example )
+    &lt;ul&gt;
+      &lt;li&gt;&lt;img src=&quot;http://localhost:4000/assets/precision_ex.png&quot; alt=&quot;screenshot&quot; /&gt;&lt;/li&gt;
+      &lt;li&gt;R (relevant docs) = 3 개&lt;/li&gt;
+      &lt;li&gt;R@3 = 2/3 (relevant docs 중 몇 개가 relevant 한 docs 인가)&lt;/li&gt;
+      &lt;li&gt;R@4 = 2/3&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;precision---recall-curve&quot;&gt;Precision - Recall Curve&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/precision_recall_curve.png&quot; alt=&quot;screenshot&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;검색 엔진이 좋은 경우 : 빨간 선&lt;br /&gt;
+검색 엔진이 나쁜 경우 : 노란 선&lt;/p&gt;
+
+&lt;h2 id=&quot;mean-average-precision&quot;&gt;Mean Average Precision&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Consider rank position of each &lt;strong&gt;Relevant&lt;/strong&gt; docs&lt;/li&gt;
+  &lt;li&gt;Compute Precision@K for each K1, K2, … Kr&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Average Precision = average of P@K&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;p&gt;&lt;strong&gt;K = 3&lt;/strong&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/MAP.png&quot; alt=&quot;screenshot&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;MAP is Average Precision across multiple queries / rankings&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;average-precision&quot;&gt;Average Precision&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/average precision.png&quot; alt=&quot;screenshot&quot; /&gt;&lt;/p&gt;
+
+&lt;pre&gt;
+&amp;lt; Ranking #1 &amp;gt;
+# of docs = 10
+# of relevant docs = 6
+
+R@1 = 1/6
+R@2 = 1/6
+R@3 = 2/6
+R@4 = 3/6
+R@5 = 4/6
+R@6 = 5/6
+R@7 = 5/6
+R@8 = 5/6
+R@9 = 5/6
+R@10 = 6/6
+
+P@1 = 1
+P@2 = 0.5
+P@3 = 0.67
+P@4 = 0.75
+P@5 = 0.8
+P@6 = 0.83
+P@7 = 0.71
+P@8 = 0.625
+P@9 = 0.56
+P@10 = 0.6
+
+Ranking#1 is better than Ranking#2
+
+--&amp;gt; Mean Average Precision = ( 0.78 + 0.52 ) / 2 = 0.65
+&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;보통 Relevant 의 Precision 만으로 평균을 낸다.&lt;/strong&gt;&lt;/p&gt;
+</description>
+				<pubDate>Wed, 24 May 2017 00:00:00 +0900</pubDate>
+				<link>http://localhost:4000/2017/05/Unranked-Retrieval-Evaluation-Precision-and-Recall</link>
+				<guid isPermaLink="true">http://localhost:4000/2017/05/Unranked-Retrieval-Evaluation-Precision-and-Recall</guid>
+			</item>
+		
+			<item>
 				<title>Ranked retrieval</title>
 				<description>&lt;h2 id=&quot;boolean-model&quot;&gt;Boolean Model&lt;/h2&gt;
 &lt;h3 id=&quot;--strength&quot;&gt;- Strength&lt;/h3&gt;
@@ -1412,279 +1524,6 @@ Angular 는 여러 모듈로 구성된 하나의 모듈 집합으로 볼 수 있
 				<pubDate>Thu, 20 Apr 2017 00:00:00 +0900</pubDate>
 				<link>http://localhost:4000/2017/04/UP-Development-2.-Elaboration</link>
 				<guid isPermaLink="true">http://localhost:4000/2017/04/UP-Development-2.-Elaboration</guid>
-			</item>
-		
-			<item>
-				<title>UP Development - 1.Inception (Cont'd) 2</title>
-				<description>&lt;h1 id=&quot;up-development---1inception-contd&quot;&gt;UP Development - 1.Inception (Cont’d)&lt;/h1&gt;
-&lt;h3 id=&quot;--main-success-scenario&quot;&gt;- Main Success Scenario&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;It describes typical success path that satisfies the interests of the stakeholders&lt;/li&gt;
-  &lt;li&gt;It records three kinds of actions
-    &lt;ul&gt;
-      &lt;li&gt;interaction between actors&lt;/li&gt;
-      &lt;li&gt;validation&lt;/li&gt;
-      &lt;li&gt;state change by the system&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Step one of UseCase normally indicates the trigger event that strats the UseCase&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Defer all conditional and branching to the Extensions section&lt;/strong&gt; ( 모든 확장부분의 분기와 조건은 미룬다 )&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;--extensions--or-alternative-flows-&quot;&gt;- Extensions ( or Alternative Flows )&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;Extensions indicate all the other scenarios or branches, both success and failure&lt;/li&gt;
-  &lt;li&gt;Extension has two parts &lt;strong&gt;Condition&lt;/strong&gt; and &lt;strong&gt;The Handing&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Write the condition as something that can be detected by the system or an actor&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;Example&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;nl&quot;&gt;Extensions&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Invalid&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;identifier&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;nbsp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;nbsp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;System&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;signals&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;error&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;rejects&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;entry&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;
-&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;There&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;are&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;multiple&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;of&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;same&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;item&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;category&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;tracking&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;unique&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;item&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;identity&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;important&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;g&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;packages&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;of&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;veggie&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;burgers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;nbsp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;nbsp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Cashier&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;can&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;enter&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;item&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;category&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;identifier&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;quantity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; 
-&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Customer&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;asks&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Cahier&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;remove&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;an&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;item&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;purchase&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;nbsp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;nbsp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Cashier&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;enters&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;item&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;identifier&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;removal&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;sale&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;nbsp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;nbsp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;System&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;displays&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;updated&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;running&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;total&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;At the end of extension handing, by default the scenario merges back with the main success scenario, unless the extension indicates otherwise ( such as by halting the system )&lt;/li&gt;
-  &lt;li&gt;If a particular extension is quite complex, a separate use case may be written&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;Example&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;mi&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Paying&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;by&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;credit&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;nbsp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;nbsp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Customer&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;enters&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;their&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;credit&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;card&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;information&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;nbsp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;nbsp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;System&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;requests&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;payment&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;validation&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;external&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Payment&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Authorization&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Serive&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;system&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;nbsp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;nbsp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;System&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;detects&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;failure&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;collaborate&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;external&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;system&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;nbsp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;nbsp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;nbsp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;nbsp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;System&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;signals&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;error&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Cashier&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;nbsp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;nbsp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;nbsp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;nbsp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Cashier&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;asks&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Customer&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;alternate&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;payment&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;At&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;any&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;System&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;crashes&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;In&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;order&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;support&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;recovery&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;correct&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;accounting&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ensure&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;all&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;transaction&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;sensative&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;state&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;events&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;can&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;be&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;recovered&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;at&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;any&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;step&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;scenario&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;nbsp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;nbsp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Cahier&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;restarts&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;requests&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;recovery&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;of&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;prior&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;nbsp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;nbsp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;System&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;reconstructs&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;prior&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/scenarioLevel.png&quot; alt=&quot;screenshot&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;–&amp;gt; &lt;strong&gt;논리적으로 계속해서 자기 자신을 하나의 Action Step 으로 가진 Use Case 를 만들수 있다.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;--special-requirement&quot;&gt;- Special Requirement&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;Non-functional requirements, quality attributes, and constraints which relates specifically to a use case are recorded with the use case&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;Example&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;Special&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Requirements&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Touch&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;screen&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;UI&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;large&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;flat&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;panel&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;monitor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Text&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;must&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;be&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;visible&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;meter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; 
-&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Credit&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;authorization&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;response&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;within&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;30&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;seconds&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;within&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;90&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;of&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Language&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;internationalization&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;text&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;displayed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Pluggable&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;business&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;rules&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;be&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;insertable&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;at&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;steps&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h3 id=&quot;--technology-and-data-variations-list&quot;&gt;- Technology and Data Variations List&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;This section records technical variations in how something must be done, but not what&lt;/li&gt;
-  &lt;li&gt;This section also records variations in data scheme&lt;/li&gt;
-  &lt;li&gt;This section should not contain multiple steps to express varying behavior for different cases. If that is necessary, say it in the Extensions section&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;Example&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;Technology&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Data&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Variations&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;
-&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Item&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;identifier&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;entered&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;by&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;laser&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;scanner&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;or&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;keyboard&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;
-&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Item&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;identifier&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;may&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;be&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;any&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;UPC&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;EAN&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;JAN&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;or&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;SKU&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;coding&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;scheme&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;
-&lt;span class=&quot;mi&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Credit&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;account&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;information&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;entered&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;by&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;card&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;reader&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;or&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;keyboard&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;
-&lt;span class=&quot;mi&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Credit&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;payment&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;signature&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;captured&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;paper&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;receipt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;But&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;within&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;two&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;years&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;we&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;pre&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;dict&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;many&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;customers&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;will&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;want&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;digital&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;signature&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;capture&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h3 id=&quot;--key-four-concepts-that-apply-to-every-sentence-in-usecaese-and-to-the-usecase-as-a-whole&quot;&gt;- Key Four Concepts that apply to every sentence in UseCaese and to the UseCase as a whole&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Level : Why do we want this goal? ( 어느 정도의 Goal Level 이냐 )&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Scope : Which system boundary do we mean? ( System 의 Boundary 가 어디까지냐 )&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Detail : Do we describe intent, or action detail?&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Primary Actor : Who has the goal?&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;--what-is-a-useful-level-to-express-use-cases-for-application-requirements-analysis--어플리케이션-요구사항-분석을-usecase로-표현하기-위해-어떤-레벨이-효과적인가-&quot;&gt;- What is a useful level to express use cases for application requirements analysis? ( 어플리케이션 요구사항 분석을 UseCase로 표현하기 위해 어떤 레벨이 효과적인가? )&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;Guideline : The &lt;strong&gt;EBP(OR User Goals ) Use Case&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;EBP : Elementary Business Processes&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;--common-mistake-with-use-cases&quot;&gt;- Common Mistake with Use Cases&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;Use Case is a relatively large end to end Description that typically indcludes many steps or transactions&lt;/li&gt;
-  &lt;li&gt;It is normally an individual step or activity in a process&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;--every-sentence-at-every-level-is-a-goal-use-cases-are-one-sentence-style-repeated&quot;&gt;- Every Sentence at every level is a Goal. Use Cases are one sentence style repeated&lt;/h3&gt;
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/goal.png&quot; alt=&quot;screenshot&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;HOW : Goal Level 낮아짐&lt;/strong&gt;&lt;br /&gt;&lt;strong&gt;Why : Goal Level 높아짐&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;--primary-actors-and-goals-at-different-boundaries&quot;&gt;- Primary Actors and Goals at different Boundaries&lt;/h3&gt;
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/primaryActors.png&quot; alt=&quot;screenshot&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;basic-procedure&quot;&gt;Basic Procedure&lt;/h2&gt;
-&lt;ol&gt;
-  &lt;li&gt;&lt;strong&gt;Choose the system boundary&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Identify the primary actors&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;For each primary actor, identify their user goals&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Define use cases that satisfy user goal; name them according to their goal&lt;/strong&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h4 id=&quot;step-1--choosing-the-system-boundary&quot;&gt;Step 1 : Choosing the System Boundary&lt;/h4&gt;
-&lt;ul&gt;
-  &lt;li&gt;Choosing the right system boundary helps to find what is outside, i.e., primary actors and supporting actors.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;step-23--finding-primary-actors-and-goals&quot;&gt;Step 2/3 : Finding Primary Actors and Goals&lt;/h4&gt;
-&lt;ul&gt;
-  &lt;li&gt;What computers, subsystems and people will drive our system?
-    &lt;ul&gt;
-      &lt;li&gt;An actor is anything with behavior.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;What does each actor need our system to do?
-    &lt;ul&gt;
-      &lt;li&gt;Each need shows up as a trigger to our system.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;A List of use cases, a sketch of the system
-    &lt;ul&gt;
-      &lt;li&gt;Short, fairly complete list of usable system function&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h5 id=&quot;reminder-questions-to-find-actors&quot;&gt;Reminder Questions to Find Actors&lt;/h5&gt;
-&lt;p&gt;Primary actors and supporting actors are always external to SuD. To find actors, look for things in the categories of people, other software, hardware devices, data stores, or networks&lt;/p&gt;
-
-&lt;h5 id=&quot;reminder-questions-to-find-goals&quot;&gt;Reminder Questions to Find Goals&lt;/h5&gt;
-&lt;ul&gt;
-  &lt;li&gt;In the UP, a use case is always started by a primary actor. But, it is sometimes useful to initiate use cases from inside the system&lt;/li&gt;
-  &lt;li&gt;Actor-based
-    &lt;ul&gt;
-      &lt;li&gt;Identify the actors related to a system or organization&lt;/li&gt;
-      &lt;li&gt;For each actor, identify the process they initiate or participate in.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Event-based
-    &lt;ul&gt;
-      &lt;li&gt;Identify the external events that a system must respond to.&lt;/li&gt;
-      &lt;li&gt;Relate the events to actors and use cases.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/actorGoalList.png&quot; alt=&quot;screenshot&quot; /&gt;&lt;/p&gt;
-
-&lt;h5 id=&quot;ranking-use-cases&quot;&gt;Ranking Use Cases&lt;/h5&gt;
-&lt;ul&gt;
-  &lt;li&gt;Use cases need to be ranked, and high ranking use cases need to be tackled early&lt;/li&gt;
-  &lt;li&gt;Ranking criteria
-    &lt;ul&gt;
-      &lt;li&gt;&lt;strong&gt;Significant impact on the core architectural design&lt;/strong&gt;&lt;/li&gt;
-      &lt;li&gt;Risky, time-critical, or complex functions&lt;/li&gt;
-      &lt;li&gt;Risky technology&lt;/li&gt;
-      &lt;li&gt;Primary line of business process&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;step-4--define-use-cases&quot;&gt;Step 4 : Define Use Cases&lt;/h4&gt;
-&lt;ul&gt;
-  &lt;li&gt;In general, define one EBP-level (or user goals) use case for each user goal&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h5 id=&quot;how-to-do-it&quot;&gt;How to do it&lt;/h5&gt;
-&lt;ol&gt;
-  &lt;li&gt;For each Use Case : Write the simple case - &lt;strong&gt;Goal Delivers&lt;/strong&gt;
-    &lt;ul&gt;
-      &lt;li&gt;The main success scenario, the happy day case. ( 각각의 UC 에 대해 정해야 함 )
-        &lt;ul&gt;
-          &lt;li&gt;Easiest to read and understand, Everything else is a complication on this.&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;Capture each actor’s intent and responsibility, from trigger to goal delivery
-        &lt;ul&gt;
-          &lt;li&gt;Say what information passes between them, Number each line&lt;br /&gt;&lt;br /&gt;RESULT : &lt;strong&gt;Readable description of system’s function&lt;/strong&gt;&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Write failure conditions as extensions
-    &lt;ul&gt;
-      &lt;li&gt;Usually, each step can fail.&lt;/li&gt;
-      &lt;li&gt;Note the failure condition separately, after the main&lt;br /&gt;
-success scenario&lt;/li&gt;
-      &lt;li&gt;RESULT : &lt;strong&gt;list of alternate scenarios&lt;/strong&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Follow the failure till it ends or rejoins
-    &lt;ul&gt;
-      &lt;li&gt;Recoverable extensions rejoin main course.&lt;/li&gt;
-      &lt;li&gt;Non-recoverable extensions fail directly.&lt;/li&gt;
-      &lt;li&gt;Each scenario goes from trigger to completion&lt;/li&gt;
-      &lt;li&gt;RESULT : &lt;strong&gt;Complete use case&lt;/strong&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3 id=&quot;essential-vs-concrete-use-cases&quot;&gt;Essential VS Concrete Use Cases&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Essential use cases are expanded use cases that are expressed in an ideal&lt;/strong&gt; ( 무엇을 할 것인가 )&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Concrete use cases concretely describes the process in terms of its real current design&lt;/strong&gt; ( 무엇을 어떻게 할 것인가 )&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;처음 Request 분석 : Essential ( Reusable )&lt;/strong&gt;&lt;br /&gt;&lt;strong&gt;나중 점점 진행 : Concrete 으로 진행 ( non Reusable )&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;use-case-diagram&quot;&gt;Use Case Diagram&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;A use case diagram is a diagram that shows a set of &lt;strong&gt;use cases&lt;/strong&gt; and &lt;strong&gt;actors&lt;/strong&gt; and their &lt;strong&gt;relationships&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;UML modeling elements
-    &lt;ul&gt;
-      &lt;li&gt;&lt;strong&gt;Use Cases&lt;/strong&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;Actors&lt;/strong&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;Dependency, generalization, and association relationships&lt;/strong&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/UseCaseDiagram.png&quot; alt=&quot;screenshot&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;use-cases-within-a-development-process&quot;&gt;Use Cases Within a Development Process&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Analysis phase&lt;/strong&gt;
-    &lt;ul&gt;
-      &lt;li&gt;Write expanded essential use cases for those currently being tackled, if not already done&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Design phase&lt;/strong&gt;
-    &lt;ul&gt;
-      &lt;li&gt;Write real use cases for those currently being tackled, if not already done&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;use-cases---why&quot;&gt;Use Cases - Why?&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;User Actor 의 Goal 과 System Actor 의 Functional Requirement 를 파악하기 위해 Use Case 사용&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;To give concrete examples of what we are supposed to be implementing&lt;/li&gt;
-  &lt;li&gt;A basis for an agreement between the clients and the developers&lt;/li&gt;
-  &lt;li&gt;A tool to make vague requirements more concrete&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;A source for object analysis&lt;/strong&gt; ( Domain Analysis 의 Basic Step - Source 역할 )&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;A source for the functionality of the system&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;A unit for iterative &amp;amp; incremental software development&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;The first version of the user’s guide&lt;/strong&gt; ( Use Case == User’s Guide )&lt;/li&gt;
-  &lt;li&gt;The basis of system testing&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-				<pubDate>Tue, 18 Apr 2017 00:00:00 +0900</pubDate>
-				<link>http://localhost:4000/2017/04/UP-Development-1.-Inception-3</link>
-				<guid isPermaLink="true">http://localhost:4000/2017/04/UP-Development-1.-Inception-3</guid>
 			</item>
 		
 	</channel>

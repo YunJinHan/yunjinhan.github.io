@@ -2,7 +2,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>JinHan's Blog | Spelling Correction </title>
+  <title>JinHan's Blog | Unranked Retrieval Evaluation </title>
   <meta name="theme-color" content="#222222" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="/js/jquery.min.js"></script>
@@ -68,11 +68,11 @@
             <div class="col-md-8">
               <div class="article">
                 <div class="well">
-                  <h1><a href="/2017/04/spelling-correction">Spelling Correction</a></h1>
+                  <h1><a href="/2017/05/Unranked-Retrieval-Evaluation-Precision-and-Recall">Unranked Retrieval Evaluation</a></h1>
                   <div class="post-meta">
                     <div class="post-time">
                       <i class="fa fa-calendar"></i>
-                      <time>10 Apr 2017</time>
+                      <time>24 May 2017</time>
                     </div>
                     <ul>
                       
@@ -82,113 +82,112 @@
                   </div>
                   <div class="post-content">
                     <div id="toc" class="toc"></div>
-                    <h1 id="spelling-correction">Spelling Correction</h1>
+                    <h1 id="unranked-retrieval-evaluation">Unranked Retrieval Evaluation</h1>
 
-<h3 id="--isolated-word">- Isolated Word</h3>
-<ul>
-  <li>Check each word on its own for misspelling</li>
-  <li>Will not catch typos resulting in correctly spelled words<br />( from -&gt; form 둘 다 존재하는 단어이기 때문에 무엇이 맞는지 모른다. )</li>
-  <li>So cannot find correctly spelled words</li>
-</ul>
+<h2 id="precision-and-recall">Precision and Recall</h2>
+<h3 id="precision--정확도---fraction-of-retrieved-docs-that-are-relevant-p--relevant--retrieved">Precision ( 정확도 ) : Fraction of retrieved docs that are relevant<br /> P = relevant / retrieved</h3>
 
-<h3 id="--context-sensitive">- Context Sensitive</h3>
-<ul>
-  <li>Look at surrounding words</li>
-  <li>Complexity</li>
-</ul>
+<p>Relevant : 검색결과에 포함된 것<br />
+Retrieved : 검색결과와 관련된 것</p>
 
-<h2 id="isolated-word-correction">Isolated Word Correction</h2>
+<h3 id="recall--fraction-of-relevant-docs-that-are-retrieved-p--retrieved--relevant">Recall : Fraction of relevant docs that are retrieved<br /> P = retrieved / relevant</h3>
+
+<p><img src="http://localhost:4000/assets/precision_recall.png" alt="screenshot" /></p>
+
+<p>tp : ture positive / fp : false positive<br /><br />
+fn : false negative / tn : ture negative<br /><br /><br />
+ture : is relevant / false : is not relevant<br /><br />
+positive : include docs / negative : do not include docs</p>
+
+<h2 id="precisionk">Precision@K</h2>
 <ul>
-  <li>Fundamental premise - there is a lexicon from which the correct speelings come</li>
-  <li>Two basic choices for this
+  <li>Set a rank threshold K</li>
+  <li>Compute % relevant in top K</li>
+  <li>Ignores docs ranked lower than K</li>
+  <li>Example )
     <ul>
-      <li><strong>A Standard Lexicon</strong><br />( 사전에 있는 단어인지 체크 후 없다면 비슷한 단어로 고침 )</li>
-      <li><strong>The Lexicon of the indexed corpus</strong></li>
+      <li><img src="http://localhost:4000/assets/precision_ex.png" alt="screenshot" /></li>
+      <li>Prec@3 : 2/3 ( top 3개의 docs 중 몇 개가 relevant 한 docs 인가 )</li>
+      <li>Prec@4 : 2/4</li>
+      <li>Prec@5 : 3/5</li>
     </ul>
   </li>
 </ul>
 
-<h4 id="--3-kinds-of-several-alternatives">- 3 kinds of several alternatives</h4>
+<h2 id="recallk">Recall@K</h2>
 <ul>
-  <li><strong>Edit Distance (Levenshtein Distance)</strong></li>
-  <li><strong>Weighted Edit Distance</strong></li>
-  <li><strong>N-gram overlap</strong></li>
-</ul>
-
-<h2 id="-edit-distance-">&lt; Edit Distance &gt;</h2>
-<ul>
-  <li>Give two strings S1 and S2, the minimum number of operations to convert one to the other</li>
-  <li>Operations are typically character-level<br /><strong>Insert, Delete, Replace</strong></li>
-</ul>
-
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript">				<span class="nx">Edit</span> <span class="nx">Distance</span>
-<span class="nx">dof</span> <span class="p">,</span> <span class="nx">dog</span> <span class="o">==&gt;</span>		  <span class="mi">1</span>
-<span class="nx">cat</span> <span class="p">,</span> <span class="nx">act</span> <span class="o">==&gt;</span>		  <span class="mi">2</span>
-<span class="nx">cat</span> <span class="p">,</span> <span class="nx">dog</span> <span class="o">==&gt;</span>		  <span class="mi">3</span></code></pre></figure>
-
-<ul>
-  <li>Generally found by <strong>Dynamic Programming</strong></li>
-</ul>
-
-<h3 id="--levenshtein">- Levenshtein</h3>
-<ul>
-  <li>Edit Distance Metrics
+  <li>Example )
     <ul>
-      <li>Distance is shortest sequence of edit commands that transform s to t.</li>
-    </ul>
-  </li>
-  <li>Simplest set of operations
-    <ul>
-      <li>Copy char from s over to t</li>
-      <li>Delete char in s ( cost 1 )</li>
-      <li>Insert char in t ( cost 1 )</li>
+      <li><img src="http://localhost:4000/assets/precision_ex.png" alt="screenshot" /></li>
+      <li>R (relevant docs) = 3 개</li>
+      <li>R@3 = 2/3 (relevant docs 중 몇 개가 relevant 한 docs 인가)</li>
+      <li>R@4 = 2/3</li>
     </ul>
   </li>
 </ul>
 
-<p><img src="http://localhost:4000/assets/Levenshtein.png" alt="screenshot" /></p>
+<h2 id="precision---recall-curve">Precision - Recall Curve</h2>
+<p><img src="http://localhost:4000/assets/precision_recall_curve.png" alt="screenshot" /></p>
 
-<h4 id="--dynamic-algorithm">- Dynamic Algorithm</h4>
+<p>검색 엔진이 좋은 경우 : 빨간 선<br />
+검색 엔진이 나쁜 경우 : 노란 선</p>
 
-<p><img src="http://localhost:4000/assets/Levenshtein2.png" alt="screenshot" /></p>
+<h2 id="mean-average-precision">Mean Average Precision</h2>
+<ul>
+  <li>Consider rank position of each <strong>Relevant</strong> docs</li>
+  <li>Compute Precision@K for each K1, K2, … Kr</li>
+  <li>
+    <p><strong>Average Precision = average of P@K</strong></p>
 
-<p>==&gt; <strong>d(s(i),t(j))</strong> : s(i) 와  t(j) 를  비교하여 같다면 <strong>0</strong> 다르다면  <strong>1</strong> 를 가진다.</p>
+    <p><strong>K = 3</strong></p>
+  </li>
+</ul>
 
-<p><img src="http://localhost:4000/assets/editDistanceAlgorithm.png" alt="screenshot" /></p>
+<p><img src="http://localhost:4000/assets/MAP.png" alt="screenshot" /></p>
 
-<p>==&gt; <strong>this algorithm has O(m-n) time Complexity</strong><br /><br />
-==&gt; <strong>c(s(i),t(j))</strong> : a(i) 와  b(j) 를  비교하여 같다면 <strong>0</strong> 다르다면  <strong>1</strong> 를 가진다.</p>
+<ul>
+  <li>MAP is Average Precision across multiple queries / rankings</li>
+</ul>
 
-<p><img src="http://localhost:4000/assets/editDistanceEx.png" alt="screenshot" /></p>
+<h3 id="average-precision">Average Precision</h3>
+
+<p><img src="http://localhost:4000/assets/average precision.png" alt="screenshot" /></p>
+
+<pre>
+&lt; Ranking #1 &gt;
+# of docs = 10
+# of relevant docs = 6
+
+R@1 = 1/6
+R@2 = 1/6
+R@3 = 2/6
+R@4 = 3/6
+R@5 = 4/6
+R@6 = 5/6
+R@7 = 5/6
+R@8 = 5/6
+R@9 = 5/6
+R@10 = 6/6
+
+P@1 = 1
+P@2 = 0.5
+P@3 = 0.67
+P@4 = 0.75
+P@5 = 0.8
+P@6 = 0.83
+P@7 = 0.71
+P@8 = 0.625
+P@9 = 0.56
+P@10 = 0.6
+
+Ranking#1 is better than Ranking#2
+
+--&gt; Mean Average Precision = ( 0.78 + 0.52 ) / 2 = 0.65
+</pre>
+
+<p><strong>보통 Relevant 의 Precision 만으로 평균을 낸다.</strong></p>
 
                     
-
-<div class="share-bar">
-  <ul class="share-buttons">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <li class="share-envelope">
-      <a href="mailto:?&subject=Spelling Correction&body=Spelling Correction http://localhost:4000/2017/04/spelling-correction" target="_blank" title="Email">
-        <span class="fa-stack fa-lg">
-          <i class="fa fa-circle-thin fa-stack-2x"></i>
-          <i class="fa fa-envelope-o fa-stack-1x"></i>
-        </span>
-      </a>
-    </li>
-    
-
-  </ul>
-</div>
-
 
                   </div>
                   
