@@ -2,7 +2,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>JinHan's Blog | Object-Oriented Software Development Process </title>
+  <title>JinHan's Blog | Unranked Retrieval Evaluation </title>
   <meta name="theme-color" content="#222222" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="/js/jquery.min.js"></script>
@@ -68,81 +68,86 @@
             <div class="col-md-8">
               <div class="article">
                 <div class="well">
-                  <h1><a href="/2017/03/object-oriented-software-development-Process">Object-Oriented Software Development Process</a></h1>
+                  <h1><a href="/2017/05/Unranked-Retrieval-Evaluation-Discounted-Cumulative-Gain">Unranked Retrieval Evaluation</a></h1>
                   <div class="post-meta">
                     <div class="post-time">
                       <i class="fa fa-calendar"></i>
-                      <time>09 Mar 2017</time>
+                      <time>31 May 2017</time>
                     </div>
                     <ul>
                       
-                        <li><a href="/tag/Object-Oriented-Programming">Object-Oriented-Programming</a></li>
+                        <li><a href="/tag/Information_Retrieval">Information_Retrieval</a></li>
                       
                     </ul>
                   </div>
                   <div class="post-content">
                     <div id="toc" class="toc"></div>
-                    <h1 id="object-oriented-software-development-process">Object-Oriented Software Development Process</h1>
+                    <h1 id="unranked-retrieval-evaluation">Unranked Retrieval Evaluation</h1>
 
-<h2 id="3-points-of-successful-software">3 Points of successful software</h2>
-<h4 id="1-a-successful-software-product-must-satisfy-the-stakeholders-requirements">1. A successful software product must satisfy the stakeholder’s <strong>Requirements</strong>.</h4>
-<h4 id="2-a-successful-software-product-must-be-developed-on-time-and-on-budget">2. A successful software product must be developed <strong>on time</strong> and <strong>on budget</strong>.</h4>
-<h4 id="3-a-successful-software-product-must-be-resilient-to-change">3. A successful software product must be resilient to <strong>change</strong>.</h4>
+<h2 id="discounted-cumulative-gain">Discounted Cumulative Gain</h2>
+<ul>
+  <li>
+    <p>Popular measure for evaluating web search and related tasks</p>
+  </li>
+  <li>Two Assumptions
+    <ul>
+      <li>
+        <p>Highly relevant documents are more useful than marginally relevant documents</p>
+      </li>
+      <li>
+        <p>the lower the ranked position of a relevant document, the less useful it is for the user, since it is less likely to be examined</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Gain is accumulated starting at the top of the ranking and may be reduced, or discounted, at lower ranks</strong></p>
+  </li>
+  <li><strong>Typical discount is 1/log (rank)</strong></li>
+</ul>
 
-<h2 id="why-do-we-need-software-engineering">Why do we need software engineering?</h2>
-<h4 id="1-increasing-size-of-software-product">1. Increasing Size of Software product.</h4>
-<h4 id="2-increasing-complexity-of-software-product">2. Increasing Complexity of Software product.</h4>
+<p><img src="http://localhost:4000/assets/DCG.png" alt="screenshot" /></p>
 
-<h3 id="a-development-process-defines-who-is-doing-what-when-and-how-to-reach-a-certain-goal">A development process defines <strong>WHO</strong> is doing <strong>WHAT</strong>, <strong>WHEN</strong> and <strong>HOW</strong> to reach a certain goal.</h3>
+<p>Cumulative Gain (CG) at rank n<br />
+ n =&gt; # of docs</p>
 
-<h2 id="basic-workflows-or-disciplines-in-a-process">Basic workflows (or disciplines) in a process</h2>
-<h4 id="1-analysis">1. Analysis</h4>
-<h4 id="2-design">2. Design</h4>
-<h4 id="3-implementation">3. Implementation</h4>
-<h4 id="4-testing---test-code-is-very-important">4. Testing -&gt; (test code is very important!)</h4>
+<p>r1, r2, …rn  = score of benchmarking docs ( search engine 이 찾은 순서 )</p>
 
-<h2 id="problems-in-conventional-software-development">Problems in Conventional Software Development</h2>
-<h4 id="1-long-delays">1. Long delays</h4>
-<h4 id="2-high-development-cost">2. High development cost</h4>
-<h4 id="3-high-cancellation-rate">3. High cancellation rate</h4>
-<h4 id="4-low-quality">4. Low quality</h4>
-<h4 id="5-high-maintenance-cost">5. High maintenance cost</h4>
+<p>Discounted Cumulative Gain (DCG) = &gt; 높은 rank 에게 작은 log 값을 부여한다.</p>
 
-<h2 id="waterfall-model-problems">WaterFall Model Problems</h2>
-<h4 id="1-requirements-cant-be-fairly-accurate">1. Requirements can’t be Fairly Accurate.</h4>
-<h4 id="2-requirements-arent-stable">2. Requirements aren’t Stable.</h4>
-<h4 id="3-design-cant-be-done-before-programming">3. Design can’t be Done, before Programming.</h4>
+<pre>
+Ex) D1 , 3 / D2 , 4 / D3 , 5
 
-<p>~ page 17</p>
+-&gt; sequence case
+
+r1 = 3 r2 = 4 r3 = 5
+CG = r1 + r2 + r3 = 3 + 4 + 5 = 12
+DCG = r1 + r2/log2 + r3/log3 = 3 + 4 + 5/log3 = 7 + 5/log3
+
+
+Optimal case
+
+r1 =5 r2 = 4 r3 =3
+CG = r1 + r2 + r3 = 5 + 4 + 3 = 12
+DCG = r1 + r2/log2 + r3/log3 = 5 + 4/log2 + 3/log3 = 9 + 3/log3
+</pre>
+
+<p><img src="http://localhost:4000/assets/DCG2.png" alt="screenshot" /></p>
+
+<p><img src="http://localhost:4000/assets/DCG3.png" alt="screenshot" /></p>
+
+<h2 id="normalized-discounted-cumulative-gain">Normalized Discounted Cumulative Gain</h2>
+<ul>
+  <li>
+    <p>Normalize DCG at rank n by the DCG value at rank n of the ideal ranking</p>
+  </li>
+  <li>
+    <p>The ideal ranking would first return the documents with the highest relevance level, then the next highest relevance level</p>
+  </li>
+</ul>
+
+<p><img src="http://localhost:4000/assets/NDCG.png" alt="screenshot" /></p>
 
                     
-
-<div class="share-bar">
-  <ul class="share-buttons">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <li class="share-envelope">
-      <a href="mailto:?&subject=Object-Oriented Software Development Process&body=Object-Oriented Software Development Process http://localhost:4000/2017/03/object-oriented-software-development-Process" target="_blank" title="Email">
-        <span class="fa-stack fa-lg">
-          <i class="fa fa-circle-thin fa-stack-2x"></i>
-          <i class="fa fa-envelope-o fa-stack-1x"></i>
-        </span>
-      </a>
-    </li>
-    
-
-  </ul>
-</div>
-
 
                   </div>
                   
