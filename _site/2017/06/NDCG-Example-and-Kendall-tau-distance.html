@@ -2,7 +2,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>JinHan's Blog | Object-Oriented Paradigm </title>
+  <title>JinHan's Blog | NDCG Exercise and Kendall tau distance </title>
   <meta name="theme-color" content="#222222" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="/js/jquery.min.js"></script>
@@ -68,98 +68,56 @@
             <div class="col-md-8">
               <div class="article">
                 <div class="well">
-                  <h1><a href="/2017/03/oOP-concepts">Object-Oriented Paradigm</a></h1>
+                  <h1><a href="/2017/06/NDCG-Example-and-Kendall-tau-distance">NDCG Exercise and Kendall tau distance</a></h1>
                   <div class="post-meta">
                     <div class="post-time">
                       <i class="fa fa-calendar"></i>
-                      <time>09 Mar 2017</time>
+                      <time>07 Jun 2017</time>
                     </div>
                     <ul>
                       
-                        <li><a href="/tag/Object-Oriented-Programming">Object-Oriented-Programming</a></li>
+                        <li><a href="/tag/Information_Retrieval">Information_Retrieval</a></li>
                       
                     </ul>
                   </div>
                   <div class="post-content">
                     <div id="toc" class="toc"></div>
-                    <h2 id="object-oriented-paradigm-builds-on-three-import-concepts">Object-Oriented Paradigm builds on three import concepts</h2>
+                    <h2 id="ndcg-exercise">NDCG Exercise</h2>
+<p><img src="http://localhost:4000/assets/NDCG_Exercise.png" alt="test" /></p>
+
 <ol>
-  <li><strong>Objcets</strong></li>
-  <li><strong>Classes</strong></li>
-  <li><strong>Inheritance</strong></li>
-  <li>(Additional) <strong>Polymorphism</strong></li>
+  <li>System1 MAP : (1/1 + 2/3 + 3/9 + 4/10) * 1/4</li>
+  <li>System2 MAP : (1/2 + 2/5 + 3/6 + 4/7) * 1/4<br /><strong>System1 has higher MAP than System2</strong></li>
+  <li>System1 DCG : 1 + 1/log3 + 1/log9 + 1/log10</li>
+  <li>System2 DCG : 1 + 1/log5 + 1/log6 + 1/log7</li>
+  <li>MaxDCG ( R 을 전부 앞으로 옮긴 후 계산 ) : 1 + 1/log2 + 1/log3 + 1/log4</li>
+  <li>NDCG = DCG / MaxDCG</li>
 </ol>
 
-<h2 id="objects-have-attributes-that-help-describe-them">Objects have <strong>attributes</strong> that help describe them</h2>
+<h2 id="kendall-tau-distance">Kendall Tau Distance</h2>
+<p>X is agree key / Y is disagree key</p>
 
-<h2 id="objects-have-externally-observable-behaviors">Objects have externally observable behaviors</h2>
-<p>aka <strong>Services - 사용자관점</strong> or <strong>Responsibilites - 객체관점(Interface, Type)</strong></p>
+<ul>
+  <li><strong>X + Y is size of benchmark data</strong></li>
+</ul>
 
-<h2 id="encapsulating-state-of-object-rather-than-expose-it-is-good-engineering">Encapsulating state of object rather than expose it is good engineering</h2>
-<p>Encapsulation : separatino of inerface from implementation<br />
-<br /><br />
-<img src="http://localhost:4000/assets/encapsulation.jpg" alt="screenshot" /><br />
-<br /><br />
--&gt; don’t need to know how object will perform actions,<br /><br />
-   But need to know what messages it will understand</p>
+<p>–&gt; Kendall tau distance : (X-Y) / (X+Y)</p>
 
-<h2 id="objects-have-unique-identities">Objects have <strong>Unique Identities</strong></h2>
-<p>Identity is property of object distinguishes itself from all other objects<br /><br />
--&gt; Don’t confuse between the name (or handle) of object and object itself</p>
+<p>1 is <strong>Maximum</strong> value and -1 is <strong>Minimun</strong> value</p>
 
-<h2 id="objects-communicate-by-sending-messages-request-for-action">Objects communicate by sending <strong>Messages (Request for action)</strong></h2>
-<p>Objects perform actions by making requests of each other through <strong>messages</strong><br /><br />
-there is a designated <strong>Receiver (or target)</strong> that accepts the messages<br /><br />
-the actual behavior performed by the receiver may be different,<br /><br />
-depending upon the <strong>Type</strong> of the <strong>Receiver</strong> =&gt; <strong>Polymorphrism</strong><br /><br />
-<em>(상속관계에 있는 polymorphrism 은 pure polymorphrism -&gt; 대부분의 polymorphrism)</em><br /><br />
-<em>(Method overloading -&gt; Ad hoc polymorphrism)</em></p>
+<p>Example)</p>
+<pre>
+p = { (1,2) , (1,3) , (1,4) , (2,3) , (2,4) , (3,4) }
+(1,2) means 1 is better than 2
+A = ( 1 , 3 , 2 , 4 )
+==&gt; X = 5 , Y = 1 ( p 에서 맞는 것 5개 틀린 것 1개 )
+Kendall tau distance : (X-Y) / (X+Y) = 4 / 6 = 2/3
+</pre>
 
-<h2 id="ask-not-what-you-can-do-to-objects-but-ask-what-objects-can-do-for-you">Ask not what you can do to objects, but Ask what objects can do for you</h2>
-
-<h2 id="class-is-a-group-of-ojbects-with-similar-attributes-and-behavior">Class is a group of ojbects with similar <strong>attributes</strong> and <strong>behavior</strong></h2>
-
-<p>Class is a <strong>Repository</strong> for behavior and<br /><br />
-the internal representation of the associated objects<br />
-————</p>
-
-<h2 id="objects-are-created-from-classes-through-the-process-of-instantiation실체화">Objects are created from classes through the process of <strong>Instantiation(실체화)</strong></h2>
-
-<h2 id="objects-are-actual-instances-of-a-class">Objects are actual <strong>Instances</strong> of a class</h2>
-<p>Classes are factories and objects are products from the factory<br /><br />
--&gt; the terms <strong>instance</strong> and <strong>object</strong> are <strong>interchangeable</strong></p>
-
-<h2 id="object-can-have-many-types--ojects-of-different-classes-can-have-same-type">Object can have many types / Ojects of different classes can have same type</h2>
-
+<h2 id="kendall-tau-distance-exercise">Kendall Tau Distance Exercise</h2>
+<p><img src="http://localhost:4000/assets/kendall_Exercise.png" alt="test" /></p>
 
                     
-
-<div class="share-bar">
-  <ul class="share-buttons">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <li class="share-envelope">
-      <a href="mailto:?&subject=Object-Oriented Paradigm&body=Object-Oriented Paradigm http://localhost:4000/2017/03/oOP-concepts" target="_blank" title="Email">
-        <span class="fa-stack fa-lg">
-          <i class="fa fa-circle-thin fa-stack-2x"></i>
-          <i class="fa fa-envelope-o fa-stack-1x"></i>
-        </span>
-      </a>
-    </li>
-    
-
-  </ul>
-</div>
-
 
                   </div>
                   
