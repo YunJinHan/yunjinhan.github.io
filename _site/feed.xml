@@ -7,6 +7,58 @@
 		<atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
+				<title>Blocking NonBlocking Synchronous Asychronous</title>
+				<description>&lt;h1 id=&quot;blocking--nonblocking&quot;&gt;Blocking / NonBlocking&lt;/h1&gt;
+
+&lt;h2 id=&quot;-blocking&quot;&gt;@ Blocking&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Waiting for System call’s completion&lt;/li&gt;
+  &lt;li&gt;Return with data ( 실행된 결과 )&lt;/li&gt;
+  &lt;li&gt;Waiting in a wating Queue&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;-nonblocking&quot;&gt;@ NonBlocking&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Immediate return&lt;/li&gt;
+  &lt;li&gt;Return with data ( 실행된 결과 )&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;블러킹과 논블러킹의 차이점은 블러킹은 대기큐에 들어가고 시스템 콜이 완료되길 기다리며 해당 기다리는 동안은 어떤일도 하지 못한다는 점이고, 논블러킹은 대기큐에 들어가지 않으며 시스템 콜이 완료되길 기다리지 않고 빠르게 다음일을 수행한다는 점이다.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;synchronous--asynchronous&quot;&gt;Synchronous / Asynchronous&lt;/h1&gt;
+
+&lt;h2 id=&quot;-sysnchronous&quot;&gt;@ Sysnchronous&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Waiting for System call’s completion&lt;/li&gt;
+  &lt;li&gt;Return with data ( 실행된 결과 )&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;-asynchronous&quot;&gt;@ Asynchronous&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Immediate return&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;동기와 비동기의 차이점은 블러킹과 논블러킹과 유사하게 동기는 시스템 콜이 완료되길 기다리며 해당 기다리는 동안은 어떤일도 하지 못하며 시스템 콜이 리턴될때 데이터와 함께 리턴되고, 비동기는 기다리지 않고 다음일을 바로 수행 후 데이터가 함께오지 않는 리턴만을 인지한다는 점이다&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;blocking-vs-synchronous&quot;&gt;Blocking VS Synchronous&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;시스템 콜의 리턴을 기다리는 동안 대기큐에 머무르는 것이 필수이면 Blocking 이며 필수가 아니면 Synchronous 이다&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;nonblocking-vs-asynchronous&quot;&gt;NonBlocking VS Asynchronous&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;시스템 콜이 리턴될때 데이터와 함께 리턴된다면 NonBlocking 이며 그냥 완료 리턴만 온다면 Asynchronous 이다&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+				<pubDate>Fri, 16 Jun 2017 00:00:00 +0900</pubDate>
+				<link>http://localhost:4000/2017/06/Blocking-NonBlocking-Synchronous-Asychronous</link>
+				<guid isPermaLink="true">http://localhost:4000/2017/06/Blocking-NonBlocking-Synchronous-Asychronous</guid>
+			</item>
+		
+			<item>
 				<title>NDCG Exercise and Kendall tau distance</title>
 				<description>&lt;h2 id=&quot;ndcg-exercise&quot;&gt;NDCG Exercise&lt;/h2&gt;
 &lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/NDCG_Exercise.png&quot; alt=&quot;test&quot; /&gt;&lt;/p&gt;
@@ -1130,56 +1182,6 @@ by &lt;b&gt;Happy&lt;/b&gt;
 				<pubDate>Mon, 01 May 2017 03:00:00 +0900</pubDate>
 				<link>http://localhost:4000/2017/05/Angular2-Root-Module</link>
 				<guid isPermaLink="true">http://localhost:4000/2017/05/Angular2-Root-Module</guid>
-			</item>
-		
-			<item>
-				<title>Angular2 Module</title>
-				<description>&lt;h1 id=&quot;angular2-module&quot;&gt;Angular2 Module&lt;/h1&gt;
-&lt;p&gt;Angular 는 타입스크립트 모듈의 구성을 관리할 수 있게 모듈 시스템을 제공한다.&lt;br /&gt;&lt;br /&gt;
-Angular 는 여러 모듈로 구성된 하나의 모듈 집합으로 볼 수 있다.&lt;/p&gt;
-
-&lt;h3 id=&quot;주요-angular-라이브러리-모듈&quot;&gt;주요 Angular 라이브러리 모듈&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;@angular/common&lt;/strong&gt; : 파이프, 구조지시자, 속성지시자와 관련된 모듈 포함&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;@angular/core&lt;/strong&gt; : Angular 를 구성하는 주요 요소의 장식자 및 핵심 모듈을 포함&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;@angular/forms&lt;/strong&gt; : 폼 관련 모듈이나 지시자를 포함&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;@angular/http&lt;/strong&gt; : HTTP 통신과 관련된 모듈을 포함&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;@angular/platfrom-browser&lt;/strong&gt; : 브라우져 모듈, DOM sanitizer 등 브라우저와 관련된 모듈 포함&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;@angular/router&lt;/strong&gt; : 라우터 관련 모듈이나 지시자 포함&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;@angular/testing&lt;/strong&gt; : 테스팅 관련 모듈 포함&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kr&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Message&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-	&lt;span class=&quot;nx&quot;&gt;sayHello&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-		&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Hello&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;kr&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;DISTRICT&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;District&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
-	&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'서울'&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'부산'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-&lt;span class=&quot;kr&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;echo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;msg&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-	&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;===&amp;gt; hello.module.ts&lt;/p&gt;
-
-&lt;h4 id=&quot;외부로-공개할-모듈은-export-를-이용하여-선언한다export-키워드로-선언하면-다른-모듈에서-해당-모듈로-접근-가능한-상태가-된다&quot;&gt;외부로 공개할 모듈은 export 를 이용하여 선언한다.&lt;br /&gt;export 키워드로 선언하면 다른 모듈에서 해당 모듈로 접근 가능한 상태가 된다.&lt;/h4&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kr&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;DISTRICT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'./hello.module'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h4 id=&quot;export-키워드로-공개-설정된-모듈을-모두-사용하려면-import-키워드를-이용해-사용한다&quot;&gt;export 키워드로 공개 설정된 모듈을 모두 사용하려면 Import 키워드를 이용해 사용한다.&lt;/h4&gt;
-
-&lt;h4 id=&quot;-angular-모듈-종류-&quot;&gt;&amp;lt; Angular 모듈 종류 &amp;gt;&lt;/h4&gt;
-&lt;ol&gt;
-  &lt;li&gt;&lt;strong&gt;루트 모듈&lt;/strong&gt; : 최상위 모듈을 통해 애플리케이션 모듈을 구성&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;특징 모듈&lt;/strong&gt; : 단위 애플리케이션을 구성하는 모듈&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;공유 모둘&lt;/strong&gt; : 다르 모듈에 포함되어 동작하는 모듈&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;핵심 모듈&lt;/strong&gt; : 항상 동작할 필요가 있거나 애플리케이션 전체적인 동작에 핵심적인 역할을 하는 모듈&lt;/li&gt;
-&lt;/ol&gt;
-</description>
-				<pubDate>Mon, 01 May 2017 01:00:00 +0900</pubDate>
-				<link>http://localhost:4000/2017/05/Angular2-Module</link>
-				<guid isPermaLink="true">http://localhost:4000/2017/05/Angular2-Module</guid>
 			</item>
 		
 	</channel>

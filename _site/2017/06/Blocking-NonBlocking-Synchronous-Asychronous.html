@@ -2,7 +2,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>JinHan's Blog | Object-Oriented Software Development Process </title>
+  <title>JinHan's Blog | Blocking NonBlocking Synchronous Asychronous </title>
   <meta name="theme-color" content="#222222" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="/js/jquery.min.js"></script>
@@ -68,52 +68,64 @@
             <div class="col-md-8">
               <div class="article">
                 <div class="well">
-                  <h1><a href="/2017/03/object-oriented-software-development-Process">Object-Oriented Software Development Process</a></h1>
+                  <h1><a href="/2017/06/Blocking-NonBlocking-Synchronous-Asychronous">Blocking NonBlocking Synchronous Asychronous</a></h1>
                   <div class="post-meta">
                     <div class="post-time">
                       <i class="fa fa-calendar"></i>
-                      <time>09 Mar 2017</time>
+                      <time>16 Jun 2017</time>
                     </div>
                     <ul>
                       
-                        <li><a href="/tag/Object-Oriented-Programming">Object-Oriented-Programming</a></li>
+                        <li><a href="/tag/NodeJS">NodeJS</a></li>
                       
                     </ul>
                   </div>
                   <div class="post-content">
                     <div id="toc" class="toc"></div>
-                    <h1 id="object-oriented-software-development-process">Object-Oriented Software Development Process</h1>
+                    <h1 id="blocking--nonblocking">Blocking / NonBlocking</h1>
 
-<h2 id="3-points-of-successful-software">3 Points of successful software</h2>
-<h4 id="1-a-successful-software-product-must-satisfy-the-stakeholders-requirements">1. A successful software product must satisfy the stakeholder’s <strong>Requirements</strong>.</h4>
-<h4 id="2-a-successful-software-product-must-be-developed-on-time-and-on-budget">2. A successful software product must be developed <strong>on time</strong> and <strong>on budget</strong>.</h4>
-<h4 id="3-a-successful-software-product-must-be-resilient-to-change">3. A successful software product must be resilient to <strong>change</strong>.</h4>
+<h2 id="-blocking">@ Blocking</h2>
+<ul>
+  <li>Waiting for System call’s completion</li>
+  <li>Return with data ( 실행된 결과 )</li>
+  <li>Waiting in a wating Queue</li>
+</ul>
 
-<h2 id="why-do-we-need-software-engineering">Why do we need software engineering?</h2>
-<h4 id="1-increasing-size-of-software-product">1. Increasing Size of Software product.</h4>
-<h4 id="2-increasing-complexity-of-software-product">2. Increasing Complexity of Software product.</h4>
+<h2 id="-nonblocking">@ NonBlocking</h2>
+<ul>
+  <li>Immediate return</li>
+  <li>Return with data ( 실행된 결과 )</li>
+</ul>
 
-<h3 id="a-development-process-defines-who-is-doing-what-when-and-how-to-reach-a-certain-goal">A development process defines <strong>WHO</strong> is doing <strong>WHAT</strong>, <strong>WHEN</strong> and <strong>HOW</strong> to reach a certain goal.</h3>
+<p><strong>블러킹과 논블러킹의 차이점은 블러킹은 대기큐에 들어가고 시스템 콜이 완료되길 기다리며 해당 기다리는 동안은 어떤일도 하지 못한다는 점이고, 논블러킹은 대기큐에 들어가지 않으며 시스템 콜이 완료되길 기다리지 않고 빠르게 다음일을 수행한다는 점이다.</strong></p>
 
-<h2 id="basic-workflows-or-disciplines-in-a-process">Basic workflows (or disciplines) in a process</h2>
-<h4 id="1-analysis">1. Analysis</h4>
-<h4 id="2-design">2. Design</h4>
-<h4 id="3-implementation">3. Implementation</h4>
-<h4 id="4-testing---test-code-is-very-important">4. Testing -&gt; (test code is very important!)</h4>
+<h1 id="synchronous--asynchronous">Synchronous / Asynchronous</h1>
 
-<h2 id="problems-in-conventional-software-development">Problems in Conventional Software Development</h2>
-<h4 id="1-long-delays">1. Long delays</h4>
-<h4 id="2-high-development-cost">2. High development cost</h4>
-<h4 id="3-high-cancellation-rate">3. High cancellation rate</h4>
-<h4 id="4-low-quality">4. Low quality</h4>
-<h4 id="5-high-maintenance-cost">5. High maintenance cost</h4>
+<h2 id="-sysnchronous">@ Sysnchronous</h2>
+<ul>
+  <li>Waiting for System call’s completion</li>
+  <li>Return with data ( 실행된 결과 )</li>
+</ul>
 
-<h2 id="waterfall-model-problems">WaterFall Model Problems</h2>
-<h4 id="1-requirements-cant-be-fairly-accurate">1. Requirements can’t be Fairly Accurate.</h4>
-<h4 id="2-requirements-arent-stable">2. Requirements aren’t Stable.</h4>
-<h4 id="3-design-cant-be-done-before-programming">3. Design can’t be Done, before Programming.</h4>
+<h2 id="-asynchronous">@ Asynchronous</h2>
+<ul>
+  <li>Immediate return</li>
+</ul>
 
-<p>~ page 17</p>
+<p><strong>동기와 비동기의 차이점은 블러킹과 논블러킹과 유사하게 동기는 시스템 콜이 완료되길 기다리며 해당 기다리는 동안은 어떤일도 하지 못하며 시스템 콜이 리턴될때 데이터와 함께 리턴되고, 비동기는 기다리지 않고 다음일을 바로 수행 후 데이터가 함께오지 않는 리턴만을 인지한다는 점이다</strong></p>
+
+<p><br /><br /><br /></p>
+
+<h2 id="blocking-vs-synchronous">Blocking VS Synchronous</h2>
+<ul>
+  <li><strong>시스템 콜의 리턴을 기다리는 동안 대기큐에 머무르는 것이 필수이면 Blocking 이며 필수가 아니면 Synchronous 이다</strong></li>
+</ul>
+
+<h2 id="nonblocking-vs-asynchronous">NonBlocking VS Asynchronous</h2>
+<ul>
+  <li><strong>시스템 콜이 리턴될때 데이터와 함께 리턴된다면 NonBlocking 이며 그냥 완료 리턴만 온다면 Asynchronous 이다</strong></li>
+</ul>
+
 
                     
 
@@ -131,7 +143,7 @@
 
     
     <li class="share-envelope">
-      <a href="mailto:?&subject=Object-Oriented Software Development Process&body=Object-Oriented Software Development Process http://localhost:4000/2017/03/object-oriented-software-development-Process" target="_blank" title="Email">
+      <a href="mailto:?&subject=Blocking NonBlocking Synchronous Asychronous&body=Blocking NonBlocking Synchronous Asychronous http://localhost:4000/2017/06/Blocking-NonBlocking-Synchronous-Asychronous" target="_blank" title="Email">
         <span class="fa-stack fa-lg">
           <i class="fa fa-circle-thin fa-stack-2x"></i>
           <i class="fa fa-envelope-o fa-stack-1x"></i>
