@@ -2,7 +2,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>JinHan's Blog | Term Document incidences matrix / Inverted index </title>
+  <title>JinHan's Blog | MySQL - Join </title>
   <meta name="theme-color" content="#222222" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="/js/jquery.min.js"></script>
@@ -68,77 +68,139 @@
             <div class="col-md-8">
               <div class="article">
                 <div class="well">
-                  <h1><a href="/2017/03/Incidences-matrix-Inverted-index">Term Document incidences matrix / Inverted index</a></h1>
+                  <h1><a href="/2017/06/mysql-join">MySQL - Join</a></h1>
                   <div class="post-meta">
                     <div class="post-time">
                       <i class="fa fa-calendar"></i>
-                      <time>10 Mar 2017</time>
+                      <time>17 Jun 2017</time>
                     </div>
                     <ul>
                       
-                        <li><a href="/tag/Information_Retrieval">Information_Retrieval</a></li>
+                        <li><a href="/tag/MySQL">MySQL</a></li>
                       
                     </ul>
                   </div>
                   <div class="post-content">
                     <div id="toc" class="toc"></div>
-                    <h1 id="1term-document-incidences-matrix">1.Term Document incidences matrix</h1>
+                    <h1 id="sql-join">SQL Join</h1>
+<p>Inner Join<br />
+—-</p>
 
-<h2 id="using-incidence-vectors-and-boolean-model--bitwise-operation-">Using incidence vectors and Boolean model ( bitwise operation )</h2>
+<h3 id="equi-join-동등-조인">Equi Join (동등 조인)</h3>
+<ul>
+  <li>두개의 테이블을 비교하여 같은 데이터만 불러오는 교집합</li>
+</ul>
 
-<p>ex) Search Word = t[i]</p>
+<p>Example)</p>
+<pre>
+&lt; Table A &gt;
+a b
+- -
+1 a
+2 b
+3 c
+&lt; Table B &gt;
+a b c
+- -
+2 b b
+3 c e
+&lt; Output Table &gt;
+a  b b c
+2  b b b
+3  c c e
+</pre>
+<p>Query1 : <br />
+<strong>select A.a, A.b, B.c from A inner join B on A.a = B.a;</strong><br />Query2 : <strong>select A.a, A.b, B.c from A, B where A.a = B.a;</strong></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>t[1] 과 t[2] 를 포함하고 t[3] 를 포함하지 않는 document 를 찾아라.
+<h3 id="natural-join-자연-조인">Natural Join (자연 조인)</h3>
+<ul>
+  <li>동등 조인과 거의 유사하나 같은 이름을 가진 컬럼은 한 번만 추출한다.</li>
+</ul>
 
-=&gt;		docu 1		docu 2		docu 3
-t[1]	  1			  1		       0
-t[2]	  1			  0			   1
-t[3]	  0			  1			   0
+<pre>
+&lt; Table A &gt;
+a b
+- -
+1 a
+2 b
+3 c
+&lt; Table B &gt;
+a b c
+- -
+2 b b
+3 c e
+&lt; Output Table &gt;
+a  b c
+2  b b
+3  c e
+</pre>
+<p>Query : <br />
+<strong>select A.a, A.b, B.c from A natural join B;</strong></p>
 
--&gt; t[1] 포함 = 110
-   t[2] 포함 = 101
-   t[3] 미포함 = 101 (010 complements)
-   &amp; (AND) operation result = 100
-</code></pre>
-</div>
+<h3 id="cross-join-크로스-조인-or-cartesian-product">Cross Join (크로스 조인 or Cartesian Product)</h3>
+<ul>
+  <li>조인에 참여한 테이블들의 모든 데이터가 추출된다.</li>
+</ul>
 
-<h2 id="incidences-matrix-problem">Incidences matrix problem</h2>
+<p>Query1 : <strong>select * from A cross join B;</strong><br />Query2 : <strong>select * from A, B;</strong></p>
 
-<p>1.  Document 가 많아지면 해당 필요 Bit 가 많아진다. ( <em>Bigger Collections</em> )</p>
+<h2 id="outer-join">Outer Join</h2>
 
-<p>ex) 1,000,000 Document 있을시 10,000,000 bit 필요</p>
+<h3 id="left-outer-join">Left Outer Join</h3>
+<ul>
+  <li>왼쪽 테이블을 기준으로 두개의 테이블을 비교하여, 왼쪽의 데이터가 오른쪽 테이블에 없으면 NULL 로 표현된다.</li>
+</ul>
 
-<p>2.  해당 boolean model 에서 bit 의 낭비가 심하다.</p>
+<p>Example)</p>
+<pre>
+&lt; Table A &gt;
+a b
+- -
+1 a
+2 b
+3 c
+&lt; Table B &gt;
+a c
+- -
+2 b
+3 e
+&lt; Output Table &gt;
+a  b 	c
+1  a 	null
+2  b 	b
+3  c 	e
+</pre>
+<p>Query : <br />
+<strong>select A.a, A.b, B.c from A left outer join B on A.a = B.a;</strong></p>
 
-<p>ex) 보통 1 M bit 중 1000 개의 bit 만이 1의 값을 가짐 ( 0가 많아 공간낭비 )</p>
+<h3 id="right-outer-join">Right Outer Join</h3>
+<ul>
+  <li>오른쪽 테이블을 기준으로 두개의 테이블을 비교하여, 오른쪽의 데이터가 왼쪽 테이블에 없으면 NULL 로 표현된다.</li>
+</ul>
 
-<h1 id="2inverted-index">2.Inverted index</h1>
+<p>Example)</p>
+<pre>
+&lt; Table A &gt;
+a b
+- -
+1 a
+2 b
+3 c
+&lt; Table B &gt;
+a c
+- -
+2 b
+3 e
+&lt; Output Table &gt;
+a  b 	c
+2  b 	b
+3  c 	e
+</pre>
+<p>Query : <br />
+<strong>select A.a, A.b, B.c from A right outer join B on A.a = B.a;</strong></p>
 
-<p>Search Word = t[i] , t[i] 를 포함하는 Document 의 DocId 를 list 에 저장함.</p>
-
-<p>( Identify each document by docId / Size 를 줄이기 위해 document url 대신 docId 사용함. )</p>
-
-<p>How to convert DocId to Url ? =&gt; Hashing or B-Tree</p>
-
-<p>ex) Search Word = t[i]</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>t[1] = { 1, 2, 4, ... }
-t[2] = { 1, 5, 6, ... }
-t[3] = { 7, 13, 15, ... }
-
-t[i] =&gt; Dictionary
-{ ... } =&gt; List ( set of datastructure and has variable length of each list , sort by DocId )
-
-=&gt; 1, 2, 4, ... -&gt; DocId
-
-each one is *Posting*. ( Posting = { DocId, Position of list } )
-</code></pre>
-</div>
-
-<h2 id="inverted-index-problem">Inverted index problem</h2>
-
-<p>1.  List 중간에 DocId 삽입시 overhead 증가 -&gt; B+ Tree 사용</p>
-
+<h1 id="inener--outer-join-의-활용">Inener / Outer Join 의 활용</h1>
+<p><img src="http://localhost:4000/assets/join.png" alt="screenshot" /></p>
 
                     
 
@@ -156,7 +218,7 @@ each one is *Posting*. ( Posting = { DocId, Position of list } )
 
     
     <li class="share-envelope">
-      <a href="mailto:?&subject=Term Document incidences matrix / Inverted index&body=Term Document incidences matrix / Inverted index http://localhost:4000/2017/03/Incidences-matrix-Inverted-index" target="_blank" title="Email">
+      <a href="mailto:?&subject=MySQL - Join&body=MySQL - Join http://localhost:4000/2017/06/mysql-join" target="_blank" title="Email">
         <span class="fa-stack fa-lg">
           <i class="fa fa-circle-thin fa-stack-2x"></i>
           <i class="fa fa-envelope-o fa-stack-1x"></i>

@@ -7,6 +7,133 @@
 		<atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
+				<title>MySQL - Join</title>
+				<description>&lt;h1 id=&quot;sql-join&quot;&gt;SQL Join&lt;/h1&gt;
+&lt;p&gt;Inner Join&lt;br /&gt;
+—-&lt;/p&gt;
+
+&lt;h3 id=&quot;equi-join-동등-조인&quot;&gt;Equi Join (동등 조인)&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;두개의 테이블을 비교하여 같은 데이터만 불러오는 교집합&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Example)&lt;/p&gt;
+&lt;pre&gt;
+&amp;lt; Table A &amp;gt;
+a b
+- -
+1 a
+2 b
+3 c
+&amp;lt; Table B &amp;gt;
+a b c
+- -
+2 b b
+3 c e
+&amp;lt; Output Table &amp;gt;
+a  b b c
+2  b b b
+3  c c e
+&lt;/pre&gt;
+&lt;p&gt;Query1 : &lt;br /&gt;
+&lt;strong&gt;select A.a, A.b, B.c from A inner join B on A.a = B.a;&lt;/strong&gt;&lt;br /&gt;Query2 : &lt;strong&gt;select A.a, A.b, B.c from A, B where A.a = B.a;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;natural-join-자연-조인&quot;&gt;Natural Join (자연 조인)&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;동등 조인과 거의 유사하나 같은 이름을 가진 컬럼은 한 번만 추출한다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;
+&amp;lt; Table A &amp;gt;
+a b
+- -
+1 a
+2 b
+3 c
+&amp;lt; Table B &amp;gt;
+a b c
+- -
+2 b b
+3 c e
+&amp;lt; Output Table &amp;gt;
+a  b c
+2  b b
+3  c e
+&lt;/pre&gt;
+&lt;p&gt;Query : &lt;br /&gt;
+&lt;strong&gt;select A.a, A.b, B.c from A natural join B;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;cross-join-크로스-조인-or-cartesian-product&quot;&gt;Cross Join (크로스 조인 or Cartesian Product)&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;조인에 참여한 테이블들의 모든 데이터가 추출된다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Query1 : &lt;strong&gt;select * from A cross join B;&lt;/strong&gt;&lt;br /&gt;Query2 : &lt;strong&gt;select * from A, B;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;outer-join&quot;&gt;Outer Join&lt;/h2&gt;
+
+&lt;h3 id=&quot;left-outer-join&quot;&gt;Left Outer Join&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;왼쪽 테이블을 기준으로 두개의 테이블을 비교하여, 왼쪽의 데이터가 오른쪽 테이블에 없으면 NULL 로 표현된다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Example)&lt;/p&gt;
+&lt;pre&gt;
+&amp;lt; Table A &amp;gt;
+a b
+- -
+1 a
+2 b
+3 c
+&amp;lt; Table B &amp;gt;
+a c
+- -
+2 b
+3 e
+&amp;lt; Output Table &amp;gt;
+a  b 	c
+1  a 	null
+2  b 	b
+3  c 	e
+&lt;/pre&gt;
+&lt;p&gt;Query : &lt;br /&gt;
+&lt;strong&gt;select A.a, A.b, B.c from A left outer join B on A.a = B.a;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;right-outer-join&quot;&gt;Right Outer Join&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;오른쪽 테이블을 기준으로 두개의 테이블을 비교하여, 오른쪽의 데이터가 왼쪽 테이블에 없으면 NULL 로 표현된다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Example)&lt;/p&gt;
+&lt;pre&gt;
+&amp;lt; Table A &amp;gt;
+a b
+- -
+1 a
+2 b
+3 c
+&amp;lt; Table B &amp;gt;
+a c
+- -
+2 b
+3 e
+&amp;lt; Output Table &amp;gt;
+a  b 	c
+2  b 	b
+3  c 	e
+&lt;/pre&gt;
+&lt;p&gt;Query : &lt;br /&gt;
+&lt;strong&gt;select A.a, A.b, B.c from A right outer join B on A.a = B.a;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;inener--outer-join-의-활용&quot;&gt;Inener / Outer Join 의 활용&lt;/h1&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/join.png&quot; alt=&quot;screenshot&quot; /&gt;&lt;/p&gt;
+</description>
+				<pubDate>Sat, 17 Jun 2017 00:00:00 +0900</pubDate>
+				<link>http://localhost:4000/2017/06/mysql-join</link>
+				<guid isPermaLink="true">http://localhost:4000/2017/06/mysql-join</guid>
+			</item>
+		
+			<item>
 				<title>Blocking NonBlocking Synchronous Asychronous</title>
 				<description>&lt;h1 id=&quot;blocking--nonblocking&quot;&gt;Blocking / NonBlocking&lt;/h1&gt;
 
@@ -1054,134 +1181,6 @@ by &lt;b&gt;Happy&lt;/b&gt;
 				<pubDate>Sun, 07 May 2017 00:00:00 +0900</pubDate>
 				<link>http://localhost:4000/2017/05/Angular2-Core-Module</link>
 				<guid isPermaLink="true">http://localhost:4000/2017/05/Angular2-Core-Module</guid>
-			</item>
-		
-			<item>
-				<title>Angular2 Root Module</title>
-				<description>&lt;h1 id=&quot;angular2-root-module&quot;&gt;Angular2 Root Module&lt;/h1&gt;
-&lt;p&gt;애플리케이션에서 루트 모듈은 애플리케이션에서 최상위 모듈이며 애플리케이션 레벨의 서비스와 컴포넌트, 지시자, 파이프를 선언하거나 특징 모듈이라고 하는 다른 하위 모듈 설정을 포함하기도 한다.&lt;/p&gt;
-
-&lt;p&gt;Angular 애플리케이션은 최소한 하나 이상의 모듈 클래스를 갖는데, 이때 항상 정의되어야 하는 것이 바로 루트 모듈이다. 루트 모듈은 &lt;strong&gt;@NgModule&lt;/strong&gt; 장식자를 이용해 정의하며 선언 형식은 아래와 같다.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;err&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;NgModule&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-	&lt;span class=&quot;na&quot;&gt;imports&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;호출할&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;모듈&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;호출할&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;모듈&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
-	&lt;span class=&quot;na&quot;&gt;exports&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;노출할&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;모듈&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;노출할&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;모듈&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
-	&lt;span class=&quot;na&quot;&gt;declarations&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;사용할&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;구성요소&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;사용할&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;구성요소&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
-	&lt;span class=&quot;na&quot;&gt;bootstrap&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;애플리케이션&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;컴포넌트&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;&lt;strong&gt;@NgModule&lt;/strong&gt; 장식자는 애플리케이션 모듈에 대한 메타데이터 정보를 정의한다.&lt;br /&gt;&lt;br /&gt;
-해당 &lt;strong&gt;@NgModule&lt;/strong&gt; 장식자에 사용된 속성으로 &lt;strong&gt;선언자(declarations), 호출자(imports), 제공자(providers), 부트스트랩(bootstrap)&lt;/strong&gt; 이 있다.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kr&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;BrowserModule&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'@angular/platform-browser'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kr&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;NgModule&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'@angular/core'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kr&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;CommonModule&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'@angular/common'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kr&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;FormsModule&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'@angular/forms'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;cm&quot;&gt;/* 어플리케이션 라우팅 모듈 */&lt;/span&gt;
-&lt;span class=&quot;kr&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;AppRoutingModule&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'./app-routing.module'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;kr&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;AppComponent&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'./app.component'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
-
-&lt;span class=&quot;err&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;NgModule&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;imports&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;BrowserModule&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;CommonModule&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;FormsModule&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    
-	 &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
-	 &lt;span class=&quot;nx&quot;&gt;AppRoutingModule&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;providers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[],&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;declarations&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;AppComponent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;bootstrap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;AppComponent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-  &lt;span class=&quot;c1&quot;&gt;// 최상위 컴포넌트 : AppComponent&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
-&lt;span class=&quot;kr&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;AppModule&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;===&amp;gt; app.module.ts&lt;/p&gt;
-
-&lt;h4 id=&quot;imports-속성에는-angular-라이브러리-모듈이나-라우팅-모듈을-등록한다&quot;&gt;imports 속성에는 Angular 라이브러리 모듈이나 라우팅 모듈을 등록한다.&lt;/h4&gt;
-
-&lt;p&gt;대표적으로&lt;br /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;BrowserModule&lt;/strong&gt; : 브라우저 상에서 동작한다면 반드시 포함 / 컴포넌트나 지시자, 파이프 같은 구성요소를 템플릿에 나타나게 하는 역할&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;CommonModule&lt;/strong&gt; : 템플릿에서 사용하는 ngIf / ngFor 와 관련된 기능을 포함함 / BrowserModule 은 ommonModule 을 가지므로 BrowserModule 를 이미 선언했다면 CommonModule 를 선언 할 필요가 없다.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;FormsModule&lt;/strong&gt; : 템플릿에서 자주 사용하는 NgModule 지시자나 내장 검증기 지시자등을 포함&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;RoutingModule&lt;/strong&gt; : 사용자가 정의할 수 있는 모듈&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;provider-에는-애플리케이션-전역에서-사용할-서비스를-등록함&quot;&gt;provider 에는 애플리케이션 전역에서 사용할 서비스를 등록함&lt;/h4&gt;
-
-&lt;h4 id=&quot;declarations-에는-애플리케이션-레벨에서-사용하고자-하는-컴포넌트-지시자-파이프를-선언함&quot;&gt;declarations 에는 애플리케이션 레벨에서 사용하고자 하는 컴포넌트, 지시자 파이프를 선언함.&lt;/h4&gt;
-
-&lt;h4 id=&quot;bootstrap-에는-최상위-컴포넌트인-애플리케이션-컴포넌트를-등록함&quot;&gt;bootstrap 에는 최상위 컴포넌트인 애플리케이션 컴포넌트를 등록함.&lt;/h4&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kr&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Component&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'@angular/core'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;err&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Component&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;selector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'app-root'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;`&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;div&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;play-box&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;router&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;outlet&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;router&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;outlet&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/div&amp;gt;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;`
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
-&lt;span class=&quot;kr&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;AppComponent&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;===&amp;gt; app.component.ts&lt;/p&gt;
-
-&lt;p&gt;app.component 를 보면 하위 특정 컴포넌트로 라우팅 후 하위 컴포넌트를 표시할 목적으로 router outlet 지시자를 포함함을 볼 수 있다. router outlet 에 표시할 컴포넌트가 있다면 애플리케이션 라우팅 모듈 설정에 다음과 같이 등록한다.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kr&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;NgModule&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'@angular/core'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kr&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Routes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;RouterModule&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'@angular/router'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;kr&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;IntroComponent&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'./intro.component'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kr&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;HelloComponent&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'./hello/hello.component'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;kr&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;appRoutes&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Routes&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;''&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;component&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;IntroComponent&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'hello'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;component&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;HelloComponent&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-	&lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-
-&lt;span class=&quot;err&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;NgModule&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;imports&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;RouterModule&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;forRoot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;appRoutes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)],&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;exports&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;RouterModule&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
-&lt;span class=&quot;kr&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;AppRoutingModule&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;===&amp;gt; app-routing.module.ts&lt;/p&gt;
-
-&lt;p&gt;라우팅 경로 (path) 가 hello 이고 component 속성값이 HelloComponent 라면 http://localhost:4200/hello 로 접속하였을 때 HelloComponent 컴포넌트가 router outlet 에 출력된다.&lt;/p&gt;
-
-&lt;p&gt;이러한 설정 정보는 appRoutes 변수에 할당되며 해당 변수는 forRoot() 메서드를 이용해 등록한다.&lt;br /&gt;
-한 가지 유의할 점은 이 메서드는 애플리케이션 라우팅 모듈에서만 한 번만 사용해야 하고, 특징 모듈 (feature module) 에서는 사용하면 안된다.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kr&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Component&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'@angular/core'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;err&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Component&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;selector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'hello'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;h1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Hello&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!!&amp;lt;&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/h1&amp;gt;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;`
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
-&lt;span class=&quot;kr&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;HelloComponent&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;===&amp;gt; hello.component.ts&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;따라서 http://localhost:4200/hello 로 접속하였을 때&lt;br /&gt; app.module.ts 애 bootstrap 에 등록된 최상위 컴포넌트 AppComponent 가 호출되고&lt;br /&gt;해당 컴포넌트 안에 있는 router-outlet 에서는 &lt;br /&gt;app-routing.module.ts 에 appRoute 로 등록된 HelloComponent 가 호출되어 아래와 같이&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;
-&lt;h1&gt;Hello!!&lt;/h1&gt;
-&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;가 출력된다.&lt;/strong&gt;&lt;/p&gt;
-
-</description>
-				<pubDate>Mon, 01 May 2017 03:00:00 +0900</pubDate>
-				<link>http://localhost:4000/2017/05/Angular2-Root-Module</link>
-				<guid isPermaLink="true">http://localhost:4000/2017/05/Angular2-Root-Module</guid>
 			</item>
 		
 	</channel>
