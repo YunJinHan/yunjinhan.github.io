@@ -32,9 +32,6 @@ $("#test) 사용 ---->  O
 
 $.ajax({
 
-	this.test 사용 ---->  X
-	$("#test) 사용 ---->  O
-
 	type : 'POST',
 	url : '',
 	data : {
@@ -53,4 +50,40 @@ $.ajax({
 
 {% endhighlight javascript %}
 
----> ajax 통신이 Asynchronous (비동기식) 통신으로 구동된다면 Predeclare 된 변수들은 Checking 하지 못할수도 있다.
+---> ajax 통신이 Asynchronous (비동기식) 통신으로 구동되어 Predeclare 된 변수들은 Checking 하지 못한다.
+
+해결 방안
+-----
+
+{% highlight javascript %}
+this.test = document.getElementById('test');
+
+...
+
+this.test 사용 ---->  O
+$("#test) 사용 ---->  O
+
+$.ajax({
+
+	type : 'POST',
+	url : '',
+	data : {
+		what : 0
+	},
+	
+	async: false, // 비동기를 false 로 바꾼다. default 값이 true
+	
+	success: function(data){
+		
+		this.test 사용 ---->  O
+		$("#test) 사용 ---->  O
+		
+	}, error: function(data){
+	
+	}
+	
+});
+
+{% endhighlight javascript %}
+
+----> async: false 옵션을 부여하여 사용한다.. default 값은 true
